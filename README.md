@@ -1,7 +1,6 @@
 # Proyectos Aplicaciones WEB UCM
-
-- Introducción a las aplicaciones Web. Arquitectura de las aplicaciones web. Lenguajes y tecnologías de programación Web.
-- Lenguajes: HTML5 Y CSS. Diseño adaptativo. Accesibilidad y usabilidad en la web.
-- Programación en el lado del cliente: Javascript, jQuery, AJAX.
-- Programación en el lado del servidor: PHP, acceso a bases de datos.
-- Otras tecnologías web. J2EE, frameworks MVC, nodejs.
+- Introduction to Web Applications. Web architecture. Development languages and technologies for web-based development.
+- Client side presentation: HTML5, XML, CSS stylesheets. Human-Computer Interfaces. Web accessibility and usability.
+- Server-side programming: PHP, database access. Responsive Design
+- Client-side programming: Javascript, jQuery, AJAX.
+- Other web technologies: J2EE, Bootstrap, MVC frameworks, nodejs.
