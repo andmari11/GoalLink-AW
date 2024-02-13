@@ -4,6 +4,16 @@
 <link rel="stylesheet" type="text/css" href="estilo.css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Login</title>
+
+<style>
+    form {
+        text-align: center;
+    }
+    form button {
+        margin-top: 10px; /* Ajusta según sea necesario */
+    }
+</style>
+
 </head>
 
 <body>
@@ -18,7 +28,7 @@
 
 	<main>
 	  <article>
-		<h1>Log in</h1>
+		<h1>Iniciar sesión</h1>
         <form action="procesarLogin.php" method="post">
             <fieldset>
                 <legend>Introduzca sus datos </legend>
