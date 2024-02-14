@@ -6,7 +6,7 @@
     if($username == "user" && $password == "userpass"){
 
         $_SESSION["login"]=true;
-        $_SESSION["nombre"]=Usuario;
+        $_SESSION["nombre"]="Usuario";
     }
     else if ($username == "admin" && $password == "adminpass"){
         
@@ -40,7 +40,7 @@
             if(isset($_SESSION["login"])){
 
                 echo "<h1>Bienvenido {$_SESSION['nombre']} </h1>";
-                echo "Descubre contenido exclusivo " . "<a href='contenido.php'>aquí</a>";
+                echo "Descubre contenido exclusivo " . "<a href='contenido.php'>aquí.</a>";
             }
             else{
 
