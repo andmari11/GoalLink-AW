@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-        <title>GoalLink: Contacto</title>
+        <title><h1><img src="img/logo.png" alt="logo" width="50" height="50">oalLink</title>
         <meta charset= "utf-8">
     </head>
     <body>
@@ -15,26 +15,29 @@
             <li><a href="planificacion.html"> Planificación</a></li>
             <li><a href="contacto.html"> Contactos</a></li>
         </ul>
-        <form action="mailto:sergisev@ucm.es" method="post" enctype="text/plain">
+        <form action="mailto:sergisev@ucm.es" method="GET"  name="signin-form">
+            <div class="form-element">
+
             <b>Escribe tu nombre:</b>
-            <input type = "text" name = "nombre" value="">
+            <input type = "text" name = "nombre" value="" required>
             <br>
             <b>Escribe tu correo:</b>
-            <input type = "text" name = "correo" value="">
+            <input type = "text" name = "correo" value="" required>
             <br>
             <b>Motivo de la consulta:</b>
-            <input type="radio" name = motivo value="Evaluación"> Evaluación
-            <input type="radio" name = motivo value="Sugerencias"> Sugerencias
-            <input type="radio" name = motivo value="Críticas"> Críticas
+            <input type="radio" name = motivo value="Evaluación" required> Evaluación
+            <input type="radio" name = motivo value="Sugerencias" required> Sugerencias
+            <input type="radio" name = motivo value="Críticas" required> Críticas
             <br>
             <br>
             <b>Consulta</b>
             <br>
-            <textarea name="consulta" rows="4" cols="50"></textarea>
+            <textarea name="consulta" rows="4" cols="50" required></textarea>
             <br> 
             <input type="checkbox" name = "condiciones" value="" required>Marque esta casilla para verificar que
             ha leído nuestros términos y condiciones del servicio
             <p><button type="submit">Enviar</button></p>
+            </div>
         </form>
 
         
