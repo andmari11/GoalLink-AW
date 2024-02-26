@@ -14,6 +14,7 @@
         require_once("cabecera.php");
         echo $cabecera;
         require("sidebarIzq.php");
+        echo $sidebarIzq;
     ?>
 
 	<main>
