@@ -23,7 +23,9 @@
 	<?php
         session_start();
         require("cabecera.php");
+        echo $cabecera;
         require("sidebarIzq.php");
+        echo $sidebarIzq;
     ?>
 
 	<main>
