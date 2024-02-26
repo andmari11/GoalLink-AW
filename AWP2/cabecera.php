@@ -18,3 +18,5 @@
         </div>
     </header>
    EOS;
+
+   require "includes/vistas/esqueleto.php";

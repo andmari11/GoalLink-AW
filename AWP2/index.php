@@ -10,4 +10,4 @@
 		<p>Aquí está el contenido público, visible para todos los usuarios.</p>
 	EOS;
 	
-    require "includes/AWP2/esqueleto.php";
+    require "includes/vistas/esqueleto.php";
