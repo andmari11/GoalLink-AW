@@ -19,7 +19,7 @@
 
 	<main>
         <?php
-            echo $titulo . $contenido
+            //echo $titulo . $contenido
         ?>
 	</main>
 
