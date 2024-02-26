@@ -11,9 +11,9 @@
 <div id="contenedor"> <!-- Inicio del contenedor -->
 
     <?php
-        require_once("cabecera.php");
+        //require_once("cabecera.php");
         echo $cabecera;
-        require_once("sidebarIzq.php");
+        //require_once("sidebarIzq.php");
         echo $sidebarIzq;
     ?>
 

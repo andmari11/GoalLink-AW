@@ -9,4 +9,4 @@
     </nav>
     EOS;
 
-	//require "esqueleto.php";
+	require("esqueleto.php");

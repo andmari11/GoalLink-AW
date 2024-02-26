@@ -9,4 +9,4 @@
 		<p>Aquí está el contenido público, visible para todos los usuarios.</p>
 	EOS;
 	
-    require "esqueleto.php";
+    require("esqueleto.php");
