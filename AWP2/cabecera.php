@@ -19,4 +19,4 @@
     </header>
    EOS;
 
-   require "includes/vistas/esqueleto.php";
+   require "esqueleto.php";
