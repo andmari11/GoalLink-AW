@@ -1,36 +1,13 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<link rel="stylesheet" type="text/css" href="estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Portada</title>
-</head>
+<?php
+    
+	session_start();
+    
+	$titulo = <<<EOS
+		<h2>Página principal</h2>
+	EOS;
 
-<body>
-
-<div id="contenedor"> <!-- Inicio del contenedor -->
-
-	<?php
-	    session_start();
-        require("cabecera.php");
-        require("sidebarIzq.php");
-    ?>
-
-	<main>
-	  <article>
-		<h1>Página principal</h1>
+	$titulo = <<<EOS
 		<p>Aquí está el contenido público, visible para todos los usuarios.</p>
-	  </article>
-	</main>
-
-
-
-	<?php
-		require("sidebarDer.php");
-		require("pie.php");
-	?>
-
-</div> <!-- Fin del contenedor -->
-
-</body>
-</html>
+	EOS;
+	
+    require "includes/AWP2/esqueleto.php";
