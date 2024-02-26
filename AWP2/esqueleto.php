@@ -11,7 +11,6 @@
 <div id="contenedor"> <!-- Inicio del contenedor -->
 
     <?php
-	    session_start();
         require("cabecera.php");
         echo $cabecera;
         require("sidebarIzq.php");
