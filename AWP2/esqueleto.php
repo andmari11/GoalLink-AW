@@ -13,7 +13,7 @@
     <?php
         require_once("cabecera.php");
         echo $cabecera;
-        //require("sidebarIzq.php");
+        require_once("sidebarIzq.php");
         echo $sidebarIzq;
     ?>
 
