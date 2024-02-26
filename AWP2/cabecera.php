@@ -19,4 +19,4 @@
     </header>
    EOS;
 
-   require "esqueleto.php";
+   //require "esqueleto.php";
