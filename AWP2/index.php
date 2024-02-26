@@ -5,7 +5,7 @@
 		<h2>Página principal</h2>
 	EOS;
 
-	$titulo = <<<EOS
+	$Contenido = <<<EOS
 		<p>Aquí está el contenido público, visible para todos los usuarios.</p>
 	EOS;
 	
