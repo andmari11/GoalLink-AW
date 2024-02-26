@@ -1,28 +1,22 @@
 <?php
     function saludar(){
-       $saludo = " ";
         if(isset($_SESSION["login"])){
-            $saludo = <<<EOS
-             Bienvenido  , {$_SESSION["nombre"]} <a href='logout.php'> Logout</a>;
-             EOS;
+            return "Bienvenido " . $_SESSION["nombre"] . " <a href='logout.php'> Logout</a>";
         }
         else{
-           $saludo = <<<EOS
-           Inicie sesión. <a href='login.php'>aquí</a>";
-           EOS;
+            return "Inicie sesión " . "<a href='login.php'>aquí</a>";
         }
-
-        return $saludo;
     }
 
+    $saludo = saludar();
 
     $cabecera = <<<EOS
     <header>
         <h1><img src="img/logo.png" alt="logo" width="50" height="50">oalLink</h1>
         <div class="saludo">
-            saludar();
+            $saludo
         </div>
     </header>
    EOS;
 
-   require("esqueleto.php");
+   //require "esqueleto.php";

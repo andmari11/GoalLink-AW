@@ -11,10 +11,10 @@
 <div id="contenedor"> <!-- Inicio del contenedor -->
 
     <?php
-        require("cabecera.php");
+        //require("cabecera.php");
         //echo $cabecera;
-        require("sidebarIzq.php");
-        //echo $sidebarIzq;
+        //require("sidebarIzq.php");
+        echo $sidebarIzq;
     ?>
 
 	<main>
