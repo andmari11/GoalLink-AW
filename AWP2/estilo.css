@@ -24,7 +24,7 @@ header a, header a:visited {
 } 
 
 header a:hover {
-	color: rgb(1, 175, 1);
+	color: green;
 	font-weight: bold;
 	text-decoration: underline;
 } 
@@ -34,7 +34,7 @@ nav {
 	padding: 10px;
 	float: left;
 	width: 170px;
-	height: 400px;
+	height: 800px;
 	background-color: #dddddd;
 }
 
@@ -54,14 +54,14 @@ aside {
 	padding: 10px;
 	float: right;
 	width: 170px;
-	height: 400px;
-	background-color: #dddddd;
+	height: 800px;
+	background-color: #ffffff;
 }
 
 main {
 	padding: 10px;
 	float: left;
-	min-height: 600px;
+	min-height: 800px;
 	width: 500px;
 	background-color: white;
 }

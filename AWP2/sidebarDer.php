@@ -1,3 +1,5 @@
 <aside id="sidebarDer">
-		Texto del sidebar derecho.
+	<h3>Foros destacados
+	</h3>
+
 </aside>

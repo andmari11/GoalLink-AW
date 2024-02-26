@@ -18,7 +18,7 @@
         }
         else{
 
-            echo "Inicie sesión " . "<a href='login.php'>Login</a>";
+            echo "Inicie sesión " . "<a href='login.php'>aquí</a>";
 
         }
     }
