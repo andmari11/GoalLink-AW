@@ -3,7 +3,7 @@
     <ul>
         <?php
             // Conexión a la base de datos
-            $conn = new mysqli("localhost", "usuario", "contraseña", "basededatos");
+            $conn = new mysqli("localhost", "root", "", "goallink_1");
             if ($conn->connect_error){
                 die("La conexión ha fallado" . $conn->connect_error);
             }
