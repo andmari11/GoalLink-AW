@@ -2,12 +2,7 @@
     <h3>Foros destacados</h3>
     <ul>
         <?php
-            // Conexión a la base de datos
-            $conn = new mysqli("localhost", "root", "", "goallink_1");
-            if ($conn->connect_error){
-                die("La conexión ha fallado" . $conn->connect_error);
-            }
-
+            include "mysql/conexion.php";
             // Cargar resultados
             $result = $conn->query("SELECT id, titulo, descripcion, likes FROM foro");
 
