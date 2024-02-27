@@ -10,7 +10,12 @@ function mostrarSaludo()
 ?>
 
 <header>
-    <h1><img src="img/logo.png" alt="logo" width="50" height="50">oalLink</h1>
+    
+    <div class ="Logo">
+        <img src="img/logo.png" alt="logo">
+        <h1>GoalLink</h1>
+    </div>
+    
     <div class="saludo">
         <?php
         mostrarSaludo();
