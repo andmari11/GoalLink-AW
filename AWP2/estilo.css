@@ -11,8 +11,9 @@ div#contenedor {
 }
 
 header {
-	padding: 30px;
+	padding: 10px;
 	height: 100px;
+	width: 100px;
 	background-color: #303030;
 	color: white;
 }
