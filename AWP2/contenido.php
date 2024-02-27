@@ -1,5 +1,4 @@
 <?php
-session_start();
 $titulo = 'Contenido';
 $contenido = '';
 if (isset($_SESSION["login"])) {
