@@ -156,3 +156,9 @@ button {
 button:hover {
     background-color: #01579B;
 }
+form {
+    text-align: center;
+}
+form button {
+    margin-top: 10px; /* Ajusta según sea necesario */
+}

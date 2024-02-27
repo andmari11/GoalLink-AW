@@ -2,6 +2,8 @@
 
 
 
+session_start();
+
 $titulo = 'Index';
 
 $contenido = <<<EOS

@@ -1,4 +1,6 @@
 <?php
+
+session_start();
 $titulo = 'Contenido';
 $contenido = '';
 if (isset($_SESSION["login"])) {
@@ -11,7 +13,7 @@ if (isset($_SESSION["login"])) {
                 
                 <p>Una de las características más destacadas del Citroën SM es su sistema de suspensión hidroneumática, que permitía un viaje suave y cómodo, así como un manejo excepcionalmente ágil. Esta suspensión ajustable también le permitía al conductor variar la altura del vehículo para adaptarse a diferentes condiciones de conducción.</p>
                 
-                <img src ='/img/images.jpeg'>
+                <img src ="./img/images.jpeg">
 
 
                 <p>Además de su avanzada suspensión, el SM contaba con una dirección asistida hidráulica, frenos de disco en las cuatro ruedas y neumáticos radiales, todos ellos características de vanguardia en su época.</p>

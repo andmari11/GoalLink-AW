@@ -1,34 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<link rel="stylesheet" type="text/css" href="estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Login</title>
+<?php
 
-<style>
-    form {
-        text-align: center;
-    }
-    form button {
-        margin-top: 10px; /* Ajusta según sea necesario */
-    }
-</style>
+session_start();
 
-</head>
+$titulo = 'Login';
 
-<body>
-
-<div id="contenedor"> <!-- Inicio del contenedor -->
-
-	<?php
-        session_start();
-        require("cabecera.php");
-        require("sidebarIzq.php");
-    ?>
-
-	<main>
-	  <article>
-		<h1>Iniciar sesión</h1>
+$contenido = <<<EOS
+<h1>Iniciar sesión</h1>
         <form action="procesarLogin.php" method="post"> 
             <fieldset>
                 <legend>Introduzca sus datos </legend>
@@ -39,15 +16,11 @@
         </form>
 	  </article>
 	</main>
+EOS;
+
+require __DIR__.'/includes/Vistas/esqueleto.php';
+
+	
 
 
-
-	<?php
-		require("sidebarDer.php");
-		require("pie.php");
-	?>
-
-</div> <!-- Fin del contenedor -->
-
-</body>
-</html>
+	

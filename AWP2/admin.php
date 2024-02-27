@@ -1,56 +1,30 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<link rel="stylesheet" type="text/css" href="estilo.css" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>Administración</title>
+<?php
 
-<style>
-    form {
-        text-align: center;
-    }
-    form button {
-        margin-top: 10px; /* Ajusta según sea necesario */
-    }
-</style>
+session_start();
+
+$titulo = 'Administrar';
+if (isset($_SESSION["esAdmin"])) {
 
 
-</head>
+    $contenido = <<<EOS
+    <h1>Panel de Administración</h1>
+    <p> Bienvenido. </p>
+EOS;
+} else {
+    $contenido = <<<EOS
+    <h1>Panel de Administración</h1>
+    <p> ACCESO DENEGADO. </p>
+EOS;
 
-<body>
-
-<div id="contenedor"> <!-- Inicio del contenedor -->
-
-	<?php
-        session_start();
-        require("cabecera.php");
-        require("sidebarIzq.php");
-    ?>
-
-	<main>
-        <?php
-            if(isset($_SESSION["esAdmin"])){
-
-                echo "<h1>Panel de Administración</h1>";
-                echo "Bienvenido.";
-            }
-            else{
-
-                echo "<h1>Panel de Administración</h1>";
-                echo "ACCESO DENEGADO.";
-
-            }
-        ?>
-	</main>
+}
 
 
 
-	<?php
-		require("sidebarDer.php");
-		require("pie.php");
-	?>
+require __DIR__ . '/includes/Vistas/esqueleto.php';
 
-</div> <!-- Fin del contenedor -->
 
-</body>
-</html>
+
+
+
+
+
