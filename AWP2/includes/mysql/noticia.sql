@@ -42,8 +42,8 @@ CREATE TABLE `noticia` (
 --
 
 INSERT INTO `noticia` (`id`, `titulo`, `autor`, `contenido`, `fecha`, `likes`, `destacado`) VALUES
-(5, 'Título de la Noticia 1', 'usuario1', 'Contenido de la Noticia 1', '2024-03-09', 1, 1),
-(6, 'Título de la Noticia 2', 'usuario2', 'Contenido de la Noticia 2', '2024-03-12', 2, 0);
+(5, 'Título de la Noticia 1', 'usuario1', 'Contenido de la Noticia 1', '2024-03-09', 0, 0),
+(6, 'Título de la Noticia 2', 'usuario2', 'Contenido de la Noticia 2', '2024-03-12', 0, 0);
 
 --
 -- Índices para tablas volcadas
