@@ -1,5 +1,5 @@
 <aside id="sidebarDer">
-    <h3>Foros destacados</h3>
+    <h1>Foros destacados</h1>
     <ul>
         <?php
             //include "includes/mysql/conexion.php";
@@ -22,7 +22,12 @@
 
             // Cargar noticias
             $result2 = $conn->query("SELECT titulo, autor, likes FROM noticia WHERE destacado=1");
-
+        ?>
+    </ul> 
+    <h3>Noticias destacadas</h3>   
+    <php> 
+    <ul>
+        <?php
             if ($result2->num_rows > 0) {
                 while ($row = $result2->fetch_assoc()) {
                     echo "<li>";
