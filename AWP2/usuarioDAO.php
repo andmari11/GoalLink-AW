@@ -20,9 +20,9 @@ class Usuario
     {
         $user = self::buscaUsuario($nombre);
         if ($user!= NULL && $user->checkPassword($pass)) {
-            return $user;
+            return true;
         }
-        return -1;
+        return false;
     }
 
     public static function buscaUsuario($nombre){
