@@ -12,6 +12,7 @@
 
 	<?php
 	    session_start();
+		require_once("includes/mysql/conexion.php");
         require("includes/comun/cabecera.php");
         require("includes/comun/sidebarIzq.php");
     ?>

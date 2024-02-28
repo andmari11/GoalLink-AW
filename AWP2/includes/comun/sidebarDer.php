@@ -2,7 +2,7 @@
     <h3>Foros destacados</h3>
     <ul>
         <?php
-            include "mysql/conexion.php";
+            //include "includes/mysql/conexion.php";
             // Cargar resultados
             $result = $conn->query("SELECT id, titulo, descripcion, likes FROM foro");
 
