@@ -31,14 +31,14 @@ CREATE TABLE `usuario` (
   `nombre` varchar(15) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(50) NOT NULL,
-  `tipo` char(1) NOT NULL DEFAULT 'u' COMMENT '(u)suario(default), (a)dmin, (e)ditor, (m)oderador'
+  `rol` char(1) NOT NULL DEFAULT 'u' COMMENT '(u)suario(default), (a)dmin, (e)ditor, (m)oderador'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`nombre`, `email`, `password`, `tipo`) VALUES
+INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`) VALUES
 ('admin', 'admin@example.com', 'adminpass', 'a'),
 ('usuario1', 'usuario1@example.com', 'password1', 'e'),
 ('usuario2', 'usuario2@example.com', 'password2', 'm'),

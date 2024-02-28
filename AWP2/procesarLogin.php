@@ -1,23 +1,16 @@
 <?php
-    
+    require "usuarioDAO.php";
+
     session_start();
     $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
     $password= htmlspecialchars(trim(strip_tags($_REQUEST["contraseña"])));
-
-    if($username == "user" && $password == "userpass"){
-
-        $_SESSION["login"]=true;
-        $_SESSION["nombre"]="Usuario";
-    }
-    else if ($username == "admin" && $password == "adminpass"){
-        
-        $_SESSION["login"]=true;
-        $_SESSION["nombre"]="Administrador";
-        $_SESSION["esAdmin"]=true;
-    }
-
     $titulo = 'ProcesarLogin';
 
+    if(Usuario::login($username, $password)){
+
+        $_SESSION["login"]=true;
+        $_SESSION["nombre"]=$username;
+    }
 
     if(isset($_SESSION["login"])){
         $contenido = <<<EOS
@@ -34,3 +27,4 @@
 
     require __DIR__.'/includes/Vistas/esqueleto.php';
 
+?>
