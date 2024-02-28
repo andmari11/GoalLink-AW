@@ -19,9 +19,11 @@ class Usuario
     public static function login($nombre, $pass)
     {
         $user = self::buscaUsuario($nombre);
-        if ($user!= NULL && $user->checkPassword($pass)) {
+
+        if ($user!=NULL && $user->checkPassword($pass)) {
             return true;
         }
+
         return false;
     }
 
@@ -41,7 +43,8 @@ class Usuario
                 return $user;
             }
             else{
-                return 0;
+                
+                return NULL;
             }
         }
         else{
@@ -71,7 +74,7 @@ class Usuario
 
     public function checkPassword($password)
     {
-        return password_verify($password, $this->password);
+        return $user->password==$pass;
     }
 }
 

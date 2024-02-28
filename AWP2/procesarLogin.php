@@ -6,7 +6,7 @@
     $password= htmlspecialchars(trim(strip_tags($_REQUEST["contraseña"])));
     $titulo = 'ProcesarLogin';
 
-    if(Usuario::login($username, $password)>0){
+    if(Usuario::login($username, $password)){
 
         $_SESSION["login"]=true;
         $_SESSION["nombre"]=$username;
