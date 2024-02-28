@@ -19,11 +19,10 @@ class Usuario
     public static function login($nombre, $pass)
     {
         $user = self::buscaUsuario($nombre);
-
-        if ($user!=NULL && $user->checkPassword($pass)) {
+        if ($user!= NULL && $user->checkPassword($pass)) {
             return true;
         }
-
+        
         return false;
     }
 
@@ -47,10 +46,7 @@ class Usuario
                 return NULL;
             }
         }
-        else{
-            die("La conexión ha fallado" . $conn->connect_error);
-            return -1;
-        }
+
     }
 
 
@@ -74,7 +70,7 @@ class Usuario
 
     public function checkPassword($password)
     {
-        return $user->password==$pass;
+        return ($password==$this->password);
     }
 }
 
