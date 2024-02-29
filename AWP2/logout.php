@@ -8,10 +8,6 @@ unset($_SESSION["rol"]);
 
 session_destroy();
 
-
-
-
-
 $titulo = 'LogOut';
 
 $contenido = <<<EOS

@@ -54,19 +54,23 @@ class Usuario
         $conn = new mysqli('localhost', 'root', '', 'goallink_1');
         if ($conn->connect_error){
             die("La conexión ha fallado" . $conn->connect_error);
+            return false;
         }
 
-        $query=sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`) VALUES('%s', '%s', '%s', 'u')"
-        , $conn->real_escape_string($usuario->nombre)
-        , $conn->real_escape_string($usuario->email)
-        , $conn->real_escape_string($usuario->password));
-
-        if(!$conn->query($query)){
-
-            die("Usuario no añadido" . $conn->connect_error);
+        if(Usuario::buscaUsuario($usuario->nombre) == NULL){
+            $query=sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`) VALUES('%s', '%s', '%s', '%s')"
+            , $conn->real_escape_string($usuario->nombre)
+            , $conn->real_escape_string($usuario->email)
+            , $conn->real_escape_string($usuario->password)
+            , $conn->real_escape_string($usuario->rol));
+            
+            if (!$conn->query($query)) {
+                echo "Error: " . $query . "<br>" . $conn->error;
+            }
+            return true;
+        }else{
+            return false;
         }
-
-        return $usuario;
     }
 
     public static function actualizaUsuario($usuario){
