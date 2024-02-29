@@ -20,7 +20,7 @@ class Usuario
     {
         $user = self::buscaUsuario($nombre);
         if ($user!= NULL && $user->checkPassword($pass)) {
-            return true;
+            return $user;
         }
         
         return false;
@@ -69,7 +69,7 @@ class Usuario
         return $usuario;
     }
 
-    private static function actualizaUsuario($usuario){
+    public static function actualizaUsuario($usuario){
 
         $conn = new mysqli('localhost', 'root', '', 'goallink_1');
         if ($conn->connect_error){
@@ -91,6 +91,46 @@ class Usuario
         return $usuario;
     }
 
+    public static function eliminarUsuario($usuario){
+
+        $conn = new mysqli('localhost', 'root', '', 'goallink_1');
+        if ($conn->connect_error){
+            die("La conexión ha fallado" . $conn->connect_error);
+        }    
+    
+        $query = sprintf("DELETE FROM `usuario` WHERE `nombre` = %d", $usuario->getNombre());
+        if(!$conn->query($query) or $conn->affected_rows != 1){
+
+            die("Usuario no eliminado". $usuario->id . $conn->connect_error);
+        }
+    }
+
+    public static function listaUsuario() {
+
+        $conn = new mysqli('localhost', 'root', '', 'goallink_1');
+        if ($conn->connect_error){
+            die("La conexión ha fallado" . $conn->connect_error);
+        }
+
+        $result = $conn->query("SELECT * FROM usuario");
+        if($result){
+
+            if($result->num_rows>0){
+
+
+                while($array=$result->fetch_assoc()){
+
+                    $user= new Usuario($array['nombre'], $array['email'],$array['password'],$array['rol']);
+                    $lista[]=$user;
+                }
+                return $lista;
+            }
+            else{
+                
+                return NULL;
+            }
+        }
+    }
 
     public function getNombre()
     {

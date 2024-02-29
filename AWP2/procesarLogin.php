@@ -7,8 +7,7 @@
     $titulo = 'ProcesarLogin';
 
     $usuario=Usuario::login($username, $password);
-    $usuario=Usuario::buscaUsuario($username);
-
+    
     if($usuario){
 
         $_SESSION["login"]=true;

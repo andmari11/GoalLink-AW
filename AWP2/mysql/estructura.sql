@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-02-2024 a las 18:32:28
+-- Tiempo de generación: 29-02-2024 a las 23:04:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,6 +24,22 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `foro`
+--
+
+CREATE TABLE `foro` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(100) NOT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  `fecha` date NOT NULL,
+  `likes` int(11) DEFAULT 0,
+  `destacado` tinyint(1) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `noticia`
 --
 
@@ -37,17 +53,29 @@ CREATE TABLE `noticia` (
   `destacado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Volcado de datos para la tabla `noticia`
+-- Estructura de tabla para la tabla `usuario`
 --
 
-INSERT INTO `noticia` (`id`, `titulo`, `autor`, `contenido`, `fecha`, `likes`, `destacado`) VALUES
-(5, 'Título de la Noticia 1', 'usuario1', 'Contenido de la Noticia 1', '2024-03-09', 20, 1),
-(6, 'Título de la Noticia 2', 'usuario2', 'Contenido de la Noticia 2', '2024-03-12', 10, 1);
+CREATE TABLE `usuario` (
+  `nombre` varchar(15) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `rol` char(1) NOT NULL DEFAULT 'u' COMMENT '(u)suario(default), (a)dmin, (e)ditor, (m)oderador'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `foro`
+--
+ALTER TABLE `foro`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `noticia`
@@ -57,8 +85,20 @@ ALTER TABLE `noticia`
   ADD KEY `fk_autor_usuario` (`autor`);
 
 --
+-- Indices de la tabla `usuario`
+--
+ALTER TABLE `usuario`
+  ADD PRIMARY KEY (`nombre`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `foro`
+--
+ALTER TABLE `foro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `noticia`
