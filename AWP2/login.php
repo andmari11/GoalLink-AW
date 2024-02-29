@@ -14,6 +14,7 @@ $contenido = <<<EOS
                 <button type="submit">Siguiente</button>
             </fieldset>
         </form>
+        <p><a href='registro.php'>Registrar</a></p>
 	  </article>
 	</main>
 EOS;

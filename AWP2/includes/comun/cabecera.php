@@ -2,7 +2,7 @@
 function mostrarSaludo()
 {
     if (isset($_SESSION["login"])) {
-        echo "<p>Bienvenido " . $_SESSION["nombre"] . "<a href = \"logout.php\">(Logout)</a></p>";
+        echo "<p>Bienvenido " . $_SESSION["nombre"] . " " . "<a href = \"logout.php\">(Logout)</a></p>";
     } else {
         echo "<p>Usuario desconocido. <a href='login.php'>Login</a></p>";
     }

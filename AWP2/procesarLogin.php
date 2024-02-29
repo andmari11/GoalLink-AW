@@ -1,15 +1,20 @@
 <?php
-    require "usuarioDAO.php";
+    require "usuario.php";
 
     session_start();
     $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
     $password= htmlspecialchars(trim(strip_tags($_REQUEST["contraseña"])));
     $titulo = 'ProcesarLogin';
 
-    if(Usuario::login($username, $password)){
+    $usuario=Usuario::login($username, $password);
+    $usuario=Usuario::buscaUsuario($username);
+
+    if($usuario){
 
         $_SESSION["login"]=true;
-        $_SESSION["nombre"]=$username;
+        $_SESSION["nombre"]=$usuario->getNombre();
+        $_SESSION["email"]=$usuario->getEmail();
+        $_SESSION["rol"]=$usuario->getRol();
     }
 
     if(isset($_SESSION["login"])){

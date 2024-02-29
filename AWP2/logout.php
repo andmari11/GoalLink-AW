@@ -3,9 +3,9 @@
 session_start();
 unset($_SESSION["nombre"]);
 unset($_SESSION["login"]);
-if (isset($_SESSION["esAdmin"])) {
-    unset($_SESSION["esAdmin"]);
-}
+unset($_SESSION["email"]);
+unset($_SESSION["rol"]);
+
 session_destroy();
 
 
