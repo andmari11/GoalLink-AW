@@ -91,18 +91,21 @@ class Usuario
         return $usuario;
     }
 
-    public static function eliminarUsuario($usuario){
+    public static function eliminarUsuario($nombre){
 
         $conn = new mysqli('localhost', 'root', '', 'goallink_1');
         if ($conn->connect_error){
             die("La conexión ha fallado" . $conn->connect_error);
         }    
-    
-        $query = sprintf("DELETE FROM `usuario` WHERE `nombre` = %d", $usuario->getNombre());
+        
+        
+        $query = sprintf("DELETE FROM `usuario` WHERE `nombre` = '%s'", $conn->real_escape_string($nombre));
         if(!$conn->query($query) or $conn->affected_rows != 1){
 
-            die("Usuario no eliminado". $usuario->id . $conn->connect_error);
+            die("Usuario no eliminado ". $nombre . $conn->connect_error);
         }
+
+        return true;
     }
 
     public static function listaUsuario() {

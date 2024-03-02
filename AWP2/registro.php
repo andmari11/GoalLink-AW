@@ -11,6 +11,7 @@ $contenido = <<<EOS
                 <label>Nombre de usuario:</label><input type="text" name="usuario"> 
                 <label>Email:</label><input type="text" name="email"> 
                 <label>Contraseña:</label><input type="password" name="contraseña"> 
+                <label>Repite contraseña:</label><input type="password" name="contraseña"> 
                 <button type="Registrar">Siguiente</button>
             </fieldset>
         </form>

@@ -40,22 +40,6 @@ CREATE TABLE `foro` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `noticia`
---
-
-CREATE TABLE `noticia` (
-  `id` int(11) NOT NULL,
-  `titulo` varchar(100) NOT NULL,
-  `autor` varchar(15) NOT NULL,
-  `contenido` text DEFAULT NULL,
-  `fecha` date NOT NULL,
-  `likes` int(11) DEFAULT 0,
-  `destacado` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuario`
 --
 
@@ -64,6 +48,22 @@ CREATE TABLE `usuario` (
   `email` varchar(30) NOT NULL,
   `password` varchar(50) NOT NULL,
   `rol` char(1) NOT NULL DEFAULT 'u' COMMENT '(u)suario(default), (a)dmin, (e)ditor, (m)oderador'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `noticia`
+--
+
+CREATE TABLE `noticia` (
+  `id` int(11) NOT NULL,
+  `titulo` varchar(100) NOT NULL,
+  `autor` varchar(15),
+  `contenido` text DEFAULT NULL,
+  `fecha` date NOT NULL,
+  `likes` int(11) DEFAULT 0,
+  `destacado` tinyint(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -98,13 +98,13 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `foro`
 --
 ALTER TABLE `foro`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `noticia`
 --
 ALTER TABLE `noticia`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- Restricciones para tablas volcadas
@@ -114,7 +114,7 @@ ALTER TABLE `noticia`
 -- Filtros para la tabla `noticia`
 --
 ALTER TABLE `noticia`
-  ADD CONSTRAINT `fk_autor_usuario` FOREIGN KEY (`autor`) REFERENCES `usuario` (`nombre`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_autor_usuario` FOREIGN KEY (`autor`) REFERENCES `usuario` (`nombre`) ON UPDATE CASCADE ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

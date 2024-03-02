@@ -18,8 +18,16 @@ EOS;
             $contenido .= "<td>" . $usuario->getNombre() . "</td>";
             $contenido .= "<td>" . $usuario->getEmail() . "</td>";
             $contenido .= "<td>" . $usuario->getRol() . "</td>";
-            $contenido .= "<td>" ." Editar ". "</td>";
-            $contenido .= "<td>" ." Eliminar ". "</td>";
+
+            if($usuario->getRol()!="a") {
+                $contenido .= "<td>" ." Editar ". "</td>";
+                $contenido .= "<td>" ." <a href='procesarDelete.php?usuario=" . urlencode($usuario->getNombre()) . "'>Eliminar</a> ". "</td>";
+            }
+            else{
+                $contenido .= "<td>"."". "</td>";
+                $contenido .= "<td>"."". "</td>";
+            }
+
             $contenido .= "</tr>";
 
         }
