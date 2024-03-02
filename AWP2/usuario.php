@@ -54,7 +54,6 @@ class Usuario
         $conn = new mysqli('localhost', 'root', '', 'goallink_1');
         if ($conn->connect_error){
             die("La conexión ha fallado" . $conn->connect_error);
-            return false;
         }
 
         if(Usuario::buscaUsuario($usuario->nombre) == NULL){
@@ -102,7 +101,7 @@ class Usuario
             die("La conexión ha fallado" . $conn->connect_error);
         }    
         
-        
+
         $query = sprintf("DELETE FROM `usuario` WHERE `nombre` = '%s'", $conn->real_escape_string($nombre));
         if(!$conn->query($query) or $conn->affected_rows != 1){
 
