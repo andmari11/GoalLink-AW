@@ -18,7 +18,7 @@ if(($_SESSION["rol"])=='a'){
     <ul>
     <li><a href="index.php">Inicio</a></li>
     <li><a href="contenido.php">Ver contenido</a></li>
-    <li><a href="admin.php">Foro</a></li>
+    <li><a href="/Vistas/foro.php">Foro</a></li>
     </ul>
     EOS;
 }
