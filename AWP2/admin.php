@@ -31,7 +31,7 @@ EOS;
 
             if($usuario->getRol()!="a") {
                 $contenido .= "<td>" ." <a href='edit.php?usuario=" . urlencode($usuario->getNombre()) . "'>Editar</a>". "</td>";
-                $contenido .= "<td>" ." <a href='procesarEdit.php?usuario=" . urlencode($usuario->getNombre()) . "'>Eliminar</a> ". "</td>";
+                $contenido .= "<td>" ." <a href='procesarDelete.php?usuario=" . urlencode($usuario->getNombre()) . "'>Eliminar</a> ". "</td>";
             }
             else{
                 $contenido .= "<td>"."". "</td>";
