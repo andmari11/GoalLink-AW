@@ -103,6 +103,14 @@ class Usuario
         
 
         $query = sprintf("DELETE FROM `usuario` WHERE `nombre` = '%s'", $conn->real_escape_string($nombre));
+
+        $usuario=Usuario::buscaUsuario($nombre);
+        if(!$usuario || $usuario->getRol()=="a"){
+
+            return false;
+        }
+
+
         if(!$conn->query($query) or $conn->affected_rows != 1){
 
             die("Usuario no eliminado ". $nombre . $conn->connect_error);

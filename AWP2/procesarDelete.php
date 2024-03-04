@@ -23,7 +23,8 @@
         </ul>
         EOS;
     }
-    
+    if(($_SESSION["rol"])=='a'){
+
     if(Usuario::eliminarUsuario($username)){
 
         $contenido = <<<EOS
@@ -38,7 +39,13 @@
         EOS;
     }
 
+    }
+    else{
+        $contenido = <<<EOS
+        <h1>Acceso denegado </h1>
+        EOS;
 
+    }
 
     require __DIR__.'/includes/Vistas/esqueleto.php';
 
