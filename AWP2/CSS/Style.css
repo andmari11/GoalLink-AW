@@ -67,7 +67,7 @@ nav {
     width: 170px;
     height: 800px;
     background-color: #f3fff8;
-	margin-top: 40px;
+	margin-top: 70px;
 }
 
 nav a, nav a:visited {
@@ -88,7 +88,7 @@ aside {
     width: 250px;
     height: 800px;
     background-color: #e6ffe6;
-	margin-top: 40px;
+	margin-top: 70px;
 	margin-right: 139px;
 }
 
@@ -98,7 +98,7 @@ main {
     min-height: 800px;
     width: 900px;
     background-color: white;
-	margin-top: 40px;
+	margin-top: 70px;
 }
 
 footer {
