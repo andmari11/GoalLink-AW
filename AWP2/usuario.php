@@ -79,6 +79,12 @@ class Usuario
             die("La conexión ha fallado" . $conn->connect_error);
         }
 
+        $usuario=Usuario::buscaUsuario($nombre);
+        if(!$usuario || $usuario->getRol()=="a"){
+
+            return false;
+        }
+        
         $query=sprintf("UPDATE `usuario` SET nombre='%s', email='%s', password='%s', rol='%s' WHERE usuario.nombre='%s')"
         , $conn->real_escape_string($usuario->nombre)
         , $conn->real_escape_string($usuario->email)
