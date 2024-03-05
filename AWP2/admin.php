@@ -45,6 +45,13 @@ EOS;
     } else {
         $contenido .= "<p>No se encontraron usuarios.</p>";
     }
+    $contenido .= <<<EOS
+    <ul>
+    <li><a href="index.php">Editar home</a></li>
+    <li><a href="contenido.php">Editar contenido</a></li>
+    <li><a href="foro.php"> Editar foro</a></li>
+    </ul>
+    EOS;
 
 } else {
     $contenido = <<<EOS

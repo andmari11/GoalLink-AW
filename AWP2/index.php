@@ -23,10 +23,21 @@ if(($_SESSION["rol"])=='a'){
     EOS;
 }
 
-
-$contenido = <<<EOS
-<h1>Página principal</h1>
-<p> Aquí está el contenido público, visible para todos los usuarios. </p>
+$contenido = '';
+if($_SESSION["rol"] == 'a'){
+    $contenido .= <<<EOS
+    <h1>HOME</h1>
+    <p> Noticias destacadas y foros destacados. </p>
+    <button type="button">Editar</button>
 EOS;
+}
+else{
+    $contenido .= <<<EOS
+    <h1>HOME</h1>
+    <p> Noticias destacadas y foros destacados. </p>
+EOS;
+
+}
+
 
 require __DIR__.'/includes/Vistas/esqueleto.php';
