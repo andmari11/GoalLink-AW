@@ -51,6 +51,14 @@
         <h1>ERROR</h1>
         <p>Usuario y/o contraseña invalidos, <a href='login.php'>inténtelo de nuevo</a></p>
         EOS;
+
+        $barraIzq = <<<EOS
+            <ul>
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="contenido.php">Ver contenido</a></li>
+            <li><a href="foro.php">Foro</a></li>
+            </ul>
+            EOS;
     }
 
     require __DIR__.'/includes/Vistas/esqueleto.php';
