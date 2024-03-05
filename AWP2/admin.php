@@ -63,4 +63,4 @@ EOS;
 
 
 
-require __DIR__ . '/includes/Vistas/esqueleto.php';
+require __DIR__ . '/includes/Vistas/esqueleto2.php';

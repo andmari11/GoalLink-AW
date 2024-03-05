@@ -26,9 +26,8 @@ if(($_SESSION["rol"])=='a'){
 $contenido = '';
 if($_SESSION["rol"] == 'a'){
     $contenido .= <<<EOS
-    <h1>HOME</h1>
+    <h1>HOME <button type="button">Editar</button></h1>
     <p> Noticias destacadas y foros destacados. </p>
-    <button type="button">Editar</button>
 EOS;
 }
 else{
