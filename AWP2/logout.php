@@ -8,24 +8,7 @@ unset($_SESSION["rol"]);
 session_destroy();
 
 $titulo = 'LogOut';
-if(($_SESSION["rol"])=='a'){
-    $barraIzq = <<<EOS
-    <ul>
-    <li><a href="index.php">Inicio</a></li>
-    <li><a href="contenido.php">Ver contenido</a></li>
-    <li><a href="foro.php">Foro</a></li>
-    <li><a href="admin.php">Administrar</a></li>
-    </ul>
-    EOS;
-}else {
-    $barraIzq = <<<EOS
-    <ul>
-    <li><a href="index.php">Inicio</a></li>
-    <li><a href="contenido.php">Ver contenido</a></li>
-    <li><a href="foro.php">Foro</a></li>
-    </ul>
-    EOS;
-}
+
 
 
 $contenido = <<<EOS

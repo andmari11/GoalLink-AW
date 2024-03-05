@@ -4,8 +4,7 @@ session_start();
 require "usuario.php";
 
 $titulo = "Administración";
-
-    $barraIzq = <<<EOS
+$barraIzq = <<<EOS
     <ul>
     <li><a href="index.php">Inicio</a></li>
     <li><a href="contenido.php">Ver contenido</a></li>
@@ -14,11 +13,11 @@ $titulo = "Administración";
     </ul>
     EOS;
 
-if (($_SESSION["rol"])=='a') {
+    if(($_SESSION["rol"])=='a'){
     $contenido = <<<EOS
     <h1>Panel de Administración</h1>
     <h3>Usuarios</h3>
-EOS;
+    EOS;
     $usuarios=Usuario::listaUsuario();
     if ($usuarios !== NULL) {
         $contenido .= "<table border='1'>";
