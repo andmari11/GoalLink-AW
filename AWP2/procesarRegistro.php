@@ -8,14 +8,14 @@
     $password_repetida= htmlspecialchars(trim(strip_tags($_REQUEST["contraseña2"])));
     $rol = 'u';
 
-    $titulo = 'ProcesarLogin';
+    $titulo = 'ProcesarRegistro';
     
     
 
     if($password != $password_repetida){
 
         $contenido = <<<EOS
-        <h1>Error</h1>
+        <h2>Error</h2>
         <p>Las contraseñas no coinciden. <a href='registro.php'>Inténtalo de nuevo</a></p>
     EOS;
     
@@ -33,7 +33,7 @@
                 $_SESSION["rol"]=$usuario->getRol();
         
                 $contenido = <<<EOS
-                <h1>Registrado {$_SESSION['nombre']} </h1>
+                <h2>Registrado {$_SESSION['nombre']} </h2>
                 <p>Descubre contenido exclusivo <a href='contenido.php'>aquí.</a></p>
                 EOS;
             }
@@ -41,7 +41,7 @@
         }else{
             
             $contenido = <<<EOS
-                <h1>Error</h1>
+                <h2>Error</h2>
                 <p>El nombre de usuario ya existe. <a href='registro.php'>Inténtalo de nuevo</a></p>
             EOS;
     

@@ -23,23 +23,17 @@
         
         
         $contenido = <<<EOS
-        <h1>Bienvenido {$_SESSION['nombre']} </h1>
+        <h2>Bienvenido {$_SESSION['nombre']} </h2>
         <p>Descubre contenido exclusivo <a href='contenido.php'>aquí.</a></p>
         EOS;
     }
     else{
         $contenido = <<<EOS
-        <h1>ERROR</h1>
+        <h2>ERROR</h2>
         <p>Usuario y/o contraseña invalidos, <a href='login.php'>inténtelo de nuevo</a></p>
         EOS;
 
-        $barraIzq = <<<EOS
-            <ul>
-            <li><a href="index.php">Inicio</a></li>
-            <li><a href="contenido.php">Ver contenido</a></li>
-            <li><a href="foro.php">Foro</a></li>
-            </ul>
-            EOS;
+        
     }
 
     require __DIR__.'/includes/Vistas/esqueleto.php';

@@ -12,7 +12,7 @@ $titulo = 'LogOut';
 
 
 $contenido = <<<EOS
-<h1>Sesión cerrada</h1>
+<h2>Sesión cerrada</h2>
 		<p>Gracias por visitar nuestra web. ¡Hasta pronto!</p>
 EOS;
 

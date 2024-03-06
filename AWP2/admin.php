@@ -4,23 +4,16 @@ session_start();
 require "includes/model/usuarioModel.php";
 
 $titulo = "Administración";
-$barraIzq = <<<EOS
-    <ul>
-    <li><a href="index.php">Inicio</a></li>
-    <li><a href="contenido.php">Ver contenido</a></li>
-    <li><a href="foro.php">Foro</a></li>
-    <li><a href="admin.php">Administrar</a></li>
-    </ul>
-    EOS;
+
 
     if(($_SESSION["rol"])=='a'){
     $contenido = <<<EOS
-    <h1>Panel de Administración</h1>
+    <h2>Panel de Administración</h2>
     <h3>Usuarios</h3>
     EOS;
     $usuarios=Usuario::listaUsuario();
     if ($usuarios !== NULL) {
-        $contenido .= "<table border='1'>";
+        $contenido .= "<table>";
         $contenido .= "<tr><th>Nombre</th><th>Email</th><th>Rol</th><th>✏️ </th><th> 🗑️ </th></tr>";
         foreach ($usuarios as $usuario) {
             $contenido .= "<tr>";

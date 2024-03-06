@@ -11,7 +11,7 @@ $email=$usuario->getEmail();
 
 if ($_SESSION["rol"] == 'a') {
     $contenido = <<<EOS
-    <h1>Editar usuario</h1>
+    <h2>Editar usuario</h2>
     <form action="procesarEdit.php" method="post"> 
         <fieldset>
             <legend>Editar datos:</legend>
@@ -23,16 +23,15 @@ if ($_SESSION["rol"] == 'a') {
                 <option value="m">Moderador</option>
                 <option value="b">Usuario</option>
             </select>
-            <button type="Confirmar">Siguiente</button>
+            <button type="submit">Siguiente</button>
             <input type="hidden" name="nombreAntiguo" value="{$username}">
         </fieldset>
     </form>
-    </article>
-    </main>
+    
 EOS;
 } else {
     $contenido = <<<EOS
-    <h1>Acceso denegado</h1>
+    <h2>Acceso denegado</h2>
 EOS;
 }
 

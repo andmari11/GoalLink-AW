@@ -7,35 +7,30 @@ $contenido = '';
 if (isset($_SESSION["login"])) {
     if($_SESSION["rol"] == 'a' || $_SESSION["rol"] == 'e' ){
         $contenido .= <<<EOS
-        <h1>Contenido <button type="button">Editar</button></h1>
+        <h2>Contenido <button type="button">Editar</button></h2>
         EOS;
     }
     else{
         $contenido .= <<<EOS
-        <h1>Contenido</h1>
+        <h2>Contenido</h2>
 
         EOS;
     
     }
 
     $contenido .= <<<EOS
-    <h2>Citroën SM</h2>
+    <h3>Kane en la cima de Europa</h3>
 
-    <p>El Citroën SM es un automóvil de lujo y deportivo que fue producido por el fabricante francés Citroën entre 1970 y 1975. Es conocido por su diseño distintivo, su tecnología innovadora y su desempeño deportivo.</p>
-    
-    <p>Una de las características más destacadas del Citroën SM es su sistema de suspensión hidroneumática, que permitía un viaje suave y cómodo, así como un manejo excepcionalmente ágil. Esta suspensión ajustable también le permitía al conductor variar la altura del vehículo para adaptarse a diferentes condiciones de conducción.</p>
-    
-    <img src ="./img/images.jpeg">
+    <p>El delantero inglés del Bayern, Bota de Oro y máximo goleador de la Bundesliga con 27 tantos, suma seis dianas en la Champions como Kylian y firma ya su tercera mejor temporada realizadora (33)</p>
 
-
-    <p>Además de su avanzada suspensión, el SM contaba con una dirección asistida hidráulica, frenos de disco en las cuatro ruedas y neumáticos radiales, todos ellos características de vanguardia en su época.</p>
+    <img src ="./img/kane.png" alt = "kane" width = "200" height = "220">
 
     
     EOS;
 
 } else {
     $contenido .= <<<EOS
-                <h1>Contenido</h1>
+                <h2>Contenido</h2>
                 Inicie sesión para visualizar contenido exclusivo: <a href='login.php'>Login</a>
                 EOS;
 }

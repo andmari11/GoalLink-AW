@@ -6,7 +6,7 @@ $titulo = 'Login';
 
 
 $contenido = <<<EOS
-<h1>Iniciar sesión</h1>
+<h2>Iniciar sesión</h2>
         <form action="procesarLogin.php" method="post"> 
             <fieldset>
                 <legend>Introduzca sus datos </legend>
@@ -15,7 +15,7 @@ $contenido = <<<EOS
                 <button type="submit">Siguiente</button>
             </fieldset>
         </form>
-        <p><a href='registro.php'><button type="button">Registrar</button></a></p>
+        <p><a href='registro.php'>Registrar</a></p>
 EOS;
 
 require __DIR__.'/includes/Vistas/esqueleto2.php';

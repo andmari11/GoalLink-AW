@@ -16,7 +16,7 @@
         if(Usuario::actualizaUsuario($username, $email, $password, $rol, $nombreAntiguo)) {
 
             $contenido = <<<EOS
-            <h1>Usuario editado {$username} </h1>
+            <h2>Usuario editado {$username} </h2>
             <p>Vuelta al panel de  <a href='admin.php'>administración</a></p>
             EOS;
             
@@ -24,7 +24,7 @@
         }else{
             
             $contenido = <<<EOS
-                <h1>Error</h1>
+                <h2>Error</h2>
                 <p>No ha sido posible editar la información del usuario. <a href='admin.php'>Inténtalo de nuevo</a></p>
             EOS;
     
@@ -34,7 +34,7 @@
     else{
 
         $contenido = <<<EOS
-        <h1>Error</h1>
+        <h2>Error</h2>
         <p>Acceso denegado.</p>
         EOS;
     }

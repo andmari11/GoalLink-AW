@@ -7,15 +7,16 @@ $titulo = 'Index';
 
 
 $contenido = '';
-if($_SESSION["rol"] == 'a'){
+if (isset($_SESSION["login"]) && $_SESSION["rol"] == 'a'){
+
     $contenido .= <<<EOS
-    <h1>HOME <button type="button">Editar</button></h1>
+    <h2>HOME <button type="button">Editar</button></h2>
     <p> Noticias destacadas y foros destacados. </p>
 EOS;
 }
 else{
     $contenido .= <<<EOS
-    <h1>HOME</h1>
+    <h2>HOME</h2>
     <p> Noticias destacadas y foros destacados. </p>
 EOS;
 

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<link rel="stylesheet" type="text/css" href="./CSS/Style.css" />
+<link rel="stylesheet" type="text/css" href="./CSS/estilo.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title><?= $titulo ?></title>
 </head>
