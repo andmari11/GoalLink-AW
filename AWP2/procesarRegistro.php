@@ -1,5 +1,5 @@
 <?php
-    require "usuario.php";
+    require "includes/model/usuarioModel.php";
     session_start();
 
     $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
@@ -33,7 +33,7 @@
                 $_SESSION["rol"]=$usuario->getRol();
         
                 $contenido = <<<EOS
-                <h1>Registradooooo {$_SESSION['nombre']} </h1>
+                <h1>Registrado {$_SESSION['nombre']} </h1>
                 <p>Descubre contenido exclusivo <a href='contenido.php'>aquí.</a></p>
                 EOS;
             }
