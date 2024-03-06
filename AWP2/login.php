@@ -15,7 +15,7 @@ $contenido = <<<EOS
                 <button type="submit">Siguiente</button>
             </fieldset>
         </form>
-        <p><a href='registro.php'>Registrar</a></p>
+        <p><a href='registro.php'><button type="button">Registrar</button></a></p>
 EOS;
 
 require __DIR__.'/includes/Vistas/esqueleto2.php';
