@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require "usuario.php";
+require "includes/model/usuarioModel.php";
 
 $titulo = "Administración";
 $barraIzq = <<<EOS

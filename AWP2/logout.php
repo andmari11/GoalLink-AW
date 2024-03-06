@@ -16,7 +16,7 @@ $contenido = <<<EOS
 		<p>Gracias por visitar nuestra web. ¡Hasta pronto!</p>
 EOS;
 
-require __DIR__ . '/includes/Vistas/esqueleto.php';
+require __DIR__ . '/includes/Vistas/esqueleto2.php';
 
 
 

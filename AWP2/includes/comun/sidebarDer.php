@@ -1,49 +1,50 @@
 <aside id="sidebarDer">
+    <h3>Noticias destacadas</h3>
+    <ul>
+        <?php
+            require "includes/model/noticiaModel.php";
+
+            // Obtener la lista de noticias destacadas
+            $noticiasDestacadas = Noticia::listaDestacados();
+
+            // Mostrar las noticias destacadas
+            if ($noticiasDestacadas != NULL) {
+                foreach ($noticiasDestacadas as $noticia) {
+                    echo "<li>";
+                    echo "<h4>" . $noticia->getTitulo() . "</h4>";
+                    echo "<p>" . $noticia->getContenido() . "</p>";
+                    echo "<p>" . $noticia->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+                    echo "</li>";
+                }
+            } 
+            else {
+                echo "<li>No se encontraron noticias destacadas.</li>";
+            }
+
+        ?>
+    </ul>
+
     <h3>Foros destacados</h3>
     <ul>
         <?php
-            // Cargar foros
-            $result = $conn->query("SELECT titulo, descripcion, likes FROM foro WHERE destacado=1");
+            require "includes/model/foroModel.php";
 
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
+            // Obtener la lista de foros destacados
+            $forosDestacados = Foro::listaDestacados();
+            
+            // Mostrar los foros destacados
+            if ($forosDestacados != NULL) {
+                foreach ($forosDestacados as $foro) {
                     echo "<li>";
-                    echo "<h4>" . $row["titulo"] . "</h4>";
-                    echo "<p>" . $row["descripcion"] . "</p>";
-                    echo "<p>" . $row["likes"] . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+                    echo "<h4>" . $foro->getTitulo() . "</h4>";
+                    echo "<p>" . $foro->getDescripcion() . "</p>";
+                    echo "<p>" . $foro->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
                     echo "</li>";
                 }
-                $result->free();
             } else {
-                echo "<li>No se encontraron foros.</li>";
+                echo "<li>No se encontraron foros destacados.</li>";
             }
-
-
-
-        ?>
-    </ul> 
-    <h3>Noticias destacadas</h3>   
-    <php> 
-    <ul>
-        <?php
-            // Cargar noticias
-            $result = $conn->query("SELECT titulo, autor, likes FROM noticia WHERE destacado=1");
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<li>";
-                    echo "<h4>" . $row["titulo"] . "</h4>";
-                    echo "<p>" . $row["autor"] . "</p>";
-                    echo "<p>" . $row["likes"] . " <span style='color: red;'>&#10084;&#65039;</span></p>";
-                    echo "</li>";
-                }
-                $result->free();
-            } else {
-                echo "<li>No se encontraron noticias.</li>";
-            }
-
-
-            // Cerrar conexión
-            $conn->close();
+            
         ?>
     </ul>
 </aside>

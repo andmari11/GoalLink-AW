@@ -1,5 +1,5 @@
 <?php
-require "usuario.php";
+require "includes/model/usuarioModel.php";
 
 session_start();
 
