@@ -78,7 +78,8 @@ class Usuario
         if ($conn->connect_error){
             die("La conexión ha fallado" . $conn->connect_error);
         }
-        
+
+        $username = $conn->real_escape_string($nombreAntiguo);
         $username = $conn->real_escape_string($username);
         $email = $conn->real_escape_string($email);
         $rol = $conn->real_escape_string($rol);
