@@ -9,10 +9,10 @@ $contenido = <<<EOS
         <form action="procesarRegistro.php" method="post"> 
             <fieldset>
                 <legend>Introduzca sus datos </legend>
-                <label>Nombre de usuario:</label><input type="text" name="usuario"> 
-                <label>Email:</label><input type="text" name="email"> 
-                <label>Contraseña:</label><input type="password" name="contraseña"> 
-                <label>Repite contraseña:</label><input type="password" name="contraseña2"> 
+                <label>Nombre de usuario:</label><input type="text" name="usuario" required> 
+                <label>Email:</label><input type="text" name="email" required> 
+                <label>Contraseña:</label><input type="password" name="contraseña" required> 
+                <label>Repite contraseña:</label><input type="password" name="contraseña2" required> 
                 <button type="Registrar">Siguiente</button>
             </fieldset>
         </form>

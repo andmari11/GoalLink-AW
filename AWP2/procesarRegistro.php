@@ -1,5 +1,5 @@
 <?php
-    require "includes/model/usuarioModel.php";
+    require "usuario.php";
     session_start();
 
     $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));

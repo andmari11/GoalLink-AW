@@ -2,10 +2,12 @@
 require "includes/model/usuarioModel.php";
 
 session_start();
-
+$username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
 $titulo = 'Editar';
 
-
+$usuario=Usuario::buscaUsuario($username);
+$nombre=$usuario->getNombre();
+$email=$usuario->getEmail();
 
 if ($_SESSION["rol"] == 'a') {
     $contenido = <<<EOS
@@ -13,8 +15,8 @@ if ($_SESSION["rol"] == 'a') {
     <form action="procesarEdit.php" method="post"> 
         <fieldset>
             <legend>Editar datos:</legend>
-            <label>Nombre:</label><input type="text" name="usuario"> 
-            <label>Email:</label><input type="text" name="email"> 
+            <label>Nombre:</label><input type="text" name="usuario" value="{$nombre}" required> 
+            <label>Email:</label><input type="text" name="email" value="{$email}" required> 
             <label>Rol:</label> 
             <select name="rol">
                 <option value="e">Editor</option>
@@ -22,6 +24,7 @@ if ($_SESSION["rol"] == 'a') {
                 <option value="b">Usuario</option>
             </select>
             <button type="Confirmar">Siguiente</button>
+            <input type="hidden" name="nombreAntiguo" value="{$username}">
         </fieldset>
     </form>
     </article>
