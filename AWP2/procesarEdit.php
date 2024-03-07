@@ -3,6 +3,7 @@
     session_start();
     
     $nombreAntiguo=htmlspecialchars(trim(strip_tags($_REQUEST["nombreAntiguo"])));
+    #en un futuro vamos a permitir cambiar el noombre de usuario pero actualemtne al ser pk no es posible
     #$usernameNuevo= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
     $email= htmlspecialchars(trim(strip_tags($_REQUEST["email"])));
     $rol = ($_REQUEST["rol"]);
