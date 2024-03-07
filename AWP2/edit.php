@@ -5,7 +5,7 @@ session_start();
 $titulo = 'Editar';
 
 
-if ($_SESSION["rol"] == 'a') {
+if (isset($_SESSION["login"]) && $_SESSION["rol"] == 'a') {
 
     $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
 
