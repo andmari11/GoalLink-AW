@@ -72,7 +72,7 @@ class Usuario
         }
     }
 
-    public static function actualizaUsuario($username, $email, $password, $rol, $nombreAntiguo){
+    public static function actualizaUsuario($username, $email, $rol, $nombreAntiguo){
 
         $conn = new mysqli('localhost', 'root', '', 'goallink_1');
         if ($conn->connect_error){
@@ -88,7 +88,7 @@ class Usuario
         $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol' WHERE nombre='$nombreAntiguo'";
         
         if (!$conn->query($query) || $conn->affected_rows != 1) {
-            die("No se ha podido actualizar el usuario: " . $conn->error);
+            die("No se ha producido ningún cambio " . $conn->error);
         }
         return true;
     }

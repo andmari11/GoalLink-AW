@@ -15,7 +15,7 @@ if ($_SESSION["rol"] == 'a') {
     <form action="procesarEdit.php" method="post"> 
         <fieldset>
             <legend>Editar datos:</legend>
-            <label>Nombre:</label><input type="text" name="usuario" value="{$nombre}" required> 
+            <h3>{$nombre}</h3> 
             <label>Email:</label><input type="text" name="email" value="{$email}" required> 
             <label>Rol:</label> 
             <select name="rol">

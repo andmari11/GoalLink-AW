@@ -3,7 +3,7 @@
     session_start();
     
     $nombreAntiguo=htmlspecialchars(trim(strip_tags($_REQUEST["nombreAntiguo"])));
-    $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
+    #$usernameNuevo= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
     $email= htmlspecialchars(trim(strip_tags($_REQUEST["email"])));
     $rol = ($_REQUEST["rol"]);
 
@@ -13,10 +13,10 @@
     if(($_SESSION["rol"])=='a'){
 
 
-        if(Usuario::actualizaUsuario($username, $email, $password, $rol, $nombreAntiguo)) {
+        if(Usuario::actualizaUsuario($nombreAntiguo, $email, $rol, $nombreAntiguo)) {
 
             $contenido = <<<EOS
-            <h2>Usuario editado {$username} </h2>
+            <h2>Usuario editado {$nombreAntiguo} </h2>
             <p>Vuelta al panel de  <a href='admin.php'>administración</a></p>
             EOS;
             
