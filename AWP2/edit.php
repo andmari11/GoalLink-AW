@@ -2,12 +2,12 @@
 require "includes/model/usuarioModel.php";
 
 session_start();
+$titulo = 'Editar';
 
 
 if ($_SESSION["rol"] == 'a') {
 
     $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
-    $titulo = 'Editar';
 
     $usuario=Usuario::buscaUsuario($username);
     $nombre=$usuario->getNombre();
