@@ -2,14 +2,17 @@
 require "includes/model/usuarioModel.php";
 
 session_start();
-$username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
-$titulo = 'Editar';
 
-$usuario=Usuario::buscaUsuario($username);
-$nombre=$usuario->getNombre();
-$email=$usuario->getEmail();
 
 if ($_SESSION["rol"] == 'a') {
+
+    $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
+    $titulo = 'Editar';
+
+    $usuario=Usuario::buscaUsuario($username);
+    $nombre=$usuario->getNombre();
+    $email=$usuario->getEmail();   
+     
     $contenido = <<<EOS
     <h2>Editar usuario</h2>
     <form action="procesarEdit.php" method="post"> 
