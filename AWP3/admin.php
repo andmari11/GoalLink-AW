@@ -9,7 +9,7 @@ $titulo = "Administración";
     if(($_SESSION["rol"])=='a'){
     $contenido = <<<EOS
     <h2>Panel de Administración</h2>
-    <h3>Usuarios</h3>
+    <h3>Usuarios<button type="button">Añadir nuevo usuario</button></h3>
     EOS;
     $usuarios=Usuario::listaUsuario();
     if ($usuarios !== NULL) {

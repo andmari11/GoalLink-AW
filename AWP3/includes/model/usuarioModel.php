@@ -3,13 +3,15 @@
 class Usuario
 {
 
+    private $id;
     private $nombre;
     private $email;
     private $password;
     private $rol;
-
-    public function __construct($nombre, $email, $password, $rol)
+    //$id,
+    public function __construct( $nombre, $email, $password, $rol)
     {
+        //$this->id = $id;
         $this->nombre = $nombre;
         $this->password = $password;
         $this->rol = $rol;
@@ -38,7 +40,8 @@ class Usuario
 
             if($result->num_rows>0){
                 $array=$result->fetch_assoc();
-                $user= new Usuario($array['nombre'], $array['email'],$array['password'],$array['rol']);
+                //$array['id'],
+                $user= new Usuario( $array['nombre'], $array['email'],$array['password'],$array['rol']);
                 return $user;
             }
             else{
@@ -79,7 +82,7 @@ class Usuario
             die("La conexión ha fallado" . $conn->connect_error);
         }
 
-        $username = $conn->real_escape_string($nombreAntiguo);
+        $nombreAntiguo = $conn->real_escape_string($nombreAntiguo);
         $username = $conn->real_escape_string($username);
         $email = $conn->real_escape_string($email);
         $rol = $conn->real_escape_string($rol);
@@ -88,7 +91,7 @@ class Usuario
         $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol' WHERE nombre='$nombreAntiguo'";
         
         if (!$conn->query($query) || $conn->affected_rows != 1) {
-            die("No se ha producido ningún cambio " . $conn->error);
+            die("No se ha producido ningún cambio " . $conn->error. $nombreAntiguo);
         }
         return true;
     }

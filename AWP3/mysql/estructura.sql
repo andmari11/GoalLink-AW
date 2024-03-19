@@ -43,12 +43,15 @@ CREATE TABLE `foro` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
+
+
 CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(50) NOT NULL,
   `rol` char(1) NOT NULL DEFAULT 'u' COMMENT '(u)suario(default), (a)dmin, (e)ditor, (m)oderador'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,7 +62,7 @@ CREATE TABLE `usuario` (
 CREATE TABLE `noticia` (
   `id` int(11) NOT NULL,
   `titulo` varchar(100) NOT NULL,
-  `autor` varchar(15),
+  `id_autor` int(11),
   `contenido` text DEFAULT NULL,
   `fecha` date NOT NULL,
   `likes` int(11) DEFAULT 0,
@@ -82,17 +85,20 @@ ALTER TABLE `foro`
 --
 ALTER TABLE `noticia`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_autor_usuario` (`autor`);
+  ADD KEY `fk_id_autor` (`id_autor`);
 
 --
 -- Indices de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  ADD PRIMARY KEY (`nombre`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+ALTER TABLE `usuario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 
 --
 -- AUTO_INCREMENT de la tabla `foro`
@@ -114,7 +120,7 @@ ALTER TABLE `noticia`
 -- Filtros para la tabla `noticia`
 --
 ALTER TABLE `noticia`
-  ADD CONSTRAINT `fk_autor_usuario` FOREIGN KEY (`autor`) REFERENCES `usuario` (`nombre`) ON UPDATE CASCADE ON DELETE SET NULL;
+  ADD CONSTRAINT `fk_id_autor` FOREIGN KEY (`id_autor`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

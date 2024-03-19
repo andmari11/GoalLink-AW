@@ -4,7 +4,7 @@
     
     $nombreAntiguo=htmlspecialchars(trim(strip_tags($_REQUEST["nombreAntiguo"])));
     #en un futuro vamos a permitir cambiar el noombre de usuario pero actualemtne al ser pk no es posible
-    #$usernameNuevo= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
+    $usernameNuevo= htmlspecialchars(trim(strip_tags($_REQUEST["nombre"])));
     $email= htmlspecialchars(trim(strip_tags($_REQUEST["email"])));
     $rol = ($_REQUEST["rol"]);
 
@@ -14,10 +14,10 @@
     if(($_SESSION["rol"])=='a'){
 
 
-        if(Usuario::actualizaUsuario($nombreAntiguo, $email, $rol, $nombreAntiguo)) {
+        if(Usuario::actualizaUsuario($usernameNuevo, $email, $rol, $nombreAntiguo)) {
 
             $contenido = <<<EOS
-            <h2>Usuario editado {$nombreAntiguo} </h2>
+            <h2>Usuario editado {$usernameNuevo} </h2>
             <p>Vuelta al panel de  <a href='admin.php'>administración</a></p>
             EOS;
             
