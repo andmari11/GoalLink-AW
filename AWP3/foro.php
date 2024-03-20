@@ -1,12 +1,12 @@
 <?php
 
-session_start();
+require_once __DIR__.'/includes/config.php';
 $titulo = 'Foro';
 
 
 $contenido = '';
-if (isset($_SESSION["login"])) {
-    if($_SESSION["rol"] == 'a' || $_SESSION["rol"] == 'm' ){
+if ($app->usuarioLogueado()) {
+    if($app->esAdmin() || $app->esModerador()){
         $contenido .= <<<EOS
         <h2>FORO <button type="button">Editar</button></h2>
         <p>Todos los foros</p>
@@ -26,4 +26,5 @@ if (isset($_SESSION["login"])) {
                 EOS;
 }
 
-require __DIR__.'/includes/Vistas/esqueleto.php';
+$params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
+$app->generaVista('/esqueleto.php', $params);

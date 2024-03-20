@@ -1,11 +1,11 @@
 <?php
 
-session_start();
+require_once __DIR__.'/includes/config.php';
 $titulo = 'Contenido';
 
 $contenido = '';
-if (isset($_SESSION["login"])) {
-    if($_SESSION["rol"] == 'a' || $_SESSION["rol"] == 'e' ){
+if ($app->usuarioLogueado()) {
+    if($app->esAdmin() || $app->esEditor()){
         $contenido .= <<<EOS
         <h2>Contenido <button type="button">Editar</button></h2>
         EOS;
@@ -35,4 +35,5 @@ if (isset($_SESSION["login"])) {
                 EOS;
 }
 
-require __DIR__.'/includes/Vistas/esqueleto.php';
+$params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
+$app->generaVista('/esqueleto.php', $params);

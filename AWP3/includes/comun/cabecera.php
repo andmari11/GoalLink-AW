@@ -1,20 +1,29 @@
 <?php
+
+use es\ucm\fdi\aw\Aplicacion;
+use es\ucm\fdi\aw\usuarios\FormularioLogout;
+
 function mostrarSaludo()
 {
-    if(isset($_SESSION["rol"])){
-        if($_SESSION["rol"] =='a' || $_SESSION["rol"] =='u' ){
-            echo "<p>Bienvenido " . $_SESSION["nombre"] . " " . "<a href ='logout.php'>(Logout)</a></p>";
-        }
-        else if ($_SESSION["rol"] =='e') {
-            echo "<p>Bienvenido " . $_SESSION["nombre"] . " (E) " . "<a href ='logout.php'>(Logout)</a></p>";
-        }
-        else if ($_SESSION["rol"] =='m'){
-            echo "<p>Bienvenido " . $_SESSION["nombre"] . " (M) " . "<a href ='logout.php'>(Logout)</a></p>";
-        } 
+    $html = '';
+    $app = Aplicacion::getInstance();
+    if ($app->usuarioLogueado()) {
+        $nombreUsuario = $app->nombreUsuario();
+
+        $formLogout = new FormularioLogout();
+        $htmlLogout = $formLogout->gestiona();
+        $html = "Bienvenido, ${nombreUsuario}. $htmlLogout";
     } else {
-        echo "<p>Usuario desconocido. <a href='login.php'>Login</a></p>";
+        $loginUrl = $app->resuelve('/login.php');
+        $registroUrl = $app->resuelve('/registro.php');
+        $html = <<<EOS
+        Usuario desconocido. <a href="{$loginUrl}">Login</a> <a href="{$registroUrl}">Registro</a>
+      EOS;
     }
+
+    return $html;
 }
+
 ?>
 
 <header>

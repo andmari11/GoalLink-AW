@@ -1,3 +1,7 @@
+<?php
+$params['app']->doInclude('/vistas/helpers/plantilla.php');
+$mensajes = mensajesPeticionAnterior();
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -8,27 +12,26 @@
 </head>
 
 <body>
-
+<?= $mensajes ?>
 <div id="contenedor"> <!-- Inicio del contenedor -->
 
 	<?php
 	 
-		require_once("mysql/conexion.php");
-        require("includes/comun/cabecera.php");
-        require("includes/comun/sidebarIzq.php");
+	 $params['app']->doInclude('/comun/cabecera.php');
+	 $params['app']->doInclude('/comun/sidebarIzq.php');
     ?>
 
 	<main>
 	  <article>
-		<?= $contenido ?>
+		<?=  $params['contenidoPrincipal'] ?>
 	  </article>
 	</main>
 
 
 
 	<?php
-		require("includes/comun/sidebarDer.php");
-        require("includes/comun/pie.php");
+		$params['app']->doInclude('/comun/sidebarDer.php');
+		$params['app']->doInclude('/comun/pie.php');
 	?>
 
 </div> <!-- Fin del contenedor -->

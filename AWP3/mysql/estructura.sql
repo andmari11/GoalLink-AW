@@ -45,13 +45,15 @@ CREATE TABLE `foro` (
 
 
 
+/*
+  Recuerda que deshabilitar la opción "Enable foreign key checks" para evitar problemas a la hora de importar el script.
+*/
 CREATE TABLE `usuario` (
-  `id` int(11) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(50) NOT NULL,
   `rol` char(1) NOT NULL DEFAULT 'u' COMMENT '(u)suario(default), (a)dmin, (e)ditor, (m)oderador'
-  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 

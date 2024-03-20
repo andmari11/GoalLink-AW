@@ -1,8 +1,10 @@
 <?php
+use es\ucm\fdi\aw\Aplicacion;
+
 function mostrarLista()
 {
-    
-    if(( isset($_SESSION["login"]) && ($_SESSION["rol"])=='a')){
+    $app = Aplicacion::getInstance();
+    if(($app->usuarioLogueado()) && ($app->esAdmin())){
         
         echo "<ul>";
         echo "<li><a href='index.php'>Inicio</a></li>";

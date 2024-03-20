@@ -1,13 +1,9 @@
 <?php
 
-session_start();
-
+require_once __DIR__.'/includes/config.php';
 $titulo = 'Index';
-
-
-
 $contenido = '';
-if (isset($_SESSION["login"]) && $_SESSION["rol"] == 'a'){
+if (($app->usuarioLogueado()) && ($app->esAdmin())){
 
     $contenido .= <<<EOS
     <h2>HOME <button type="button">Editar</button></h2>
@@ -23,4 +19,5 @@ EOS;
 }
 
 
-require __DIR__.'/includes/Vistas/esqueleto.php';
+$params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
+$app->generaVista('/esqueleto.php', $params);

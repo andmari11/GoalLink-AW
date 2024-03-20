@@ -1,22 +1,14 @@
 <?php
-session_start();
-unset($_SESSION["nombre"]);
-unset($_SESSION["login"]);
-unset($_SESSION["email"]);
-unset($_SESSION["rol"]);
+require_once __DIR__.'/includes/config.php';
 
-session_destroy();
+$app = \es\ucm\fdi\aw\Aplicacion::getInstance();
 
-$titulo = 'LogOut';
+if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
+    $app->redirige('/index.php');
+}
 
-
-
-$contenido = <<<EOS
-<h2>Sesión cerrada</h2>
-		<p>Gracias por visitar nuestra web. ¡Hasta pronto!</p>
-EOS;
-
-require __DIR__ . '/includes/Vistas/esqueleto2.php';
+$formLogout = new \es\ucm\fdi\aw\usuarios\FormularioLogout();
+$formLogout->gestiona();
 
 
 

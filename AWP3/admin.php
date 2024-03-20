@@ -1,17 +1,16 @@
 <?php
+require_once __DIR__.'/includes/config.php';
 
-session_start();
-require "includes/model/usuarioModel.php";
 
 $titulo = "Administración";
 
 
-    if(($_SESSION["rol"])=='a'){
+    if($app->esAdmin()){
     $contenido = <<<EOS
     <h2>Panel de Administración</h2>
     <h3>Usuarios<button type="button">Añadir nuevo usuario</button></h3>
     EOS;
-    $usuarios=Usuario::listaUsuario();
+    $usuarios=es\ucm\fdi\aw\usuarios\Usuario::listaUsuario();
     if ($usuarios !== NULL) {
         $contenido .= "<table>";
         $contenido .= "<tr><th>Nombre</th><th>Email</th><th>Rol</th><th>✏️ </th><th> 🗑️ </th></tr>";
@@ -55,4 +54,5 @@ EOS;
 
 
 
-require __DIR__ . '/includes/Vistas/esqueleto2.php';
+$params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
+$app->generaVista('/esqueleto.php', $params);
