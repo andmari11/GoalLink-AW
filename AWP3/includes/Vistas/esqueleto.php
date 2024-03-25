@@ -1,5 +1,5 @@
 <?php
-$params['app']->doInclude('/vistas/helpers/plantilla.php');
+$params['app']->doInclude('/Vistas/helpers/plantilla.php');
 $mensajes = mensajesPeticionAnterior();
 ?>
 
@@ -30,6 +30,7 @@ $mensajes = mensajesPeticionAnterior();
 
 
 	<?php
+	
 		$params['app']->doInclude('/comun/sidebarDer.php');
 		$params['app']->doInclude('/comun/pie.php');
 	?>

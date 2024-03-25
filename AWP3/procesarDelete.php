@@ -1,12 +1,13 @@
 <?php
-    require "includes/model/usuarioModel.php";
+    namespace es\ucm\fdi\aw\usuarios;
 
-    session_start();
+    require_once __DIR__.'/includes/config.php';
+
     $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
     $titulo = 'ProcesarDelete';
 
   
-    if(($_SESSION["rol"])=='a'){
+    if(($app->usuarioLogueado()) && ($app->esAdmin())){
 
     if(Usuario::eliminarUsuario($username)){
 
@@ -16,6 +17,7 @@
         EOS;
     }
     else {
+
         $contenido = <<<EOS
         <h2>Usuario no eliminado: {$username} </h2>
         <b>Volver al <a href="admin.php">panel de administración</a></b>
@@ -24,11 +26,13 @@
 
     }
     else{
+
+        
         $contenido = <<<EOS
         <h2>Acceso denegado </h2>
         EOS;
 
     }
 
-    require __DIR__.'/includes/Vistas/esqueleto.php';
-
+    $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
+    $app->generaVista('/esqueleto.php', $params);

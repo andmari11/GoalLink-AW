@@ -12,8 +12,9 @@ class Usuario
     private $password;
     private $rol;
 
-    public function __construct( $nombre, $email, $password, $rol)
+    public function __construct($nombre, $email, $password, $rol, $id=null)
     {
+        $this->id=$id;
         $this->nombre = $nombre;
         $this->password = $password;
         $this->rol = $rol;
@@ -144,5 +145,3 @@ class Usuario
         return ($password==$this->password);
     }
 }
-
-?>

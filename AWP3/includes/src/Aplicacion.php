@@ -242,7 +242,7 @@ class Aplicacion
         if (mb_strlen($rutaVista) > 0 && mb_substr($rutaVista, 0, 1) !== '/') {
             $rutaVista = '/' . $rutaVista;
         }
-        $rutaVista = "/vistas{$rutaVista}";
+        $rutaVista = "/Vistas{$rutaVista}";
         $this->doIncludeInterna($rutaVista, $params);
     }
 
@@ -379,7 +379,6 @@ class Aplicacion
         if (!empty($query)) {
             $url .= '?' . $query;
         }
-
         return $url;
     }
 

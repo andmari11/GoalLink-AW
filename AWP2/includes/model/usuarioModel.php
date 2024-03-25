@@ -95,11 +95,11 @@ class Usuario
 
     public static function eliminarUsuario($nombre){
 
+        die();
         $conn = new mysqli('localhost', 'root', '', 'goallink_1');
         if ($conn->connect_error){
             die("La conexión ha fallado" . $conn->connect_error);
         }    
-        
 
         $query = sprintf("DELETE FROM `usuario` WHERE `nombre` = '%s'", $conn->real_escape_string($nombre));
 
@@ -166,4 +166,3 @@ class Usuario
     }
 }
 
-?>

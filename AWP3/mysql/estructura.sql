@@ -49,6 +49,7 @@ CREATE TABLE `foro` (
   Recuerda que deshabilitar la opción "Enable foreign key checks" para evitar problemas a la hora de importar el script.
 */
 CREATE TABLE `usuario` (
+  `id` int(11) NOT NULL,
   `nombre` varchar(15) NOT NULL,
   `email` varchar(30) NOT NULL,
   `password` varchar(50) NOT NULL,

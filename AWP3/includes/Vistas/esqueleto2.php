@@ -1,5 +1,5 @@
 <?php
-$params['app']->doInclude('/vistas/helpers/plantilla.php');
+$params['app']->doInclude('/Vistas/helpers/plantilla.php');
 $mensajes = mensajesPeticionAnterior();
 ?>
 
