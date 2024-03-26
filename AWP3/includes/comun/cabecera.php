@@ -17,11 +17,11 @@ function mostrarSaludo()
         $loginUrl = $app->resuelve('/login.php');
         $registroUrl = $app->resuelve('/registro.php');
         $html = <<<EOS
-        Usuario desconocido. <a href="{$loginUrl}">Login</a> <a href="{$registroUrl}">Registro</a>
+        Usuario desconocido  <a href="{$loginUrl}">Login </a> <a href="{$registroUrl}">Registro </a>
       EOS;
     }
 
-    return $html;
+    echo $html;
 }
 
 ?>

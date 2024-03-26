@@ -1,14 +1,16 @@
 <?php
 require_once __DIR__.'/includes/config.php';
+use es\ucm\fdi\aw\Aplicacion;
 
 
 $titulo = "Administración";
 
 
     if($app->esAdmin()){
+
     $contenido = <<<EOS
     <h2>Panel de Administración</h2>
-    <h3>Usuarios<button type="button">Añadir nuevo usuario</button></h3>
+    <h3>Usuarios<a href='anadirUsuario.php'><button type="button">Añadir nuevo usuario</button></h3>
     EOS;
     $usuarios=es\ucm\fdi\aw\usuarios\Usuario::listaUsuario();
     if ($usuarios !== NULL) {
