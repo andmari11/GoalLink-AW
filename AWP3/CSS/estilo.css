@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Imbue:opsz,wght@10..100,100..900&family=Rakkas&family=Signika+Negative:wght@300..700&display=swap');
+
 body {
     background-color: #F5F5F5;
     margin: 0px;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: "Signika Negative", sans-serif;
 }
 
 
@@ -35,9 +37,10 @@ table, th, td{
 }
 
 header a, header a:visited {
-    color: white;
+    color: rgb(7, 0, 0);
     font-weight: bold;
     text-decoration: none;
+    padding: 15px;
     transition: color 0.3s ease;
 } 
 
@@ -63,7 +66,7 @@ header .Logo h1 {
     align-items: center;
     display: flex;
     margin-left: 20px;
-	font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: "Signika Negative", sans-serif;
 }
 
 nav {
@@ -166,4 +169,44 @@ form {
 }
 form button {
     margin-top: 10px; /* Ajusta según sea necesario */
+}
+
+i{
+    padding-right: 10px;
+}
+
+#container{
+    display: grid;
+    grid-template-columns: repeat(2, 425px); /* tamaño de cada bloque*/
+    grid-column-gap:45px;
+    grid-row-gap:20px;
+
+}
+
+
+
+#container h3, #container h2{
+
+    text-align: center;
+}
+
+#container h3:hover{
+    color: limegreen;
+    cursor: pointer;
+}
+.notscontent{
+    border: 2px solid;
+    grid-row-start: span;
+    grid-row-end: auto;
+    box-shadow: 0px 0px 10px 0px #333 inset;    
+}
+.foroscontent{
+    border: 2px solid;
+    grid-row-start: span;
+    grid-row-end: auto;
+    box-shadow: 0px 0px 10px 0px #333 inset;
+}
+
+.notscontent p, .foroscontent p{
+    margin-left: 10px;
 }

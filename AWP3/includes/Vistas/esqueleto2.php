@@ -7,8 +7,9 @@ $mensajes = mensajesPeticionAnterior();
 <html lang="es">
 <head>
 <link rel="stylesheet" type="text/css" href="./CSS/estilo.css">
+<link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title><?= $titulo ?></title>
+<title><?= $params['tituloPagina'] ?></title>
 </head>
 
 <body>
