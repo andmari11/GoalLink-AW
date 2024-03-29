@@ -9,8 +9,10 @@ class Noticia
     private $fecha;
     private $likes;
     private $destacado;
+    public $imagen1;
 
-    public function __construct($id, $id_autor, $titulo, $contenido, $fecha, $likes, $destacado)
+
+    public function __construct($id, $id_autor, $titulo, $contenido, $fecha, $likes, $destacado, $imagen1=NULL)
     {
         $this->id = $id;
         $this->id_autor = $id_autor;
@@ -19,6 +21,7 @@ class Noticia
         $this->fecha = $fecha;
         $this->likes = $likes;
         $this->destacado = $destacado;
+        $this->imagen1=$imagen1;
     }
 
     public static function listaDestacados() {
@@ -33,7 +36,7 @@ class Noticia
 
             while($array=$result->fetch_assoc()){
 
-                $noticia= new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"]);
+                $noticia= new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"], $array["imagen1"]);
                 $lista[]=$noticia;
             }
             $conn->close();
@@ -51,6 +54,10 @@ class Noticia
         return $this->id;
     }
 
+    public function getImagen1(){
+
+        return $this->imagen1;
+    }
 
     public function getIdAutor()
     {
@@ -71,7 +78,7 @@ class Noticia
     }
     public function getLikes()
     {
-        return $this->id;
+        return $this->likes;
     }
 
     public function getDestacado()
