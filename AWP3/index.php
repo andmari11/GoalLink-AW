@@ -28,7 +28,7 @@ $noticiasDestacadas = Noticia::listaDestacados();
 if ($noticiasDestacadas != NULL) {
     foreach ($noticiasDestacadas as $noticia) {
         $contenido .= "<h3>" . $noticia->getTitulo() . "</h3>";
-        //$contenido .= "<p>" . $noticia->getContenido() . "</p>";
+        $contenido .= "<p>" . substr($noticia->getContenido(), 0, 100) . "..."."</p>";
         $contenido .= "<p>" . $noticia->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
 
         if($noticia->getImagen1()!=NULL){
