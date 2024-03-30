@@ -22,8 +22,8 @@ $contenido .= <<<EOS
             <div class='notscontent'>
 EOS;
 
-require "includes/model/noticiaModel.php";
-$noticiasDestacadas = Noticia::listaDestacados();
+require "includes/src/noticias/noticiaModel.php";
+$noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados();
 
 if ($noticiasDestacadas != NULL) {
     foreach ($noticiasDestacadas as $noticia) {

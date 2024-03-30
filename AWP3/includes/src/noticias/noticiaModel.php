@@ -1,5 +1,6 @@
 <?php
-
+namespace es\ucm\fdi\aw\noticias;
+use es\ucm\fdi\aw\Aplicacion;
 class Noticia
 {
     private $id;
@@ -26,7 +27,8 @@ class Noticia
 
     public static function listaDestacados() {
 
-        $conn = new mysqli('localhost', 'root', '', 'goallink_1');
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
         if ($conn->connect_error){
             die("La conexión ha fallado" . $conn->connect_error);
         }
@@ -50,7 +52,8 @@ class Noticia
     }
 
     public static function getNoticiaById($id) {
-        $conn = new mysqli('localhost', 'root', '', 'goallink_1');
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
         if ($conn->connect_error){
             die("La conexión ha fallado" . $conn->connect_error);
         }
@@ -75,9 +78,9 @@ class Noticia
         }
     }
 
-    public static function InsertarNoticia($titulo, $contenido, $id_autor, $fecha, $imagen1 ,$destacado){
-        $conn = new mysqli('localhost', 'root', '', 'goallink_1');
-        
+    public static function insertarNoticia($titulo, $contenido, $id_autor, $fecha, $imagen1 ,$destacado){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();        
         if ($conn->connect_error) {
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
@@ -87,15 +90,10 @@ class Noticia
         $id_autor = $conn->real_escape_string($id_autor);
         $fecha = $conn->real_escape_string($fecha);
         $destacado = $destacado ? 1 : 0; // Convertir a valor entero
-
-        $sql = "INSERT INTO noticia (titulo, id_autor, contenido, fecha, destacado, imagen1) 
-                VALUES ('$titulo', '$id_autor', '$contenido', '$fecha', '$destacado', ?)";
         
-        $stmt = $conn->prepare($sql);
-
-        $stmt->bind_param("b", $imagen1);
-
-        if ($stmt->execute()) {
+        if ($conn->query("INSERT INTO noticia (titulo, id_autor, contenido, fecha, destacado, imagen1) 
+                        VALUES ('$titulo', '$id_autor', '$contenido', '$fecha', '$destacado', '$imagen1')")) 
+        {
             echo "Noticia creada exitosamente.";
         } else {
             echo "Error al crear la noticia: " . $conn->error;

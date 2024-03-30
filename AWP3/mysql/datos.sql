@@ -51,7 +51,7 @@ INSERT INTO `foro` (`id`, `titulo`, `descripcion`, `fecha`, `likes`, `destacado`
 --
 
 CREATE TABLE `noticia` (
-  `id` int(11) NOT NULL,
+  `id` int(11),
   `titulo` varchar(100) NOT NULL,
   `id_autor` int(11) DEFAULT NULL,
   `contenido` text DEFAULT NULL,

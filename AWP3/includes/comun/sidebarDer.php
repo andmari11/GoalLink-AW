@@ -2,17 +2,17 @@
     <h3>Noticias destacadas</h3>
     <ul>
         <?php
-            require "includes/model/noticiaModel.php";
+            require "includes/src/noticias/noticiaModel.php";
 
             // Obtener la lista de noticias destacadas
-            $noticiasDestacadas = Noticia::listaDestacados();
+            $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados();
 
             // Mostrar las noticias destacadas
             if ($noticiasDestacadas != NULL) {
                 foreach ($noticiasDestacadas as $noticia) {
                     echo "<li>";
                     echo "<h4>" . $noticia->getTitulo() . "</h4>";
-                    echo "<p>" . $noticia->getContenido() . "</p>";
+                    echo "<p>" . substr($noticia->getContenido(), 0, 25) . "..."."</p>";
                     echo "<p>" . $noticia->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
                     echo "</li>";
                 }

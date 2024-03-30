@@ -13,8 +13,8 @@ if ($id_noticia === false) {
     exit;
 }
 
-require "includes/model/noticiaModel.php";
-$noticia = Noticia::getNoticiaById($id_noticia);
+require "includes/src/noticias/noticiaModel.php";
+$noticia = es\ucm\fdi\aw\noticias\Noticia::getNoticiaById($id_noticia);
 
 if ($noticia === null) {
     echo 'No se encontró la noticia.';
@@ -25,7 +25,7 @@ $titulo = $noticia->getTitulo();
 $contenido .= "<h1>" . $titulo . "</h1>";
 
 if ($noticia->getImagen1() !== NULL) {
-    $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" style="max-width: 300px; max-height: 300px;" />';
+    $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" style="max-width: 900px; max-height: 900px;" />';
 }
 
 $contenido .= "<p>" .$noticia->getContenido()."</p>";

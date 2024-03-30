@@ -73,7 +73,7 @@ class Aplicacion
     private function __construct()
     {
         $this->inicializada = false;
-        $this->generandoErro = false;
+        $this->generandoError = false;
     }
 
     /**
@@ -250,6 +250,7 @@ class Aplicacion
     {
         $this->compruebaInstanciaInicializada();
         $_SESSION['login'] = true;
+        $_SESSION['id'] = $user->getId();
         $_SESSION['nombre'] = $user->getNombre();
         $_SESSION['email'] = $user->getEmail();
         $_SESSION['rol'] = $user->getRol();
@@ -263,6 +264,8 @@ class Aplicacion
         unset($_SESSION['nombre']);
         unset($_SESSION['email']);
         unset($_SESSION['rol']);
+        unset($_SESSION['id']);
+
 
 
         session_destroy();
@@ -310,6 +313,13 @@ class Aplicacion
     {
         $this->compruebaInstanciaInicializada();
         return $this->usuarioLogueado() && ($_SESSION['rol'] == 'u');
+    }
+
+    public function getUsuarioID()
+    {
+        $this->compruebaInstanciaInicializada();
+
+        return $_SESSION['id'];
     }
 
     public function paginaError($codigoRespuesta, $tituloPagina, $mensajeError, $explicacion = '')

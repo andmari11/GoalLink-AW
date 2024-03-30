@@ -6,7 +6,7 @@ use es\ucm\fdi\aw\Formulario;
 class FormularioUsuarioEdit extends Formulario
 {
     public function __construct() {
-        parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
+        parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php')]);
     }
 
     protected function generaCamposFormulario(&$datos)

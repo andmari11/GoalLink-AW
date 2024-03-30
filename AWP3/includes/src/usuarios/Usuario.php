@@ -40,7 +40,7 @@ class Usuario
 
             if($result->num_rows>0){
                 $array=$result->fetch_assoc();
-                $user= new Usuario( $array['nombre'], $array['email'],$array['password'],$array['rol']);
+                $user= new Usuario( $array['nombre'], $array['email'],$array['password'],$array['rol'],$array['id'] );
                 return $user;
             }
             else{
@@ -118,7 +118,7 @@ class Usuario
         if($result){
             if($result->num_rows>0){
                 while($array=$result->fetch_assoc()){
-                    $user= new Usuario($array['nombre'], $array['email'],$array['password'],$array['rol']);
+                    $user= new Usuario($array['nombre'], $array['email'],$array['password'],$array['rol'], $array['id']);
                     $lista[]=$user;
                 }
                 return $lista;
