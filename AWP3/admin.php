@@ -39,12 +39,11 @@ $titulo = "Administración";
         $contenido .= "<p>No se encontraron usuarios.</p>";
     }
     $contenido .= <<<EOS
-    <ul>
-    <li><a href="index.php">Editar home</a></li>
-    <li><a href="contenido.php">Editar contenido</a></li>
-    <li><a href="foro.php"> Editar foro</a></li>
-    <li><a href="crearNoticia.php"> Crear noticia</a></li>
-
+    <ul class="admin-buttons">
+        <li><a href="index.php">Editar home</a></li>
+        <li><a href="contenido.php">Editar contenido</a></li>
+        <li><a href="foro.php"> Editar foro</a></li>
+        <li><a href="crearNoticia.php"> Crear noticia</a></li>
     </ul>
     EOS;
 

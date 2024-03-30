@@ -27,7 +27,7 @@ $noticiasDestacadas = Noticia::listaDestacados();
 
 if ($noticiasDestacadas != NULL) {
     foreach ($noticiasDestacadas as $noticia) {
-        $contenido .= "<h3>" . $noticia->getTitulo() . "</h3>";
+        $contenido .= '<h3><a href="noticiaDinamica.php?id=' . $noticia->getId() . '">' . $noticia->getTitulo() . '</a></h3>';
         $contenido .= "<p>" . substr($noticia->getContenido(), 0, 100) . "..."."</p>";
         $contenido .= "<p>" . $noticia->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
 

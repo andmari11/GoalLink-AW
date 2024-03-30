@@ -210,3 +210,30 @@ i{
 .notscontent p, .foroscontent p{
     margin-left: 10px;
 }
+
+.admin-buttons {
+    list-style-type: none;
+    padding: 0;
+}
+
+.admin-buttons li {
+    display: inline-block;
+    margin: 30px;
+    margin-right: 40px;
+}
+
+.admin-buttons li a {
+    display: block;
+    background-color: #0288D1; /* Change this to your preferred color */
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.admin-buttons li a:hover {
+    background-color: #0288D1;
+}
