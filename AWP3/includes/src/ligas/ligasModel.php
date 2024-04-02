@@ -28,12 +28,10 @@ class Liga
                 $liga= new Liga($array["nombre"], $array["logo"]);
                 $lista[]=$liga;
             }
-            $conn->close();
 
             return $lista;   
         }
         
-        $conn->close();
         return NULL;
     }
 

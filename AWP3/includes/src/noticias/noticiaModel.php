@@ -10,10 +10,10 @@ class Noticia
     private $fecha;
     private $likes;
     private $destacado;
-    public $imagen1;
+    private $imagen1;
+    private $liga;
 
-
-    public function __construct($id, $id_autor, $titulo, $contenido, $fecha, $likes, $destacado, $imagen1=NULL)
+    public function __construct($id, $id_autor, $titulo, $contenido, $fecha, $likes, $destacado, $liga,  $imagen1=NULL)
     {
         $this->id = $id;
         $this->id_autor = $id_autor;
@@ -23,6 +23,7 @@ class Noticia
         $this->likes = $likes;
         $this->destacado = $destacado;
         $this->imagen1=$imagen1;
+        $this->liga=$liga;
     }
 
     public static function listaDestacados() {
@@ -41,13 +42,11 @@ class Noticia
                 $noticia= new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"], $array["imagen1"]);
                 $lista[]=$noticia;
             }
-            $conn->close();
 
             return $lista;
             
             
         }
-        $conn->close();
         return NULL;
     }
 
@@ -69,11 +68,9 @@ class Noticia
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $array = $result->fetch_assoc();
-            $noticia = new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"], $array["imagen1"]);
-            $conn->close();
+            $noticia = new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"], $array["imagen1"], $array["liga"]);
             return $noticia;
         } else {
-            $conn->close();
             return NULL;
         }
     }
@@ -98,7 +95,6 @@ class Noticia
             echo "Error al crear la noticia: " . $conn->error;
         }
 
-        $conn->close();
     }
 
     public function getId()

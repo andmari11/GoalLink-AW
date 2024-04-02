@@ -34,13 +34,11 @@ class Foro
                 $foro= new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["likes"], $array["destacado"]);
                 $lista[]=$foro;
             }
-            $conn->close();
 
             return $lista;
             
             
         }
-        $conn->close();
         return NULL;
     }
 

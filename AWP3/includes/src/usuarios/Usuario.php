@@ -63,7 +63,7 @@ class Usuario
             , $conn->real_escape_string($usuario->email)
             , $conn->real_escape_string($usuario->password)
             , $conn->real_escape_string($usuario->rol)
-            , $conn->real_escape_string($usuario->liga_fav1));
+            , $conn->real_escape_string($usuario->liga_fav));
 
             
             if (!$conn->query($query)) {
@@ -87,9 +87,9 @@ class Usuario
         $password=$conn->real_escape_string($password);
         
         if($password=="")
-            $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga='ligas' WHERE nombre='$nombreAntiguo'";
+            $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga_fav='$ligas' WHERE nombre='$nombreAntiguo'";
         else
-        $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga='ligas' password='$password' WHERE nombre='$nombreAntiguo'";
+        $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga_fav='$ligas' password='$password' WHERE nombre='$nombreAntiguo'";
         if (!$conn->query($query) || $conn->affected_rows != 1) {
             return false;
         } 

@@ -129,8 +129,8 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `noticia`
 --
 ALTER TABLE `noticia`
-  ADD CONSTRAINT `fk_id_autor` FOREIGN KEY (`id_autor`) REFERENCES `usuario` (`id`) ON DELETE SET NULL,
-  ADD CONSTRAINT `noticia_ibfk_1` FOREIGN KEY (`liga`) REFERENCES `ligas` (`nombre`) ON DELETE SET NULL;
+  ADD CONSTRAINT `fk_id_autor` FOREIGN KEY (`id_autor`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE SET NULL,
+  ADD CONSTRAINT `noticia_ibfk_1` FOREIGN KEY (`liga`) REFERENCES `ligas` (`nombre`) ON UPDATE CASCADE ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `usuario`

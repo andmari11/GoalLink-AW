@@ -15,7 +15,7 @@ INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`) VALUES
 ('admin', 'admin@example.com', 'adminpass', 'a'),
 ('usuario1', 'usuario1@example.com', 'password1', 'e'),
 ('usuario2', 'usuario2@example.com', 'password2', 'm'),
-('usuario3', 'usuario3@example.com', 'password2', 'u');
+('usuario3', 'usuario3@example.com', 'password3', 'u');
 
 --
 -- Volcado de datos para la tabla `noticia`
