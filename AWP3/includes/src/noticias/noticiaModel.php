@@ -39,7 +39,7 @@ class Noticia
 
             while($array=$result->fetch_assoc()){
 
-                $noticia= new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"], $array["imagen1"]);
+                $noticia= new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"], $array["liga"],$array["imagen1"] );
                 $lista[]=$noticia;
             }
 
@@ -69,6 +69,7 @@ class Noticia
         if ($result->num_rows > 0) {
             $array = $result->fetch_assoc();
             $noticia = new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"], $array["imagen1"], $array["liga"]);
+            die($noticia->imagen1);
             return $noticia;
         } else {
             return NULL;
