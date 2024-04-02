@@ -78,7 +78,7 @@ class Noticia
         }
     }
 
-    public static function insertarNoticia($titulo, $contenido, $id_autor, $fecha, $imagen1 ,$destacado){
+    public static function insertarNoticia($titulo, $contenido, $id_autor, $fecha, $imagen1 ,$destacado, $ligas){
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();        
         if ($conn->connect_error) {
@@ -90,9 +90,8 @@ class Noticia
         $id_autor = $conn->real_escape_string($id_autor);
         $fecha = $conn->real_escape_string($fecha);
         $destacado = $destacado ? 1 : 0; // Convertir a valor entero
-        
-        if ($conn->query("INSERT INTO noticia (titulo, id_autor, contenido, fecha, destacado, imagen1) 
-                        VALUES ('$titulo', '$id_autor', '$contenido', '$fecha', '$destacado', '$imagen1')")) 
+        if ($conn->query("INSERT INTO noticia (titulo, id_autor, contenido, fecha, destacado, imagen1, liga) 
+                        VALUES ('$titulo', '$id_autor', '$contenido', '$fecha', '$destacado', '$imagen1', '$ligas')")) 
         {
             echo "Noticia creada exitosamente.";
         } else {

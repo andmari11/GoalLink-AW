@@ -11,6 +11,17 @@ class FormularioUsuarioNuevo extends Formulario
     public function __construct() {
         parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
     }
+    function obtenerOpcionesLigas() {
+        $opciones = '';
+        $ligas = Liga::listaLigas();
+
+        if ($ligas) {
+            foreach ($ligas as $liga) {
+                $opciones .= "<option value='" . $liga->getNombre() . "'>" . $liga->getNombre() . "</option>";
+            }
+        }
+        return $opciones;
+    }
     
     protected function generaCamposFormulario(&$datos)
     {
@@ -20,8 +31,7 @@ class FormularioUsuarioNuevo extends Formulario
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'nombre', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
-        $ligas = Liga::listaLigas();
-
+        $ligas=self::obtenerOpcionesLigas();
         $html = <<<EOF
         $htmlErroresGlobales
         <fieldset>
@@ -61,22 +71,10 @@ class FormularioUsuarioNuevo extends Formulario
                 {$erroresCampos['password2']}
             </div>
             <div>
-                <label for="liga">Elija su liga favorita:</label>
+                <label>Elija su liga favorita:</label>
                 <select name="liga">
-                <?php
-                if (!empty($ligas)) {
-                    foreach ($ligas as $liga) {
-                        $nombreLiga = htmlspecialchars($liga->getNombre());
-                        $selected = '';
-                        // Verifica si el usuario tiene una liga favorita preseleccionada
-                        if (isset($datos[liga]) && $datos[liga] === $nombreLiga) {
-                            $selected = 'selected';
-                        }
-                        echo "<option value='$nombreLiga' $selected>$nombreLiga</option>";
-                    }
-                }
-                 ?>
-                    {$erroresCampos['liga']}
+                {$ligas}
+                {$erroresCampos['liga']}
                 </select>
             </div>
             <div>
@@ -90,6 +88,7 @@ class FormularioUsuarioNuevo extends Formulario
 
 
     }
+
 
     protected function procesaFormulario(&$datos)
     {

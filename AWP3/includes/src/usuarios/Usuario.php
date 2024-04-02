@@ -75,7 +75,7 @@ class Usuario
         }
     }
 
-    public static function actualizaUsuario($username, $email, $rol, $nombreAntiguo, $password){
+    public static function actualizaUsuario($username, $email, $rol, $nombreAntiguo, $ligas, $password){
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
 
@@ -83,16 +83,17 @@ class Usuario
         $username = $conn->real_escape_string($username);
         $email = $conn->real_escape_string($email);
         $rol = $conn->real_escape_string($rol);
+        $ligas = $conn->real_escape_string($ligas);
         $password=$conn->real_escape_string($password);
-
+        
         if($password=="")
-            $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol' WHERE nombre='$nombreAntiguo'";
+            $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga='ligas' WHERE nombre='$nombreAntiguo'";
         else
-        $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', password='$password' WHERE nombre='$nombreAntiguo'";
-
+        $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga='ligas' password='$password' WHERE nombre='$nombreAntiguo'";
         if (!$conn->query($query) || $conn->affected_rows != 1) {
             return false;
-        }   
+        } 
+  
         return true;
     }
 

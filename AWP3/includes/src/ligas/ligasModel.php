@@ -25,7 +25,6 @@ class Liga
         if($result && $result->num_rows>0){
 
             while($array=$result->fetch_assoc()){
-
                 $liga= new Liga($array["nombre"], $array["logo"]);
                 $lista[]=$liga;
             }
@@ -33,6 +32,7 @@ class Liga
 
             return $lista;   
         }
+        
         $conn->close();
         return NULL;
     }
