@@ -11,14 +11,16 @@ class Usuario
     private $email;
     private $password;
     private $rol;
+    private $liga_fav;
 
-    public function __construct($nombre, $email, $password, $rol, $id=null)
+    public function __construct($nombre, $email, $password, $rol, $liga_fav, $id=null)
     {
         $this->id=$id;
         $this->nombre = $nombre;
         $this->password = $password;
         $this->rol = $rol;
         $this->email=$email;
+        $this->liga_fav=$liga_fav;
     }
 
     public static function login($nombre, $pass)
@@ -40,7 +42,7 @@ class Usuario
 
             if($result->num_rows>0){
                 $array=$result->fetch_assoc();
-                $user= new Usuario( $array['nombre'], $array['email'],$array['password'],$array['rol'],$array['id'] );
+                $user= new Usuario( $array['nombre'], $array['email'],$array['password'],$array['rol'],$array['id']);
                 return $user;
             }
             else{
@@ -56,11 +58,13 @@ class Usuario
         $conn = $app->getConexionBd();
 
         if(Usuario::buscaUsuario($usuario->nombre) == NULL){
-            $query=sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`) VALUES('%s', '%s', '%s', '%s')"
+            $query=sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`) VALUES('%s', '%s', '%s', '%s', '%s')"
             , $conn->real_escape_string($usuario->nombre)
             , $conn->real_escape_string($usuario->email)
             , $conn->real_escape_string($usuario->password)
-            , $conn->real_escape_string($usuario->rol));
+            , $conn->real_escape_string($usuario->rol)
+            , $conn->real_escape_string($usuario->liga_fav1));
+
             
             if (!$conn->query($query)) {
                 echo "Error: " . $query . "<br>" . $conn->error;
@@ -118,7 +122,7 @@ class Usuario
         if($result){
             if($result->num_rows>0){
                 while($array=$result->fetch_assoc()){
-                    $user= new Usuario($array['nombre'], $array['email'],$array['password'],$array['rol'], $array['id']);
+                    $user= new Usuario($array['nombre'], $array['email'],$array['password'],$array['rol'], $array['id'], $array['liga_fav']);
                     $lista[]=$user;
                 }
                 return $lista;
@@ -152,5 +156,10 @@ class Usuario
     public function checkPassword($password)
     {
         return ($password==$this->password);
+    }
+
+    public function getLigaFav(){
+        
+        return $this->liga_fav;
     }
 }

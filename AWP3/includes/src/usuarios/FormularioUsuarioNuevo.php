@@ -1,8 +1,10 @@
 <?php
 namespace es\ucm\fdi\aw\usuarios;
+require '/includes/src/ligas/ligasModel.php';
 
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\Formulario;
+use es\ucm\fdi\aw\ligas\Liga;
 
 class FormularioUsuarioNuevo extends Formulario
 {
@@ -18,6 +20,7 @@ class FormularioUsuarioNuevo extends Formulario
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'nombre', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+        $ligas = Liga::listaLigas();
 
         $html = <<<EOF
         $htmlErroresGlobales
@@ -37,7 +40,16 @@ class FormularioUsuarioNuevo extends Formulario
             <label for="email">Email:</label>
             <input id="email" type="text" name="email"/>
             {$erroresCampos['email']}
-        </div>
+            </div>
+            <div>
+            <label>Rol:</label> 
+            <select name="rol">
+                <option value="e">Editor</option>
+                <option value="m">Moderador</option>
+                <option value="u">Usuario</option>
+                {$erroresCampos['rol']}
+            </select>
+            </div>
             <div>
                 <label for="password">Password:</label>
                 <input id="password" type="password" name="password" />
@@ -47,6 +59,19 @@ class FormularioUsuarioNuevo extends Formulario
                 <label for="password2">Reintroduce el password:</label>
                 <input id="password2" type="password" name="password2" />
                 {$erroresCampos['password2']}
+            </div>
+            <div>
+                <label for="liga">Elija su liga favorita:</label>
+                <select name="liga">
+                <?php
+                    if ($ligas) {
+                        foreach ($ligas as $liga) {
+                            echo "<option value='" . $liga->getNombre() . "'>" . $liga->getNombre() . "</option>";
+                        }
+                    }
+                ?>
+                    {$erroresCampos['liga']}
+                </select>
             </div>
             <div>
                 <button type="submit" name="registro">Registrar</button>
@@ -94,7 +119,7 @@ class FormularioUsuarioNuevo extends Formulario
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
             } else {
-                $usuario = new Usuario($nombreUsuario, $email, $password, 'u');
+                $usuario = new Usuario($nombreUsuario, $email, $password, 'u', 'LaLiga');
                 if (Usuario::insertaUsuario($usuario)) {
                     
                     $this->accionSecundaria($usuario);
