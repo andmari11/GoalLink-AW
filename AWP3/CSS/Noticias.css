@@ -1,0 +1,42 @@
+.formulario-noticia {
+    background-color: #f8f9fa; /* Color de fondo */
+    padding: 20px; /* Espacio interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    margin-bottom: 20px; /* Margen inferior */
+}
+
+/* Estilo para las etiquetas del formulario */
+.formulario-noticia label {
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilo para los campos de texto */
+.formulario-noticia input[type="text"],
+.formulario-noticia textarea,
+.formulario-noticia input[type="date"],
+.formulario-noticia input[type="file"],
+.formulario-noticia input[type="checkbox"] {
+    width: 100%; /* Ancho del 100% */
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 15px; /* Margen inferior */
+    border: 1px solid #ced4da; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Tamaño del contenido incluido en el ancho y alto */
+}
+
+/* Estilo para el botón de enviar */
+.formulario-noticia input[type="submit"] {
+    background-color: #007bff; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de apuntar */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+/* Estilo hover para el botón de enviar */
+.formulario-noticia input[type="submit"]:hover {
+    background-color: #0056b3; /* Cambio de color al pasar el ratón */
+}

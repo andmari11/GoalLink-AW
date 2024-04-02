@@ -20,6 +20,7 @@ class FormularioNoticiaCrear extends FormularioArchivos {
             $fecha=$datos['fecha'] ?? date('Y-m-d');
             $usuarioId=$app->getUsuarioID();
             $html = <<<EOS
+            <div class="formulario-noticia">
             <form action="crearNoticia.php" method="POST" enctype="multipart/form-data">
                 <label for="titulo">Título:</label><br>
                 <input type="text" id="titulo" name="titulo" required><br><br>
@@ -40,6 +41,7 @@ class FormularioNoticiaCrear extends FormularioArchivos {
                 
                 <input type="submit" value="Crear Noticia">
             </form>
+            </div>
             EOS;
         }
         else{

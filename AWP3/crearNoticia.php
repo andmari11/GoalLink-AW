@@ -9,6 +9,7 @@ if (($app->usuarioLogueado()) && ($app->esAdmin() || $app->esEditor())) {
     $contenido = <<<EOF
         <h2>Crear Noticia</h2>
         $formNoticia
+        
     EOF;
 }
 

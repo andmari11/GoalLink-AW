@@ -1,6 +1,6 @@
 <?php
 namespace es\ucm\fdi\aw\usuarios;
-require '/includes/src/ligas/ligasModel.php';
+require("includes/src/ligas/ligasModel.php");
 
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\Formulario;
@@ -64,12 +64,18 @@ class FormularioUsuarioNuevo extends Formulario
                 <label for="liga">Elija su liga favorita:</label>
                 <select name="liga">
                 <?php
-                    if ($ligas) {
-                        foreach ($ligas as $liga) {
-                            echo "<option value='" . $liga->getNombre() . "'>" . $liga->getNombre() . "</option>";
+                if (!empty($ligas)) {
+                    foreach ($ligas as $liga) {
+                        $nombreLiga = htmlspecialchars($liga->getNombre());
+                        $selected = '';
+                        // Verifica si el usuario tiene una liga favorita preseleccionada
+                        if (isset($datos[liga]) && $datos[liga] === $nombreLiga) {
+                            $selected = 'selected';
                         }
+                        echo "<option value='$nombreLiga' $selected>$nombreLiga</option>";
                     }
-                ?>
+                }
+                 ?>
                     {$erroresCampos['liga']}
                 </select>
             </div>
