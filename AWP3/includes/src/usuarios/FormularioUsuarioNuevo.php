@@ -34,7 +34,7 @@ class FormularioUsuarioNuevo extends Formulario
         $ligas=self::obtenerOpcionesLigas();
         $html = <<<EOF
         $htmlErroresGlobales
-        <fieldset>
+        <fieldset class="formulario-nuevo-usuario">
             <legend>Datos para el registro</legend>
             <div>
                 <label for="nombreUsuario">Nombre de usuario:</label>

@@ -1,0 +1,140 @@
+.formulario-noticia {
+    background-color: #f8f9fa; /* Color de fondo */
+    padding: 20px; /* Espacio interno */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    margin-bottom: 20px; /* Margen inferior */
+}
+
+/* Estilo para las etiquetas del formulario */
+.formulario-noticia label {
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilo para los campos de texto */
+.formulario-noticia input[type="text"],
+.formulario-noticia textarea,
+.formulario-noticia input[type="date"],
+.formulario-noticia input[type="file"],
+.formulario-noticia input[type="checkbox"] {
+    width: 100%; /* Ancho del 100% */
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 15px; /* Margen inferior */
+    border: 1px solid #ced4da; /* Borde */
+    border-radius: 5px; /* Bordes redondeados */
+    box-sizing: border-box; /* Tamaño del contenido incluido en el ancho y alto */
+}
+
+/* Estilo para el botón de enviar */
+.formulario-noticia input[type="submit"] {
+    background-color: #007bff; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    cursor: pointer; /* Cursor de apuntar */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+/* Estilo hover para el botón de enviar */
+.formulario-noticia input[type="submit"]:hover {
+    background-color: #0056b3; /* Cambio de color al pasar el ratón */
+}
+
+
+/* Estilos para el formulario de nuevo usuario */
+.formulario-nuevo-usuario {
+    width: 80%; /* Ajusta el ancho del formulario */
+    max-width: 600px; /* Ancho máximo del formulario */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+    padding: 30px; /* Aumenta el espacio interno del formulario */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+/* Estilos para los campos del formulario */
+.formulario-nuevo-usuario input,
+.formulario-nuevo-usuario select {
+    width: 100%;
+    padding: 15px; /* Aumenta el espacio interno de los campos */
+    margin-bottom: 20px; /* Aumenta el espacio entre los campos */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Estilos para el botón de enviar */
+.formulario-nuevo-usuario button {
+    width: 65%; /* Ajusta el ancho del botón al 100% del formulario */
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block; /* Hace que el botón ocupe todo el ancho disponible */
+    text-align: center;
+}
+
+/* Estilos hover para el botón de enviar */
+.formulario-nuevo-usuario button:hover {
+    background-color: #0056b3;
+}
+
+/* Estilos para los mensajes de error */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px; /* Aumenta el espacio entre los mensajes de error */
+}
+
+
+
+/* Estilos para el formulario de login */
+.formulario-login {
+    width: 350px; /* Ancho del formulario */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+    padding: 30px; /* Espacio interior del formulario */
+    border: 1px solid #ccc; /* Borde del formulario */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.formulario-login legend {
+    font-weight: bold; /* Texto en negrita */
+    margin-bottom: 20px; /* Espacio debajo del título */
+}
+
+.formulario-login label {
+    display: block; /* Para que los labels estén en una línea */
+    margin-bottom: 15px; /* Espacio entre el label y el input */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.formulario-login input[type="text"],
+.formulario-login input[type="password"] {
+    width: calc(100% - 24px); /* Que los campos de texto ocupen todo el ancho disponible */
+    padding: 10px; /* Añade un poco de espacio dentro de los inputs */
+    border: 1px solid #ccc; /* Borde del input */
+    border-radius: 6px; /* Bordes redondeados */
+}
+
+.formulario-login .centrar {
+    text-align: center; /* Alinea el contenido al centro */
+}
+
+.formulario-login button {
+    width: 50%; /* Ancho completo del botón */
+    padding: 12px; /* Añade espacio dentro del botón */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.formulario-login button:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar por encima */
+}
