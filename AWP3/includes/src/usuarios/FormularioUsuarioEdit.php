@@ -56,15 +56,21 @@ class FormularioUsuarioEdit extends Formulario
                     <label>Email:</label><input type="text" name="email" value="{$email}" required> 
                     {$erroresCampos['email']}
                     </div>
-                    <div>
-                    <label>Rol:</label> 
-                    <select name="rol">
-                        <option value="e">Editor</option>
-                        <option value="m">Moderador</option>
-                        <option value="u">Usuario</option>
-                        {$erroresCampos['rol']}
-                    </select>
-                    </div>
+            EOF;
+            if( Aplicacion::getInstance()->esAdmin()){
+                $html.=<<<EOF
+                        <div>
+                        <label>Rol:</label> 
+                        <select name="rol">
+                            <option value="e">Editor</option>
+                            <option value="m">Moderador</option>
+                            <option value="u">Usuario</option>
+                            {$erroresCampos['rol']}
+                        </select>
+                        </div>
+                EOF;
+            }
+            $html.=<<<EOF
                     <div>
                     <label for="password">Password:</label>
                     <input id="password" type="password" name="password" />
