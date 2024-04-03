@@ -22,7 +22,6 @@ if ($app->usuarioLogueado()) {
 
     $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas(\es\ucm\fdi\aw\usuarios\Usuario::getLigaDeUsuarioId($app->getUsuarioID()));
 
-    
     if ($noticiasDestacadas != NULL) {
 
         foreach ($noticiasDestacadas as $noticia) {
@@ -37,7 +36,7 @@ if ($app->usuarioLogueado()) {
             $contenido .= '</div>'; // Cerrar contenedor de noticia
         }
     } else {
-        $contenido .= "<p>No se encontraron noticias destacadas.</p>";
+        $contenido .= "<p>No se encontraron noticias de la liga.</p>";
     }
 
     

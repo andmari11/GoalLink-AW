@@ -2,10 +2,11 @@
     <h3>Noticias destacadas</h3>
     <ul>
         <?php
-            require "includes/src/noticias/noticiaModel.php";
+            require_once "includes/src/noticias/noticiaModel.php";
+            use \es\ucm\fdi\aw\noticias\Noticia;
 
             // Obtener la lista de noticias destacadas
-            $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados();
+            $noticiasDestacadas = Noticia::listaDestacados();
 
             // Mostrar las noticias destacadas
             if ($noticiasDestacadas != NULL) {

@@ -42,7 +42,7 @@ class Usuario
 
             if($result->num_rows>0){
                 $array=$result->fetch_assoc();
-                $user= new Usuario( $array['nombre'], $array['email'],$array['password'],$array['rol'],$array['id']);
+                $user= new Usuario( $array['nombre'], $array['email'],$array['password'],$array['rol'],$array['liga_fav'],$array['id']);
                 return $user;
             }
             else{
@@ -123,7 +123,7 @@ class Usuario
         if($result){
             if($result->num_rows>0){
                 while($array=$result->fetch_assoc()){
-                    $user= new Usuario($array['nombre'], $array['email'],$array['password'],$array['rol'], $array['id'], $array['liga_fav']);
+                    $user= new Usuario($array['nombre'], $array['email'],$array['password'],$array['rol'], $array['liga_fav'],$array['id']);
                     $lista[]=$user;
                 }
                 return $lista;
@@ -135,14 +135,20 @@ class Usuario
     }
 
     public static function getLigaDeUsuarioId($id) {
-    
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
-        die($id);
         $result = $conn->query("SELECT liga_fav FROM usuario WHERE usuario.id='$id'");
         
-        return $result;
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $liga_fav = $row['liga_fav'];
+            $result->free();
+            return $liga_fav;
+        } else {
+            return null;
+        }
     }
+    
 
     public function getId()
     {

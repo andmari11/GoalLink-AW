@@ -318,7 +318,6 @@ class Aplicacion
     public function getUsuarioID()
     {
         $this->compruebaInstanciaInicializada();
-
         return $_SESSION['id'];
     }
 
