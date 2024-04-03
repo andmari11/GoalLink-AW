@@ -44,7 +44,7 @@ class FormularioNoticiaCrear extends Formulario {
             $ligas=self::obtenerOpcionesLigas();
 
             $html = <<<EOS
-            <div class="formulario-noticia">
+            <div class="formulario">
             <form action="crearNoticia.php" method="POST" enctype="multipart/form-data">
                 <label for="titulo">Título:</label><br>
                 <input type="text" id="titulo" name="titulo" required><br><br>
