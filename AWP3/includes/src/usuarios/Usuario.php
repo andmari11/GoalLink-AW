@@ -134,6 +134,16 @@ class Usuario
         }
     }
 
+    public static function getLigaDeUsuarioId($id) {
+    
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        die($id);
+        $result = $conn->query("SELECT liga_fav FROM usuario WHERE usuario.id='$id'");
+        
+        return $result;
+    }
+
     public function getId()
     {
         return $this->id;

@@ -17,16 +17,30 @@ if ($app->usuarioLogueado()) {
         EOS;
     
     }
+    require "includes/src/noticias/noticiaModel.php";
+    require "includes/src/usuarios/Usuario.php";
 
-    $contenido .= <<<EOS
-    <h3>Kane en la cima de Europa</h3>
-
-    <p>El delantero inglés del Bayern, Bota de Oro y máximo goleador de la Bundesliga con 27 tantos, suma seis dianas en la Champions como Kylian y firma ya su tercera mejor temporada realizadora (33)</p>
-
-    <img src ="./img/kane.png" alt = "kane" width = "200" height = "220">
+    $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas(\es\ucm\fdi\aw\usuarios\Usuario::getLigaDeUsuarioId($app->getUsuarioID()));
 
     
-    EOS;
+    if ($noticiasDestacadas != NULL) {
+
+        foreach ($noticiasDestacadas as $noticia) {
+            $contenido .= '<div class="noticia">'; // Agregar contenedor de noticia
+            $contenido .= '<h3><a href="noticiaDinamica.php?id=' . $noticia->getId() . '">' . $noticia->getTitulo() . '</a></h3>';
+            $contenido .= "<p>" . substr($noticia->getContenido(), 0, 100) . "..."."</p>";
+            $contenido .= "<p>" . $noticia->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+    
+            if($noticia->getImagen1()!=NULL){
+                $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'"width = 300px height=180px" />';
+            }
+            $contenido .= '</div>'; // Cerrar contenedor de noticia
+        }
+    } else {
+        $contenido .= "<p>No se encontraron noticias destacadas.</p>";
+    }
+
+    
 
 } else {
     $contenido .= <<<EOS

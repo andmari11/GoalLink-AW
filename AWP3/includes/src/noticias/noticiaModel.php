@@ -50,6 +50,31 @@ class Noticia
         return NULL;
     }
 
+    public static function listaLigas($ligas) {
+
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error){
+            die("La conexión ha fallado" . $conn->connect_error);
+        }
+        $result = $conn->query("SELECT * FROM noticia WHERE liga='$ligas'");
+        if($result && $result->num_rows>0){
+
+            while($array=$result->fetch_assoc()){
+
+                $noticia= new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"], $array["liga"],$array["imagen1"] );
+                $lista[]=$noticia;
+            }
+
+            return $lista;
+            
+            
+        }
+        
+        return NULL;
+    }
+
+
     public static function getNoticiaById($id) {
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
