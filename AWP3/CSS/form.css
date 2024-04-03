@@ -138,3 +138,59 @@
 .formulario-login button:hover {
     background-color: #0056b3; /* Cambia el color de fondo al pasar por encima */
 }
+
+
+/* Estilos para el formulario de edición de usuario */
+.formulario-editar-usuario {
+    width: 80%; /* Ajusta el ancho del formulario */
+    max-width: 600px; /* Ancho máximo del formulario */
+    margin: 0 auto; /* Centra el formulario horizontalmente */
+    padding: 30px; /* Aumenta el espacio interno del formulario */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.formulario-editar-usuario legend {
+    font-weight: bold; /* Texto en negrita */
+    margin-bottom: 20px; /* Espacio debajo del título */
+}
+
+.formulario-editar-usuario label {
+    display: block; /* Para que los labels estén en una línea */
+    margin-bottom: 10px; /* Espacio entre el label y el input */
+    font-weight: bold; /* Texto en negrita */
+}
+
+.formulario-editar-usuario input[type="text"],
+.formulario-editar-usuario input[type="password"] {
+    width: calc(100% - 24px); /* Que los campos de texto ocupen todo el ancho disponible */
+    padding: 10px; /* Añade un poco de espacio dentro de los inputs */
+    border: 1px solid #ccc; /* Borde del input */
+    border-radius: 6px; /* Bordes redondeados */
+    margin-bottom: 10px; /* Espacio entre los campos */
+}
+
+.formulario-editar-usuario select {
+    width: calc(100% - 24px); /* Que los select ocupen todo el ancho disponible */
+    padding: 10px; /* Añade un poco de espacio dentro del select */
+    border: 1px solid #ccc; /* Borde del select */
+    border-radius: 6px; /* Bordes redondeados */
+    margin-bottom: 10px; /* Espacio entre los campos */
+}
+
+.formulario-editar-usuario button {
+    width: 50%; /* Ancho completo del botón */
+    padding: 12px; /* Añade espacio dentro del botón */
+    margin-left: 30px;
+    margin-right: 30px;
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.formulario-editar-usuario button:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar por encima */
+}

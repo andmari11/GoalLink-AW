@@ -40,7 +40,7 @@ class FormularioUsuarioEdit extends Formulario
         $htmlErroresGlobales
         <h2>Editar usuario</h2>
         <form action="procesarEdit.php" method="post"> 
-            <fieldset>
+            <fieldset class="formulario-editar-usuario">
                 <legend>Editar datos:</legend>
                 <div>
                 <label>Nombre:</label><input type="text" name="nombre" value="{$nombre}" required> 
@@ -80,6 +80,7 @@ class FormularioUsuarioEdit extends Formulario
                 <input type="hidden" name="nombreAntiguo" value="{$username}">
             </fieldset>
         </form>
+        </div>
         EOF;
         return $html;
 

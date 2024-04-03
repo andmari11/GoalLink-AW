@@ -14,7 +14,7 @@ div#contenedor {
     background-color: #FFFFFF;
     margin-top: 30px;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 10px rgba(163, 163, 163, 0.1);
 }
 
 header {
@@ -177,7 +177,7 @@ i{
 
 #container{
     display: grid;
-    grid-template-columns: repeat(2, 425px); /* tamaño de cada bloque*/
+    grid-template-columns: repeat(2, 610px); /* tamaño de cada bloque*/
     grid-column-gap:45px;
     grid-row-gap:20px;
 
@@ -186,8 +186,14 @@ i{
 
 
 #container h3, #container h2{
-
     text-align: center;
+}
+
+#container img{
+    display: block; /* Convertir la imagen en un elemento de bloque */
+    margin-left: auto; /* Margen izquierdo automático */
+    margin-right: auto; /* Margen derecho automático */
+    margin-bottom: 30px;
 }
 
 #container h3:hover{
@@ -195,20 +201,36 @@ i{
     cursor: pointer;
 }
 .notscontent{
-    border: 2px solid;
+
+    border: 2px;
     grid-row-start: span;
     grid-row-end: auto;
-    box-shadow: 0px 0px 10px 0px #333 inset;    
+    
+    
 }
 .foroscontent{
     border: 2px solid;
     grid-row-start: span;
     grid-row-end: auto;
     box-shadow: 0px 0px 10px 0px #333 inset;
+    
 }
 
 .notscontent p, .foroscontent p{
     margin-left: 10px;
+}
+
+.noticia {
+    border-bottom: 1px solid #ccc; /* Borde sólido de color gris */
+    padding-bottom: 20px; /* Espacio entre cada noticia */
+    border: 2px;
+    grid-row-start: span;
+    grid-row-end: auto;
+    box-shadow: 0px 0px 10px 0px rgb(78, 79, 78) inset;
+}
+
+.noticia h3{
+    margin-top: 50px;
 }
 
 .admin-buttons {
@@ -238,3 +260,18 @@ i{
     background-color: #0288D1;
 }
 
+.enlace {
+    margin-right: auto; /* Mueve el botón hacia la izquierda tanto como sea posible */
+    margin-left: 15px; /* Asegura que no haya ningún espacio extra a la izquierda del botón */
+    display: block; /* Para que ocupe todo el ancho disponible */
+    padding: 10px 20px; /* Ajusta el relleno del botón según sea necesario */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: #fff; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 6px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar por encima */
+}
+
+.enlace:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar por encima */
+}

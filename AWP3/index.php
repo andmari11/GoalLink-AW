@@ -27,13 +27,15 @@ $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados();
 
 if ($noticiasDestacadas != NULL) {
     foreach ($noticiasDestacadas as $noticia) {
+        $contenido .= '<div class="noticia">'; // Agregar contenedor de noticia
         $contenido .= '<h3><a href="noticiaDinamica.php?id=' . $noticia->getId() . '">' . $noticia->getTitulo() . '</a></h3>';
         $contenido .= "<p>" . substr($noticia->getContenido(), 0, 100) . "..."."</p>";
         $contenido .= "<p>" . $noticia->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
 
         if($noticia->getImagen1()!=NULL){
-            $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" style="max-width: 300px; max-height: 300px;" />';
+            $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'"width = 300px height=180px" />';
         }
+        $contenido .= '</div>'; // Cerrar contenedor de noticia
     }
 } else {
     $contenido .= "<p>No se encontraron noticias destacadas.</p>";
