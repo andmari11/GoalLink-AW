@@ -68,7 +68,7 @@ class Noticia
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $array = $result->fetch_assoc();
-            $noticia = new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"], $array["imagen1"], $array["liga"]);
+            $noticia = new Noticia($array["id"], $array["id_autor"], $array["titulo"], $array["contenido"], $array["fecha"], $array["likes"], $array["destacado"],$array["liga"] ,$array["imagen1"]);
             return $noticia;
         } else {
             return NULL;
@@ -96,6 +96,39 @@ class Noticia
         }
 
     }
+
+
+
+    public static function updateNoticia($id_noticia, $titulo, $contenido, $id_autor, $fecha, $imagen1, $destacado, $ligas, $likes){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();        
+        if ($conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+        $titulo = $conn->real_escape_string($titulo);
+        $contenido = $conn->real_escape_string($contenido);
+        $id_autor = $conn->real_escape_string($id_autor);
+        $fecha = $conn->real_escape_string($fecha);
+        $destacado = $destacado ? 1 : 0; // Convertir a valor entero
+        $id_noticia = $conn->real_escape_string($id_noticia);
+        
+        if ($conn->query("UPDATE noticia 
+                          SET titulo = '$titulo', 
+                              id_autor = '$id_autor', 
+                              contenido = '$contenido', 
+                              fecha = '$fecha', 
+                              destacado = '$destacado', 
+                              imagen1 = '$imagen1', 
+                              liga = '$ligas', 
+                              likes='$likes'
+                          WHERE id = '$id_noticia'")) 
+        {
+            echo "Noticia actualizada exitosamente.";
+        } else {
+            echo "Error al actualizar la noticia: " . $conn->error;
+        }
+    }
+    
 
     public function getId()
     {
@@ -127,6 +160,19 @@ class Noticia
     public function getLikes()
     {
         return $this->likes;
+    }
+
+    public function setLike($n){
+
+        $this->likes+=$n;
+
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();        
+        if ($conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+        $result=($conn->query("UPDATE noticia SET likes='$this->likes' WHERE id = '$this->id'"));
+        return $result;
     }
 
     public function getDestacado()

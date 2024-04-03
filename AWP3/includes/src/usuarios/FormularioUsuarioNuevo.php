@@ -52,15 +52,6 @@ class FormularioUsuarioNuevo extends Formulario
             {$erroresCampos['email']}
             </div>
             <div>
-            <label>Rol:</label> 
-            <select name="rol">
-                <option value="e">Editor</option>
-                <option value="m">Moderador</option>
-                <option value="u">Usuario</option>
-                {$erroresCampos['rol']}
-            </select>
-            </div>
-            <div>
                 <label for="password">Password:</label>
                 <input id="password" type="password" name="password" />
                 {$erroresCampos['password']}

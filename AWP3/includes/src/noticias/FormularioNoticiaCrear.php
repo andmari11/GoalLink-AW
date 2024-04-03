@@ -60,7 +60,7 @@ class FormularioNoticiaCrear extends Formulario {
                 <label for="imagen1">Imagen:</label><br>
                 <input type="file" id="imagen1" name="imagen1"><br><br>
                 <div>
-                <label>Elija su liga favorita:</label>
+                <label>Elija la liga relacionada:</label>
                 <select name="liga">
                 {$ligas}
                 </select>
