@@ -143,9 +143,9 @@ legend {
 } 
 
 label {
-    width: 4em;
+    width: 3000x;
     float: left;
-    text-align: right;
+    text-align: left;
     margin-right: 0.5em;
     display: block;
 }
@@ -229,9 +229,7 @@ i{
     box-shadow: 0px 0px 10px 0px rgb(78, 79, 78) inset;
 }
 
-.noticia h3{
-    margin-top: 50px;
-}
+
 
 .admin-buttons {
     list-style-type: none;

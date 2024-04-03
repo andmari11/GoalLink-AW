@@ -1,9 +1,12 @@
 .formulario-noticia {
-    background-color: #f8f9fa; /* Color de fondo */
-    padding: 20px; /* Espacio interno */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
-    margin-bottom: 20px; /* Margen inferior */
+    width: 80%; /* Ajusta el ancho del formulario */
+    max-width: 600px; /* Ancho máximo del formulario */
+    margin: auto; /* Centra el formulario horizontalmente */
+    padding: 30px; /* Aumenta el espacio interno del formulario */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    
 }
 
 /* Estilo para las etiquetas del formulario */
@@ -51,6 +54,7 @@
     border: 1px solid #ccc;
     border-radius: 10px;
     background-color: #f9f9f9;
+    
 }
 
 /* Estilos para los campos del formulario */
@@ -76,6 +80,13 @@
     transition: background-color 0.3s;
     display: block; /* Hace que el botón ocupe todo el ancho disponible */
     text-align: center;
+}
+
+.formulario-nuevo-usuario label {
+    display: block; /* Para que los labels estén en una línea */
+    margin-bottom: 15px; /* Espacio entre el label y el input */
+    font-weight: bold; /* Texto en negrita */
+    
 }
 
 /* Estilos hover para el botón de enviar */
