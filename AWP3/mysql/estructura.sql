@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 02-04-2024 a las 12:26:27
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 03-04-2024 a las 17:02:41
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -50,6 +50,18 @@ CREATE TABLE `ligas` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `likes`
+--
+
+CREATE TABLE `likes` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `noticia_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `noticia`
 --
 
@@ -62,7 +74,7 @@ CREATE TABLE `noticia` (
   `likes` int(11) DEFAULT 0,
   `destacado` tinyint(1) NOT NULL DEFAULT 0,
   `imagen1` longblob DEFAULT NULL,
-  `liga` varchar(20)
+  `liga` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -91,6 +103,14 @@ ALTER TABLE `ligas`
   ADD PRIMARY KEY (`nombre`);
 
 --
+-- Indices de la tabla `likes`
+--
+ALTER TABLE `likes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `noticia_id` (`noticia_id`);
+
+--
 -- Indices de la tabla `noticia`
 --
 ALTER TABLE `noticia`
@@ -108,6 +128,12 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `likes`
+--
+ALTER TABLE `likes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `noticia`
@@ -129,8 +155,8 @@ ALTER TABLE `usuario`
 -- Filtros para la tabla `noticia`
 --
 ALTER TABLE `noticia`
-  ADD CONSTRAINT `fk_id_autor` FOREIGN KEY (`id_autor`) REFERENCES `usuario` (`id`) ON UPDATE CASCADE ON DELETE SET NULL,
-  ADD CONSTRAINT `noticia_ibfk_1` FOREIGN KEY (`liga`) REFERENCES `ligas` (`nombre`) ON UPDATE CASCADE ON DELETE SET NULL;
+  ADD CONSTRAINT `fk_id_autor` FOREIGN KEY (`id_autor`) REFERENCES `usuario` (`id`) ON DELETE SET NULL,
+  ADD CONSTRAINT `noticia_ibfk_1` FOREIGN KEY (`liga`) REFERENCES `ligas` (`nombre`) ON DELETE SET NULL;
 
 --
 -- Filtros para la tabla `usuario`

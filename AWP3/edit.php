@@ -6,7 +6,7 @@ $formEditar = $formEditar->gestiona();
 $titulo = 'Editar';
 
 
-if (($app->usuarioLogueado()) && ($app->esAdmin())) {
+if (($app->usuarioLogueado())) {
 
     $contenido=<<<EOF
     <h1>Acceso al sistema</h1>
