@@ -1,0 +1,29 @@
+.noticia-imagenes-din {
+    display: flex;
+    align-items: center; /* Alinea las imágenes verticalmente en el centro */
+    justify-content: space-between; /* Separa las imágenes */
+}
+
+.imagen-noticia-din {
+    width: 600px;
+    height: 400px;
+    margin-right: 20px; /* Añade un margen a la derecha de la imagen de la noticia */
+}
+
+.logo-liga-din {
+    width: 200px;
+    height: 200px;
+    margin-right: 220px; /* Añade un margen a la derecha de la imagen de la noticia */
+}
+
+.titulo-noticia {
+    text-align: center;
+    font-size: 75px;
+}
+
+.contenido{
+    font-size: 20px;
+    margin-right: 20px;
+    column-count: 2; /* Número de columnas */
+    column-gap: 20px; /* Espacio entre columnas */
+}

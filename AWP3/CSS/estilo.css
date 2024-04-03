@@ -109,6 +109,15 @@ main {
 	margin-top: 70px;
 }
 
+.main-esqueleto2 {
+    padding: 10px;
+    float: left;
+    min-height: 800px;
+    width:1300px;
+    background-color: white;
+	margin-top: 70px;
+}
+
 footer {
     clear: both;
     padding: 20px;
@@ -273,3 +282,5 @@ i{
 .enlace:hover {
     background-color: #0056b3; /* Cambia el color de fondo al pasar por encima */
 }
+
+

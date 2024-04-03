@@ -10,7 +10,7 @@ require "includes/src/noticias/noticiaModel.php";
 class FormularioNoticiaCrear extends Formulario {
 
     public function __construct() {
-        parent::__construct('formNoticiaCrear', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php')]);
+        parent::__construct('formNoticiaCrear', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php'), 'method'=>'POST', 'enctype'=>'multipart/form-data']);
     }
     function obtenerOpcionesLigas() {
         $opciones = '';

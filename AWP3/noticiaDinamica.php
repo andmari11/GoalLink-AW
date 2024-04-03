@@ -23,7 +23,17 @@ if ($noticia === null) {
 }
 
 $titulo = $noticia->getTitulo();
-$contenido .= "<h1>" . $titulo . "</h1>";
+$contenido .= "<h2 class='titulo-noticia'>" . $titulo . "</h2>";
+
+$contenido .= '<div class="noticia-imagenes-din">';
+if ($noticia->getImagen1() !== null) {
+    $contenido .= '<img class="imagen-noticia-din" src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" />';
+}
+$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode($noticia->LogoLiga($noticia->getLiga())).'" />';
+$contenido .= '</div>';
+
+$contenido .= "<p class ='contenido'>" .$noticia->getContenido()."</p>";
+
 
 if($app->usuarioLogueado()){
     $url="noticiaDinamica.php?id=' . $id_noticia . '";
@@ -31,11 +41,7 @@ if($app->usuarioLogueado()){
     $contenido .= $formLogout->gestiona();
 }
 
-if ($noticia->getImagen1() !== null) {
-    $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" style="max-width: 900px; max-height: 900px;" />';
-}
 
-$contenido .= "<p>" .$noticia->getContenido()."</p>";
 
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
