@@ -9,8 +9,10 @@ use es\ucm\fdi\aw\ligas\Liga;
 
 class FormularioNoticiaEditar extends Formulario
 {
+    private $id;
     public function __construct() {
-        parent::__construct('formNoticiaEditar', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php'), 'method'=>'POST', 'enctype'=>'multipart/form-data']);
+        $this->id=$_REQUEST["noticia"];
+        parent::__construct('formNoticiaEditar', ['urlRedireccion' => "noticiaDinamica.php?id=$this->id", 'method'=>'POST', 'enctype'=>'multipart/form-data']);
 
     }
     function obtenerOpcionesLigas() {
@@ -25,8 +27,7 @@ class FormularioNoticiaEditar extends Formulario
         return $opciones;
     }
     protected function generaCamposFormulario(&$datos){
-        $id= htmlspecialchars(trim(strip_tags($_REQUEST["noticia"])));
-        $noticia=Noticia::getNoticiaById($id);
+        $noticia=Noticia::getNoticiaById($this->id);
         if(!$noticia) {
             return "<p>La noticia no existe.</p>";
         }
@@ -63,7 +64,7 @@ class FormularioNoticiaEditar extends Formulario
                 <label >Destacado</label>
                 <input type="checkbox" id="destacado" name="destacado" value="1">
                 <button type="submit">Guardar Cambios</button>
-                <input type="hidden" name="id_noticia" value="$id">
+                <input type="hidden" name="id_noticia" value="$this->id">
             </fieldset>
         </form>
     EOF;

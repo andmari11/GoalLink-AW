@@ -42,7 +42,10 @@ if($app->usuarioLogueado()){
     $formLogout = new FormularioNoticiaLike($noticia, $url);
     $contenido .= $formLogout->gestiona();
 }
+if($app->usuarioLogueado() and($app->esEditor() or $app->esAdmin())){    
+    $contenido .= " <a href='editNoticias.php?noticia=" . urlencode($noticia->getId()) . "'>Editar</a>". "</td>";
 
+} 
 
 
 

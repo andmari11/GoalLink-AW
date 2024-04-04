@@ -1,14 +1,22 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+require "includes/src/noticias/noticiaModel.php";
+require "includes/src/usuarios/Usuario.php";
+require "includes/src/ligas/ligasModel.php";
+
+use \es\ucm\fdi\aw\usuarios\Usuario;
+use es\ucm\fdi\aw\ligas\Liga;
 $titulo = 'Contenido';
 
 $contenido = '';
 if ($app->usuarioLogueado()) {
     if($app->esAdmin() || $app->esEditor()){
-        $contenido .= <<<EOS
-        <h2>Contenido <button type="button">Editar</button></h2>
-        EOS;
+        $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas(Usuario::getLigaDeUsuarioId($app->getUsuarioID()));
+        $contenido.='<div class="contenido-con-imagen">';
+        $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(Liga::LogoLiga(Usuario::getLigaDeUsuarioId($app->getUsuarioID()))).'" />';
+
+        $contenido .= '<button type="button"><i class="fas fa-user-cog"></i><a href="admin.php">Editar</button></h2></a></div>';
     }
     else{
         $contenido .= <<<EOS
@@ -17,10 +25,8 @@ if ($app->usuarioLogueado()) {
         EOS;
     
     }
-    require "includes/src/noticias/noticiaModel.php";
-    require "includes/src/usuarios/Usuario.php";
 
-    $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas(\es\ucm\fdi\aw\usuarios\Usuario::getLigaDeUsuarioId($app->getUsuarioID()));
+
 
     if ($noticiasDestacadas != NULL) {
 
