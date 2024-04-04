@@ -1,8 +1,8 @@
 <?php
 require_once __DIR__.'/includes/config.php';
 
-$formEditar = new \es\ucm\fdi\aw\usuarios\FormularioUsuarioEdit();
-$formEditar = $formEditar->gestiona();
+$formulario = new \es\ucm\fdi\aw\noticias\FormularioNoticiaEdit();
+$formulario = $formulario->gestiona();
 $titulo = 'Editar';
 
 
@@ -10,12 +10,12 @@ if (($app->usuarioLogueado())) {
 
     $contenido=<<<EOF
     <h1>Acceso al sistema</h1>
-    $formEditar    
+    $formulario    
     EOF;
 } else {
     $contenido = <<<EOS
     <h2>Acceso denegado</h2>
-EOS;
+    EOS;
 }
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];

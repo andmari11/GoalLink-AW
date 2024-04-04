@@ -1,18 +1,18 @@
 <?php
 
-namespace es\ucm\fdi\aw\usuarios;
+namespace es\ucm\fdi\aw\noticias;
 
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\Formulario;
 
-class FormularioUsuarioEliminar extends Formulario
+class FormularionoticiaEliminar extends Formulario
 {
-    public function __construct($usuario) {
-        parent::__construct('formUsuarioEliminar', [
+    public function __construct($noticia) {
+        parent::__construct('formnoticiaEliminar', [
             'urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php')]);
-        $this->usuario=$usuario;
+        $this->noticia=$noticia;
     }
-    private $usuario;
+    private $noticia;
 
     protected function generaCamposFormulario(&$datos)
     {
@@ -29,14 +29,14 @@ class FormularioUsuarioEliminar extends Formulario
     {
         $app = Aplicacion::getInstance();
 
-        $username= htmlspecialchars(trim(strip_tags($this->usuario)));
+        $username= htmlspecialchars(trim(strip_tags($this->noticia)));
         if(($app->usuarioLogueado()) && ($app->esAdmin())){
 
 
-            if(Usuario::eliminarUsuario($username)){
+            if(Noticia::eliminarNoticia($username)){
 
                 echo <<<EOS
-                <h2>Usuario eliminado: {$username} </h2>
+                <h2>noticia eliminado: {$username} </h2>
                 <b>Volver al <a href="admin.php">panel de administración</a>
                 EOS;
 
@@ -45,7 +45,7 @@ class FormularioUsuarioEliminar extends Formulario
             else {
         
                 echo <<<EOS
-                <h2>Usuario no eliminado: {$username} </h2>
+                <h2>noticia no eliminado: {$username} </h2>
                 <b>Volver al <a href="admin.php">panel de administración</a></b>
                 EOS;
             }

@@ -12,7 +12,7 @@ function mostrarSaludo()
 
         $formLogout = new FormularioLogout();
         $htmlLogout = $formLogout->gestiona();
-        $html = "Bienvenido, <a href='edit.php?usuario=" . urlencode($nombreUsuario) . "'>" . $nombreUsuario . "</a>. " . $htmlLogout;
+        $html = "Bienvenido, <a href='editUsuarios.php?usuario=" . urlencode($nombreUsuario) . "'>" . $nombreUsuario . "</a>. " . $htmlLogout;
     } else {
         $loginUrl = $app->resuelve('/login.php');
         $registroUrl = $app->resuelve('/registro.php');

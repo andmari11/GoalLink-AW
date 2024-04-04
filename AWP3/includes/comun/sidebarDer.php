@@ -6,7 +6,7 @@
             use \es\ucm\fdi\aw\noticias\Noticia;
 
             // Obtener la lista de noticias destacadas
-            $noticiasDestacadas = Noticia::listaDestacados();
+            $noticiasDestacadas = Noticia::listaDestacados(1);
 
             // Mostrar las noticias destacadas
             if ($noticiasDestacadas != NULL) {
@@ -31,7 +31,7 @@
             require "includes/model/foroModel.php";
 
             // Obtener la lista de foros destacados
-            $forosDestacados = Foro::listaDestacados();
+            $forosDestacados = Foro::listaDestacados(1);
             
             // Mostrar los foros destacados
             if ($forosDestacados != NULL) {

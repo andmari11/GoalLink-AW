@@ -34,7 +34,25 @@ class Liga
         
         return NULL;
     }
-
+    public static function LogoLiga($liga){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+       
+        $result = $conn->query("SELECT logo FROM ligas WHERE nombre = '$liga'");
+        
+        if ($result->num_rows > 0) {
+            // Si hay resultados, devolvemos el logo de la liga
+            $row = $result->fetch_assoc();
+            return $row['logo'];
+        } else {
+            // Si no hay resultados, devolvemos null o algún valor por defecto
+            return null;
+        }
+    }
+    
     public function getNombre()
     {
         return $this->nombre;

@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+require "includes/src/ligas/ligasModel.php";
+
 use es\ucm\fdi\aw\noticias\FormularioNoticiaLike;
 
 $id_noticia = $_GET['id'];
@@ -29,13 +31,13 @@ $contenido .= '<div class="noticia-imagenes-din">';
 if ($noticia->getImagen1() !== null) {
     $contenido .= '<img class="imagen-noticia-din" src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" />';
 }
-$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode($noticia->LogoLiga($noticia->getLiga())).'" />';
+$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(es\ucm\fdi\aw\ligas\Liga::LogoLiga($noticia->getLiga())).'" />';
 $contenido .= '</div>';
 
 $contenido .= "<p class ='contenido'>" .$noticia->getContenido()."</p>";
 
 
-if($app->usuarioLogueado()){
+if($app->usuarioLogueado()){    
     $url="noticiaDinamica.php?id=' . $id_noticia . '";
     $formLogout = new FormularioNoticiaLike($noticia, $url);
     $contenido .= $formLogout->gestiona();

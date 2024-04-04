@@ -1,59 +1,92 @@
 <?php
 require_once __DIR__.'/includes/config.php';
 use es\ucm\fdi\aw\Aplicacion;
+use es\ucm\fdi\aw\usuarios\FormularioUsuarioEliminar;
+use es\ucm\fdi\aw\noticias\FormularioNoticiaEliminar;
 
 
 $titulo = "Administración";
 
+    $contenido="<h2>Panel de Administración</h2>";
 
     if($app->esAdmin()){
 
-    $contenido = <<<EOS
-    <h2>Panel de Administración</h2>
-    <h3>Usuarios<a href='anadirUsuario.php'><button type="button">Añadir nuevo usuario</button></h3>
-    EOS;
-    $usuarios=es\ucm\fdi\aw\usuarios\Usuario::listaUsuario();
-    if ($usuarios !== NULL) {
-        $contenido .= "<table>";
-        $contenido .= "<tr><th>Nombre</th><th>Email</th><th>Rol</th><th>✏️ </th><th> 🗑️ </th></tr>";
-        foreach ($usuarios as $usuario) {
-            $contenido .= "<tr>";
-            $contenido .= "<td>" . $usuario->getNombre() . "</td>";
-            $contenido .= "<td>" . $usuario->getEmail() . "</td>";
-            $contenido .= "<td>" . $usuario->getRol() . "</td>";
+        $contenido .= <<<EOS
+        <h3>Usuarios<a href='anadirUsuario.php'><button type="button">Añadir nuevo usuario</button></a></h3>
+        EOS;
+        $usuarios=es\ucm\fdi\aw\usuarios\Usuario::listaUsuario();
+        if ($usuarios !== NULL) {
+            $contenido .= "<table>";
+            $contenido .= "<tr><th>Id</th><th>Nombre</th><th>Email</th><th>Rol</th><th>LigaFav</th><th>Editar </th><th> Eliminar </th></tr>";
+            foreach ($usuarios as $usuario) {
+                $contenido .= "<tr>";
+                $contenido .= "<td>" . $usuario->getId() . "</td>";
+                $contenido .= "<td>" . $usuario->getNombre() . "</td>";
+                $contenido .= "<td>" . $usuario->getEmail() . "</td>";
+                $contenido .= "<td>" . $usuario->getRol() . "</td>";
+                $contenido .= "<td>" . $usuario->getLigaFav() . "</td>";
 
-            if($usuario->getRol()!="a") {
-                $contenido .= "<td>" ." <a href='edit.php?usuario=" . urlencode($usuario->getNombre()) . "'>Editar</a>". "</td>";
-                $contenido .= "<td>" ." <a href='procesarDelete.php?usuario=" . urlencode($usuario->getNombre()) . "'>Eliminar</a> ". "</td>";
+
+                if($usuario->getRol()!="a") {
+                    $contenido .= "<td>" ." <a href='editUsuarios.php?usuario=" . urlencode($usuario->getNombre()) . "'>✏️</a>". "</td>";
+                    $formDelete = new FormularioUsuarioEliminar($usuario->getNombre());
+                    $contenido .= "<td>" . $formDelete->gestiona(). "</td>";
+                }
+                else{
+                    $contenido .= "<td>"."". "</td>";
+                    $contenido .= "<td>"."". "</td>";
+                }
+
+                $contenido .= "</tr>";
+
             }
-            else{
-                $contenido .= "<td>"."". "</td>";
-                $contenido .= "<td>"."". "</td>";
-            }
-
-            $contenido .= "</tr>";
-
+            $contenido .= "</table>";
+        } else {
+            $contenido .= "<p>No se encontraron usuarios.</p>";
         }
-        $contenido .= "</table>";
-    } else {
-        $contenido .= "<p>No se encontraron usuarios.</p>";
+
+
     }
-    $contenido .= <<<EOS
-    <ul class="admin-buttons">
-        <li><a href="index.php">Editar home</a></li>
-        <li><a href="contenido.php">Editar contenido</a></li>
-        <li><a href="foro.php"> Editar foro</a></li>
-        <li><a href="crearNoticia.php"> Crear noticia</a></li>
-    </ul>
-    EOS;
+    if($app->esEditor() || $app->esAdmin()){
+        $contenido .= <<<EOS
+            <h3>Noticias
+            <a href="crearNoticia.php"><button type="button"> Crear noticia</button></a></h3>
+        EOS;
+        require "includes/src/noticias/noticiaModel.php";
+        $noticias = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados(1);
 
-} else {
-    $contenido = <<<EOS
-    <h1>Panel de Administración  </h1>
-    <p> ACCESO DENEGADO. </p>
-EOS;
+        if ($noticias !== NULL) {
+            $contenido .= "<table>";
+            $contenido .= "<tr><th>Id</th><th>Título</th><th>IdAutor</th><th>Fecha</th><th>Ligas</th><th>Likes</th><th>Editar</th><th>Eliminar</th></tr>";
+            foreach ($noticias as $noticia) {
+                $contenido .= "<tr>";
+                $contenido .= "<td>" . $noticia->getId() . "</td>";
+                $contenido .= "<td>" . $noticia->getTitulo() . "</td>";
+                $contenido .= "<td>" . $noticia->getIdAutor() . "</td>";
+                $contenido .= "<td>" . $noticia->getFecha() . "</td>";
+                $contenido .= "<td>" . $noticia->getLiga() . "</td>";
+                $contenido .= "<td>" . $noticia->getLikes() . "</td>";
+                $contenido .= "<td>" ." <a href='editUsuarios.php?noticia=" . urlencode($noticia->getId()) . "'>✏️</a>". "</td>";
 
-}
+                $formDelete = new FormularioNoticiaEliminar($noticia->getId());
+                $contenido .= "<td>" . $formDelete->gestiona(). "</td>";
+
+                $contenido .= "</tr>";
+            }
+            $contenido .= "</table>";
+        }
+    }
+     else {
+        $contenido .= "<p>No se encontraron noticias destacadas.</p>";
+    }
+
+    if(!$app->esAdmin() and !$app->esEditor() and !$app->esModerador()) {
+        $contenido = <<<EOS
+        <h1>Panel de Administración  </h1>
+        <p> ACCESO DENEGADO. </p>
+        EOS;
+
+    }  
 
 
 

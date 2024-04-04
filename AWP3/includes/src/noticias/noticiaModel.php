@@ -34,7 +34,7 @@ class Noticia
         }
         return ($aFecha > $bFecha) ? -1 : 1;
     }
-    public static function listaDestacados() {
+    public static function listaDestacados($n) {
 
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
@@ -42,7 +42,7 @@ class Noticia
             die("La conexión ha fallado" . $conn->connect_error);
         }
 
-        $result = $conn->query("SELECT * FROM noticia WHERE destacado=1");
+        $result = $conn->query("SELECT * FROM noticia WHERE destacado<=$n");
         if($result && $result->num_rows>0){
 
             while($array=$result->fetch_assoc()){
@@ -157,10 +157,28 @@ class Noticia
                               likes='$likes'
                           WHERE id = '$id_noticia'")) 
         {
-            echo "Noticia actualizada exitosamente.";
-        } else {
-            echo "Error al actualizar la noticia: " . $conn->error;
+            return true;
+        } 
+        die ("Error al actualizar la noticia: " . $conn->error);
+        return false;
+    }
+
+    public static function eliminarNoticia($id){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+
+        $query = sprintf("DELETE FROM `noticia` WHERE `id` = '%s'", $conn->real_escape_string($id));
+
+        $noticia=self::getNoticiaById($id);
+        if(!$noticia){
+            return false;
         }
+
+        if(!$conn->query($query) or $conn->affected_rows != 1){
+            die("Noticia no eliminado ". $id . $conn->connect_error);
+        }
+
+        return true;
     }
     
 
@@ -201,24 +219,6 @@ class Noticia
         return $this->liga;
     }
 
-    public function LogoLiga($liga){
-        $app = Aplicacion::getInstance();
-        $conn = $app->getConexionBd();
-        if ($conn->connect_error) {
-            die("Error en la conexión a la base de datos: " . $conn->connect_error);
-        }
-       
-        $result = $conn->query("SELECT logo FROM ligas WHERE nombre = '$liga'");
-        
-        if ($result->num_rows > 0) {
-            // Si hay resultados, devolvemos el logo de la liga
-            $row = $result->fetch_assoc();
-            return $row['logo'];
-        } else {
-            // Si no hay resultados, devolvemos null o algún valor por defecto
-            return null;
-        }
-    }
 
     public function setLike($n){
         $app = Aplicacion::getInstance();

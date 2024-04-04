@@ -23,7 +23,7 @@ $contenido .= <<<EOS
 EOS;
 
 require "includes/src/noticias/noticiaModel.php";
-$noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados();
+$noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados(1);
 
 if ($noticiasDestacadas != NULL) {
     foreach ($noticiasDestacadas as $noticia) {
@@ -50,7 +50,7 @@ $contenido .= <<<EOS
 EOS;
 
 require "includes/model/foroModel.php";
-$forosDestacados = Foro::listaDestacados();
+$forosDestacados = Foro::listaDestacados(1);
 
 if ($forosDestacados != NULL) {
     foreach ($forosDestacados as $foro) {
