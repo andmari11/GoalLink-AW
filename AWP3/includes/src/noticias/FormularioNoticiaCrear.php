@@ -27,18 +27,7 @@ class FormularioNoticiaCrear extends Formulario {
     {
         $app = Aplicacion::getInstance();
 
-        function obtenerOpcionesLigas() {
-            $opciones = '';
-            $ligas = Liga::listaLigas();
-    
-            if ($ligas) {
-                foreach ($ligas as $liga) {
-                    $opciones .= "<option value='" . $liga->getNombre() . "'>" . $liga->getNombre() . "</option>";
-                }
-            }
-            return $opciones;
-        }
-        if($app->esAdmin()){
+        if($app->esAdmin() or $app->esEditor()){
             $fecha=$datos['fecha'] ?? date('Y-m-d');
             $usuarioId=$app->getUsuarioID();
             $ligas=self::obtenerOpcionesLigas();

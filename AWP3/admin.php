@@ -1,8 +1,10 @@
 <?php
 require_once __DIR__.'/includes/config.php';
 use es\ucm\fdi\aw\Aplicacion;
+use es\ucm\fdi\aw\ligas\FormularioLigaEliminar;
 use es\ucm\fdi\aw\usuarios\FormularioUsuarioEliminar;
 use es\ucm\fdi\aw\noticias\FormularioNoticiaEliminar;
+
 
 
 $titulo = "Administración";
@@ -83,6 +85,35 @@ $titulo = "Administración";
      else {
         $contenido .= "<p>No se encontraron noticias destacadas.</p>";
     }
+
+
+
+
+    if($app->esEditor() || $app->esAdmin()){
+        $contenido .= <<<EOS
+            <h3>Ligas
+            <a href="crearLiga.php"><button type="button"> Crear liga</button></a></h3>
+
+        EOS;
+        require "includes/src/ligas/ligasModel.php";
+        $ligas = \es\ucm\fdi\aw\ligas\Liga::listaLigas();
+        if ($ligas !== NULL) {
+            $contenido .= "<table>";
+            $contenido .= "<tr><th>Título</th><th>Eliminar</th></tr>";
+            foreach ($ligas as $liga) {
+                $contenido .= "<tr>";
+                $contenido .= "<td>" . $liga->getNombre() . "</td>";
+                $contenido .= "<td>" . (new FormularioLigaEliminar($liga->getNombre()))->gestiona(). "</td>";
+                $contenido .= "</tr>";
+            }
+            $contenido .= "</table>";
+        }
+    }
+     else {
+        $contenido .= "<p>No se encontraron ligas .</p>";
+    }
+
+    
 
     if(!$app->esAdmin() and !$app->esEditor() and !$app->esModerador()) {
         $contenido = <<<EOS
