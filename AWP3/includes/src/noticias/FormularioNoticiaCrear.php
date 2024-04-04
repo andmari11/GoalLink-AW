@@ -45,7 +45,7 @@ class FormularioNoticiaCrear extends Formulario {
 
             $html = <<<EOS
             <div class="formulario">
-            <form action="crearNoticia.php" method="POST" enctype="multipart/form-data">
+            <form action="crearNoticia.php" method="POST" ">
                 <label for="titulo">Título:</label><br>
                 <input type="text" id="titulo" name="titulo" required><br><br>
                 
@@ -100,8 +100,6 @@ class FormularioNoticiaCrear extends Formulario {
             $imagen1= addslashes(file_get_contents($_FILES['imagen1']['tmp_name']));
         } 
 
-        // Insertar la noticia utilizando el modelo de Noticia
         Noticia::insertarNoticia($titulo, $contenido, $id_autor, $fecha, $imagen1, $destacado, $ligas);
     }
 }
-?>

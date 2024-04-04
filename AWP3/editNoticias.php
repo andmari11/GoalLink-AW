@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__.'/includes/config.php';
 
-$formulario = new \es\ucm\fdi\aw\noticias\FormularioNoticiaEdit();
+$formulario = new \es\ucm\fdi\aw\noticias\FormularioNoticiaEditar();
 $formulario = $formulario->gestiona();
 $titulo = 'Editar';
 

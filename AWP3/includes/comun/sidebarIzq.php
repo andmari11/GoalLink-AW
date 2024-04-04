@@ -4,7 +4,7 @@ use es\ucm\fdi\aw\Aplicacion;
 function mostrarLista()
 {
     $app = Aplicacion::getInstance();
-    if(($app->usuarioLogueado()) && ($app->esAdmin())){
+    if(($app->usuarioLogueado()) && ($app->esAdmin() or $app->esModerador() or $app->esEditor())){
         
         echo "<ul>";
         echo "<li><a href='index.php'><i class='fa-solid fa-house'></i>Inicio</a></li>";

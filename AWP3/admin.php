@@ -53,7 +53,7 @@ $titulo = "Administración";
             <a href="crearNoticia.php"><button type="button"> Crear noticia</button></a></h3>
         EOS;
         require "includes/src/noticias/noticiaModel.php";
-        $noticias = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados(1);
+        $noticias = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados(0);
 
         if ($noticias !== NULL) {
             $contenido .= "<table>";
@@ -61,12 +61,16 @@ $titulo = "Administración";
             foreach ($noticias as $noticia) {
                 $contenido .= "<tr>";
                 $contenido .= "<td>" . $noticia->getId() . "</td>";
-                $contenido .= "<td>" . $noticia->getTitulo() . "</td>";
-                $contenido .= "<td>" . $noticia->getIdAutor() . "</td>";
+                if(!$noticia->getDestacado()){
+                    $contenido .= "<td>" . $noticia->getTitulo() . "</td>";
+                }
+                else{
+                    $contenido .= "<td><b>" . $noticia->getTitulo() . "</b></td>";
+                }                $contenido .= "<td>" . $noticia->getIdAutor() . "</td>";
                 $contenido .= "<td>" . $noticia->getFecha() . "</td>";
                 $contenido .= "<td>" . $noticia->getLiga() . "</td>";
                 $contenido .= "<td>" . $noticia->getLikes() . "</td>";
-                $contenido .= "<td>" ." <a href='editUsuarios.php?noticia=" . urlencode($noticia->getId()) . "'>✏️</a>". "</td>";
+                $contenido .= "<td>" ." <a href='editNoticias.php?noticia=" . urlencode($noticia->getId()) . "'>✏️</a>". "</td>";
 
                 $formDelete = new FormularioNoticiaEliminar($noticia->getId());
                 $contenido .= "<td>" . $formDelete->gestiona(). "</td>";

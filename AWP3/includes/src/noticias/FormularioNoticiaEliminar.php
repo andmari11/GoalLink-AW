@@ -30,7 +30,7 @@ class FormularionoticiaEliminar extends Formulario
         $app = Aplicacion::getInstance();
 
         $username= htmlspecialchars(trim(strip_tags($this->noticia)));
-        if(($app->usuarioLogueado()) && ($app->esAdmin())){
+        if(($app->usuarioLogueado()) && ($app->esAdmin() or $app->esEditor())){
 
 
             if(Noticia::eliminarNoticia($username)){

@@ -42,7 +42,7 @@ class Noticia
             die("La conexión ha fallado" . $conn->connect_error);
         }
 
-        $result = $conn->query("SELECT * FROM noticia WHERE destacado<=$n");
+        $result = $conn->query("SELECT * FROM noticia WHERE destacado>=$n");
         if($result && $result->num_rows>0){
 
             while($array=$result->fetch_assoc()){
@@ -133,7 +133,7 @@ class Noticia
 
 
 
-    public static function updateNoticia($id_noticia, $titulo, $contenido, $id_autor, $fecha, $imagen1, $destacado, $ligas, $likes){
+    public static function updateNoticia($id_noticia, $titulo, $contenido, $imagen1, $destacado, $ligas){
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();        
         if ($conn->connect_error) {
@@ -141,25 +141,30 @@ class Noticia
         }
         $titulo = $conn->real_escape_string($titulo);
         $contenido = $conn->real_escape_string($contenido);
-        $id_autor = $conn->real_escape_string($id_autor);
-        $fecha = $conn->real_escape_string($fecha);
         $destacado = $destacado ? 1 : 0; // Convertir a valor entero
         $id_noticia = $conn->real_escape_string($id_noticia);
-        
-        if ($conn->query("UPDATE noticia 
-                          SET titulo = '$titulo', 
-                              id_autor = '$id_autor', 
-                              contenido = '$contenido', 
-                              fecha = '$fecha', 
-                              destacado = '$destacado', 
-                              imagen1 = '$imagen1', 
-                              liga = '$ligas', 
-                              likes='$likes'
-                          WHERE id = '$id_noticia'")) 
-        {
-            return true;
-        } 
-        die ("Error al actualizar la noticia: " . $conn->error);
+        if($imagen1!=NULL){
+            if ($conn->query("UPDATE noticia 
+            SET titulo = '$titulo', 
+                contenido = '$contenido', 
+                destacado = '$destacado', 
+                imagen1 = '$imagen1', 
+                liga = '$ligas'
+            WHERE id = '$id_noticia'")){
+                return true;
+            }
+        }
+        else{
+            if ($conn->query("UPDATE noticia 
+            SET titulo = '$titulo', 
+                contenido = '$contenido', 
+                destacado = '$destacado', 
+                liga = '$ligas'
+            WHERE id = '$id_noticia'")){
+                return true;
+            }
+        }
+ 
         return false;
     }
 
