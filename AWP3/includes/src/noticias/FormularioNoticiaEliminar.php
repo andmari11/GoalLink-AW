@@ -17,7 +17,10 @@ class FormularionoticiaEliminar extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $camposFormulario = <<<EOS
-            <button class="enlace" type="submit">🗑️</button>
+        <form action="procesarEliminarNoticia.php" method="post"> 
+        <input type="hidden" name="id_noticia" value="$this->noticia">
+
+            <button class="enlace" type="submit">$this->noticia  🗑️</button>
         EOS;
         return $camposFormulario;
     }
@@ -29,7 +32,7 @@ class FormularionoticiaEliminar extends Formulario
     {
         $app = Aplicacion::getInstance();
 
-        $username= htmlspecialchars(trim(strip_tags($this->noticia)));
+        $username= htmlspecialchars(trim(strip_tags($datos["id_noticia"])));
         if(($app->usuarioLogueado()) && ($app->esAdmin() or $app->esEditor())){
 
 

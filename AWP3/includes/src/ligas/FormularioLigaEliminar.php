@@ -17,10 +17,14 @@ class FormularioLigaEliminar extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $camposFormulario = <<<EOS
-            <button class="enlace" type="submit">🗑️</button>
+        <form action="procesarEliminarLiga.php" method="post"> 
+        <input type="hidden" name="liga_id" value="$this->liga">
+
+            <button class="enlace" type="submit">$this->liga  🗑️</button>
         EOS;
         return $camposFormulario;
     }
+
 
     /**
      * Procesa los datos del formulario.
@@ -28,11 +32,10 @@ class FormularioLigaEliminar extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $app = Aplicacion::getInstance();
-        die($this->liga);
 
         if(($app->usuarioLogueado()) && ($app->esAdmin() or $app->esEditor())){
 
-            if(!Liga::delete($this->liga)){
+            if(!Liga::delete($datos['liga_id'])){
                 die("liga no valida" . $this->liga);
             }
         
