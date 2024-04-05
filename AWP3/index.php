@@ -33,8 +33,10 @@ if ($noticiasDestacadas != NULL) {
         $contenido .= "<p>" . $noticia->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
 
         if($noticia->getImagen1()!=NULL){
+            $contenido .= '<figure class="noticia-imagen">'; //contenedor de figura
             $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'"width = 300px height=180px" />';
-        }
+            $contenido .= '</figure>'; // Cerrar contenedor de figura
+                }
         $contenido .= '</div>'; // Cerrar contenedor de noticia
     }
 } else {

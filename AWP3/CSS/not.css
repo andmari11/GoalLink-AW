@@ -1,0 +1,77 @@
+.noticia-imagenes-din {
+    display: flex;
+    align-items: center; /* Alinea las imágenes verticalmente en el centro */
+    justify-content: space-between; /* Separa las imágenes */
+}
+
+.imagen-noticia-din {
+    width: 500px;
+    height: 300px;
+    margin-right: 20px; /* Añade un margen a la derecha de la imagen de la noticia */
+    margin-left: 60px;
+    border-radius: 5%; /* Añade bordes redondeados a las imágenes */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Añade una sombra a las imágenes */
+    transition: 0.3s; /* Añade una transición suave al pasar el ratón por encima */
+}
+
+.logo-liga-din {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 15%;
+}
+
+.titulo-noticia {
+    text-align: center;
+    font-size: 50px; /* Aumentar el tamaño del texto */
+    font-weight: bold; /* Hacer el texto en negrita para que destaque más */
+    color: #62a370; /* Cambiar el color del texto para que sea más legible */
+    text-transform: uppercase; /* Convertir el texto a mayúsculas para un aspecto más elegante */
+    margin-bottom: 60px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Agregar una sombra al texto para hacerlo resaltar */
+}
+
+.contenido{
+    font-size: 20px;
+    margin-right: 20px;
+    column-count: 2; /* Número de columnas */
+    column-gap: 20px; /* Espacio entre columnas */
+}
+
+.liga-favorita {
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold;
+    color: #62a370; /* Cambia este color según tu diseño */
+    text-transform: uppercase; /* Convertir el texto a mayúsculas para un aspecto más elegante */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Agregar una sombra al texto para hacerlo resaltar */
+}
+
+.contenido-con-imagen {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.noticia-imagen img {
+    width: 100%;
+    height: auto;
+    border-radius: 5%; /* Añade bordes redondeados a las imágenes */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Añade una sombra a las imágenes */
+    transition: 0.3s; /* Añade una transición suave al pasar el ratón por encima */
+}
+
+.noticia-imagen img:hover {
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el ratón por encima */
+}
+
+.imagen-noticia-container {
+    text-align: center; /* Centrar la imagen horizontalmente */
+    margin-bottom: 10px;
+}
+
+.imagen-noticia {
+    max-width: 50%; /* Ajustar el ancho máximo de la imagen */
+    height: auto; /* Permitir que la altura se ajuste automáticamente */
+    border-radius: 10px; /* Agregar un radio de borde */
+    overflow: hidden; /* Ocultar cualquier parte de la imagen que se desborde del radio de borde */
+}
