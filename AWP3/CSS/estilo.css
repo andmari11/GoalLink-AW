@@ -382,4 +382,12 @@ i {
     cursor: pointer;
 }
 
+.titulo-noticia-BarraLateral a {
+    text-decoration: none; /* quita el subrayado */
+    font-family: 'Signika Negative', sans-serif; /* cambia la fuente */
+    font-size: 13px; /* aumenta el tamaño de la fuente */
+    color: #09e13b; /* cambia el color del texto */
+    font-weight: bold;
+    text-transform: uppercase;
+}
 

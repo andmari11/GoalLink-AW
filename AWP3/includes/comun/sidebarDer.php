@@ -12,7 +12,7 @@
             if ($noticiasDestacadas != NULL) {
                 foreach ($noticiasDestacadas as $noticia) {
                     echo "<li>";
-                    echo "<h4>" . $noticia->getTitulo() . "</h4>";
+                    echo "<h4 class='titulo-noticia-BarraLateral'><a href='noticiaDinamica.php?id=" . $noticia->getId() . "'>" . $noticia->getTitulo() . "</a></h4>";
                     echo "<p>" . substr($noticia->getContenido(), 0, 25) . "..."."</p>";
                     echo "<p>" . $noticia->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
                     echo "</li>";
