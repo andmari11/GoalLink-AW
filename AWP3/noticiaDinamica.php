@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/includes/config.php';
 require "includes/src/ligas/ligasModel.php";
+require "includes/src/usuarios/Usuario.php";
+
 
 use es\ucm\fdi\aw\noticias\FormularioNoticiaLike;
 
@@ -36,6 +38,10 @@ $contenido .= '</div>';
 
 $contenido .= "<p class ='contenido'>" .$noticia->getContenido()."</p>";
 
+$contenido .= "<p class = 'autorfecha'>" . es\ucm\fdi\aw\usuarios\Usuario::getNombreAutor($noticia->getIdAutor()). " " .$noticia->getFecha()."</p>";
+
+
+
 
 if($app->usuarioLogueado()){    
     $url="noticiaDinamica.php?id=' . $id_noticia . '";
@@ -43,8 +49,8 @@ if($app->usuarioLogueado()){
     $contenido .= $formLogout->gestiona();
 }
 if($app->usuarioLogueado() and($app->esEditor() or $app->esAdmin())){    
-    $contenido .= " <a href='editNoticias.php?noticia=" . urlencode($noticia->getId()) . "'>Editar</a>". "</td>";
-
+    $contenido .= " <a href='editNoticias.php?noticia=" . urlencode($noticia->getId()) . "'><button class = 'enlace'>Editar</button></a>";
+  
 } 
 
 

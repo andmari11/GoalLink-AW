@@ -17,7 +17,7 @@ if ($app->usuarioLogueado()) {
         $contenido .= '<p class="liga-favorita">Liga favorita</p>';
         $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(Liga::LogoLiga(Usuario::getLigaDeUsuarioId($app->getUsuarioID()))).'" />';
 
-        $contenido .= '<button class="editar-btn type="button"><i class="fas fa-user-cog"></i><a href="admin.php">Editar</button></h2></a></div>';
+        $contenido .= '<a href="admin.php"><button class="editar-btn" type="button"><i class="fas fa-user-cog"></i>Editar</button></a></div>';
     }
     else{
         $contenido .= <<<EOS

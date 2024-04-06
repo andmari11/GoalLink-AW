@@ -162,6 +162,26 @@ class Usuario
             return null;
         }
     }
+
+    public static function getNombreAutor($idautor)
+    {
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+
+        $result = $conn->query("SELECT nombre FROM usuario WHERE id = '$idautor'");
+
+        if ($result->num_rows > 0) {
+            // Si hay resultados, devolvemos el logo de la liga
+            $row = $result->fetch_assoc();
+            return $row['nombre'];
+        } else {
+            // Si no hay resultados, devolvemos null o algún valor por defecto
+            return null;
+        }
+    }
     
 
     public function getId()

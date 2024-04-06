@@ -38,6 +38,18 @@
     column-gap: 20px; /* Espacio entre columnas */
 }
 
+.autorfecha{
+    font-size: 25px;
+    margin-right: 50px; 
+    column-gap: 20px;
+    text-align: right;
+    font-weight: bold;
+}
+
+.autorfechahome{
+    font-weight: bold;
+}
+
 .liga-favorita {
     text-align: center;
     font-size: 50px;

@@ -76,6 +76,7 @@
     transition: background-color 0.3s;
     display: block; /* Hace que el botón ocupe todo el ancho disponible */
     text-align: center;
+    font-family: 'Signika Negative', sans-serif;
 }
 
 

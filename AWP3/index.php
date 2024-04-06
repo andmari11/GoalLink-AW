@@ -37,6 +37,7 @@ if ($noticiasDestacadas != NULL) {
             $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'"width = 300px height=180px" />';
             $contenido .= '</figure>'; // Cerrar contenedor de figura
                 }
+                $contenido .= "<p class = 'autorfechahome'>" . es\ucm\fdi\aw\usuarios\Usuario::getNombreAutor($noticia->getIdAutor()). " " .$noticia->getFecha()."</p>";
         $contenido .= '</div>'; // Cerrar contenedor de noticia
     }
 } else {
