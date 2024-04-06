@@ -40,7 +40,7 @@ class FormularioUsuarioEdit extends Formulario
         if($nombre!='admin'){
             // Se generan los mensajes de error si existen.
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-            $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'email', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+            $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'email', 'rol', 'password', 'password2', 'liga'], $this->errores, 'span', array('class' => 'error'));
 
             $html = <<<EOF
             $htmlErroresGlobales

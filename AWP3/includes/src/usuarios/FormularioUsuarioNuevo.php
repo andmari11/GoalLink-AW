@@ -30,7 +30,7 @@ class FormularioUsuarioNuevo extends Formulario
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'nombre', 'password', 'password2'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'nombre', 'email', 'password', 'password2', 'liga'], $this->errores, 'span', array('class' => 'error'));
         $ligas=self::obtenerOpcionesLigas();
         $html = <<<EOF
         $htmlErroresGlobales

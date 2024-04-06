@@ -25,9 +25,9 @@ class FormularioLigaCrear extends Formulario {
                 
                 <label for="imagen1">Imagen:</label><br>
                 <input type="file" id="imagen1" name="imagen1" required><br><br>
-                <div>
 
-                <input type="submit" value="Crear Noticia">
+                
+                <button type="submit" name="crearliga">Crear Liga</button>
             </form>
             </div>
             EOS;

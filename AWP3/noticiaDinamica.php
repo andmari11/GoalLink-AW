@@ -25,6 +25,7 @@ if ($noticia === null) {
     echo 'No se encontró la noticia.';
     exit;
 }
+$contenido = '';
 
 $titulo = $noticia->getTitulo();
 $contenido .= "<h2 class='titulo-noticia'>" . $titulo . "</h2>";
@@ -47,8 +48,11 @@ if($app->usuarioLogueado()){
     $url="noticiaDinamica.php?id=' . $id_noticia . '";
     $formLogout = new FormularioNoticiaLike($noticia, $url);
     $contenido .= $formLogout->gestiona();
+    
+
 }
 if($app->usuarioLogueado() and($app->esEditor() or $app->esAdmin())){    
+    $contenido .= "<br>";
     $contenido .= " <a href='editNoticias.php?noticia=" . urlencode($noticia->getId()) . "'><button class = 'enlace'>Editar</button></a>";
   
 } 
