@@ -22,7 +22,7 @@ class Usuario
         $this->liga_fav=$liga_fav;
 
         // Almacena la contraseña como un hash
-        $this->hashPassword($password);
+        $this->password_hash=$password;
     }
 
     public static function login($nombre, $pass){
@@ -34,9 +34,9 @@ class Usuario
         return false;
     }
 
-    private function hashPassword($password)
+    private static function hashPassword($password)
     {
-        $this->password_hash = password_hash($password, PASSWORD_DEFAULT);
+        return password_hash($password, PASSWORD_DEFAULT);
     }
 
     public function compruebaPassword($password)
@@ -53,7 +53,7 @@ class Usuario
 
             if($result->num_rows>0){
                 $array=$result->fetch_assoc();
-                $user= new Usuario($array['nombre'], $array['email'], $array['password'], $array['rol'], $array['liga_fav'], $array['id']);
+                $user= new Usuario($array['nombre'], $array['email'], ($array['password']), $array['rol'], $array['liga_fav'], $array['id']);
                 return $user;
             }
             else{
@@ -63,27 +63,31 @@ class Usuario
 
     }
 
-    public static function insertaUsuario($usuario){
+    public static function insertaUsuario($usuario) {
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
+    
+        if (Usuario::buscaUsuario($usuario->nombre) == NULL) {
 
-        if(Usuario::buscaUsuario($usuario->nombre) == NULL){
-            // Inserta el usuario con la contraseña hasheada
-            $query=sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`) VALUES('%s', '%s', '%s', '%s', '%s')"
-            , $conn->real_escape_string($usuario->nombre)
-            , $conn->real_escape_string($usuario->email)
-            , $conn->real_escape_string($usuario->password_hash) // Utiliza el hash almacenado
-            , $conn->real_escape_string($usuario->rol)
-            , $conn->real_escape_string($usuario->liga_fav));
-
+            $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`) VALUES('%s', '%s', '%s', '%s', '%s')",
+                $conn->real_escape_string($usuario->nombre),
+                $conn->real_escape_string($usuario->email),
+                $conn->real_escape_string(self::hashPassword($usuario->password_hash)), // Utiliza el hash almacenado
+                $conn->real_escape_string($usuario->rol),
+                $conn->real_escape_string($usuario->liga_fav));
+    
+    
             if (!$conn->query($query)) {
-                echo "Error: " . $query . "<br>" . $conn->error;
+                echo "Error: " . $query . "<br>" . $conn->error; // Output error message
+                die();
             }
+    
             return true;
         } else {
             return false;
         }
     }
+    
 
     public static function actualizaUsuario($username, $email, $rol, $nombreAntiguo, $ligas, $password){
         $app = Aplicacion::getInstance();
@@ -137,7 +141,7 @@ class Usuario
         if($result){
             if($result->num_rows>0){
                 while($array=$result->fetch_assoc()){
-                    $user= new Usuario($array['nombre'], $array['email'],$array['password'],$array['rol'], $array['liga_fav'],$array['id']);
+                    $user= new Usuario($array['nombre'], $array['email'],($array['password']),$array['rol'], $array['liga_fav'],$array['id']);
                     $lista[]=$user;
                 }
                 return $lista;

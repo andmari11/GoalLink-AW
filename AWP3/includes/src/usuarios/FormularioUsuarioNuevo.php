@@ -117,7 +117,6 @@ class FormularioUsuarioNuevo extends Formulario
             } else {
                 $usuario = new Usuario($nombreUsuario, $email, $password, 'u', 'LaLiga');
                 if (Usuario::insertaUsuario($usuario)) {
-                    
                     $this->accionSecundaria($usuario);
                 } else {
                     $this->errores[] = "Error al insertar el usuario";
