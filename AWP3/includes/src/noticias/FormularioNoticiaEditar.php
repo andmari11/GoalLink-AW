@@ -79,7 +79,7 @@ class FormularioNoticiaEditar extends Formulario
         $imagen1 = null;
 
         if(isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
-            $imagen1= addslashes(file_get_contents($_FILES['imagen1']['tmp_name']));
+            $imagen1= ($_FILES['imagen1']);
         }
         Noticia::updateNoticia($id, $titulo, $contenido, $imagen1, $destacado, $ligas);
 

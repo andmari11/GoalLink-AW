@@ -10,6 +10,7 @@ class Noticia
     private $fecha;
     private $likes;
     private $destacado;
+    private $ruta_imagen1;
     private $imagen1;
     private $liga;
 
@@ -22,7 +23,14 @@ class Noticia
         $this->fecha = $fecha;
         $this->likes = $likes;
         $this->destacado = $destacado;
-        $this->imagen1=$imagen1;
+        $this->ruta_imagen1=$imagen1;
+
+        if ($imagen1 !== NULL) {
+            $this->imagen1 = file_get_contents($imagen1);
+            if ($this->imagen1 === FALSE) {
+                die("Error al leer el archivo de imagen.");
+            }
+        }            
         $this->liga=$liga;
     }
     public static function compararFechas($a, $b) {
@@ -116,13 +124,19 @@ class Noticia
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
 
+        $ruta_destino = "img/noticias/" . basename($imagen1["name"]);
+
+        if(!move_uploaded_file($imagen1["tmp_name"], $ruta_destino)){
+            die(error_get_last()['message']);
+        }
+
         $titulo = $conn->real_escape_string($titulo);
         $contenido = $conn->real_escape_string($contenido);
         $id_autor = $conn->real_escape_string($id_autor);
         $fecha = $conn->real_escape_string($fecha);
         $destacado = $destacado ? 1 : 0; // Convertir a valor entero
         if ($conn->query("INSERT INTO noticia (titulo, id_autor, contenido, fecha, destacado, imagen1, liga) 
-                        VALUES ('$titulo', '$id_autor', '$contenido', '$fecha', '$destacado', '$imagen1', '$ligas')")) 
+                        VALUES ('$titulo', '$id_autor', '$contenido', '$fecha', '$destacado', '$ruta_destino', '$ligas')")) 
         {
             echo "Noticia creada exitosamente.";
         } else {
@@ -139,16 +153,28 @@ class Noticia
         if ($conn->connect_error) {
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
+
         $titulo = $conn->real_escape_string($titulo);
         $contenido = $conn->real_escape_string($contenido);
         $destacado = $destacado ? 1 : 0; // Convertir a valor entero
         $id_noticia = $conn->real_escape_string($id_noticia);
-        if($imagen1!=NULL){
+
+        $noticia=self::getNoticiaById($id_noticia);
+
+        if($imagen1["tmp_name"]!=NULL){
+            if (file_exists($noticia->getRutaImg())) {
+                unlink($noticia->getRutaImg());
+            }
+
+            $ruta_destino = "img/noticias/" . basename($imagen1["name"]);
+            if(!move_uploaded_file($imagen1["tmp_name"], $ruta_destino)){
+                die(error_get_last()['message']);
+            }
             if ($conn->query("UPDATE noticia 
             SET titulo = '$titulo', 
                 contenido = '$contenido', 
                 destacado = '$destacado', 
-                imagen1 = '$imagen1', 
+                imagen1 = '$ruta_destino', 
                 liga = '$ligas'
             WHERE id = '$id_noticia'")){
                 return true;
@@ -175,8 +201,14 @@ class Noticia
         $query = sprintf("DELETE FROM `noticia` WHERE `id` = '%s'", $conn->real_escape_string($id));
 
         $noticia=self::getNoticiaById($id);
+
         if(!$noticia){
             return false;
+        }
+
+
+        if (file_exists($noticia->ruta_imagen1)) {
+            unlink($noticia->ruta_imagen1);
         }
 
         if(!$conn->query($query) or $conn->affected_rows != 1){
@@ -223,6 +255,11 @@ class Noticia
     {
         return $this->liga;
     }
+    public function getRutaImg()
+    {
+        return $this->ruta_imagen1;
+    }
+
 
 
     public function setLike($n){

@@ -18,7 +18,7 @@ class FormularioUsuarioEliminar extends Formulario
     {
         $camposFormulario = <<<EOS
         <form action="procesarEliminarNoticia.php" method="post"> 
-        <input type="hidden" name="id_noticia" value="$this->usuario">
+        <input type="hidden" name="id" value="$this->usuario">
 
             <button class="enlace" type="submit">🗑️</button>
         EOS;
@@ -32,7 +32,7 @@ class FormularioUsuarioEliminar extends Formulario
     {
         $app = Aplicacion::getInstance();
 
-        $username= htmlspecialchars(trim(strip_tags($this->usuario)));
+        $username= htmlspecialchars(trim(strip_tags($datos['id'])));
         if(($app->usuarioLogueado()) && ($app->esAdmin())){
 
 

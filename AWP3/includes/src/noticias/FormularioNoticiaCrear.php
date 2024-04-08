@@ -86,7 +86,7 @@ class FormularioNoticiaCrear extends Formulario {
 
 
         if(isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
-            $imagen1= addslashes(file_get_contents($_FILES['imagen1']['tmp_name']));
+            $imagen1 = $_FILES["imagen1"];
         } 
 
         Noticia::insertarNoticia($titulo, $contenido, $id_autor, $fecha, $imagen1, $destacado, $ligas);

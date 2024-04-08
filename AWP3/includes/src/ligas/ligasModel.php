@@ -7,11 +7,16 @@ class Liga
 {
     private $nombre;
     private $logo;
+    private $ruta_logo;
 
     public function __construct($nombre, $logo = NULL)
     {
         $this->nombre = $nombre;
-        $this->logo = $logo;
+        $this->ruta_logo=$logo;
+        $this->logo = file_get_contents($logo);
+        if ($this->logo === FALSE) {
+            die("Error al leer el archivo de imagen.");
+        }
     }
 
     public static function listaLigas()
@@ -26,6 +31,7 @@ class Liga
         if ($result && $result->num_rows > 0) {
             $lista = array(); // Inicializamos el array de ligas
             while ($array = $result->fetch_assoc()) {
+
                 $liga = new Liga($array["nombre"], $array["logo"]);
                 $lista[] = $liga;
             }
@@ -35,26 +41,34 @@ class Liga
         return NULL;
     }
 
-    public static function LogoLiga($liga)
-    {
+    public static function getLigaByName($liga){
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
         if ($conn->connect_error) {
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
-
         $result = $conn->query("SELECT logo FROM ligas WHERE nombre = '$liga'");
-
         if ($result->num_rows > 0) {
             // Si hay resultados, devolvemos el logo de la liga
             $row = $result->fetch_assoc();
-            return $row['logo'];
-        } else {
+            return new Liga($row['nombre'], $row['logo']);
+        }  
             // Si no hay resultados, devolvemos null o algún valor por defecto
             return null;
-        }
+        
     }
 
+    public static function LogoLiga($nombre)
+    {
+
+        $liga= self::getLigaByName($nombre);
+
+        return $liga->getLogo();
+    }
+    public function getRutaImg()
+    {
+        return $this->ruta_logo;
+    }
     public function getNombre()
     {
         return $this->nombre;
@@ -72,6 +86,10 @@ class Liga
         $conn = $app->getConexionBd();
         if ($conn->connect_error) {
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+        $liga=self::getLigaByName($nombreLiga);
+        if (file_exists($liga->getRutaImg())) {
+            unlink($liga->getRutaImg());
         }
         $sql = "DELETE FROM ligas WHERE nombre = '$nombreLiga'";
         $result = $conn->query($sql);
@@ -91,8 +109,14 @@ class Liga
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
 
+        $ruta_destino = "img/ligas/" . basename($logo["name"]);
+
+        if(!move_uploaded_file($logo["tmp_name"], $ruta_destino)){
+            die(error_get_last()['message']);
+        }
+
         $nombreLiga = $conn->real_escape_string($nombre); 
-        $sql = "INSERT INTO ligas (nombre, logo) VALUES ('$nombreLiga', '$logo')";
+        $sql = "INSERT INTO ligas (nombre, logo) VALUES ('$nombreLiga', '$ruta_destino')";
         $result = $conn->query($sql);
 
         if ($result) {
