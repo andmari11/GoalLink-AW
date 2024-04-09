@@ -1,6 +1,5 @@
 <?php
 namespace es\ucm\fdi\aw\usuarios;
-require("includes/src/ligas/ligasModel.php");
 
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\Formulario;

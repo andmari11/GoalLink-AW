@@ -1,10 +1,10 @@
 <?php
 namespace es\ucm\fdi\aw\noticias;
-require("includes/src/ligas/ligasModel.php");
-require "includes/src/noticias/noticiaModel.php";
 
-use es\ucm\fdi\aw\Aplicacion;
+
 use es\ucm\fdi\aw\Formulario;
+use \es\ucm\fdi\aw\noticias\Noticia;
+
 use es\ucm\fdi\aw\ligas\Liga;
 
 class FormularioNoticiaEditar extends Formulario

@@ -4,8 +4,6 @@ namespace es\ucm\fdi\aw\noticias;
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\Formulario;
 use es\ucm\fdi\aw\ligas\Liga;
-require("includes/src/ligas/ligasModel.php");
-require "includes/src/noticias/noticiaModel.php";
 
 class FormularioNoticiaCrear extends Formulario {
 

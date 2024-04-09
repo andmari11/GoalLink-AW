@@ -1,8 +1,6 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require "includes/src/ligas/ligasModel.php";
-require "includes/src/usuarios/Usuario.php";
 
 
 use es\ucm\fdi\aw\noticias\FormularioNoticiaLike;
@@ -18,7 +16,6 @@ if ($id_noticia === false) {
     exit;
 }
 
-require "includes/src/noticias/noticiaModel.php";
 $noticia = es\ucm\fdi\aw\noticias\Noticia::getNoticiaById($id_noticia);
 
 if ($noticia === null) {

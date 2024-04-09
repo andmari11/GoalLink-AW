@@ -3,7 +3,6 @@ namespace es\ucm\fdi\aw\ligas;
 
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\Formulario;
-require("includes/src/ligas/ligasModel.php");
 
 class FormularioLigaCrear extends Formulario {
 

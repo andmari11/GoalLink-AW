@@ -1,9 +1,7 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
-require "includes/src/noticias/noticiaModel.php";
-require "includes/src/usuarios/Usuario.php";
-require "includes/src/ligas/ligasModel.php";
+
 
 use \es\ucm\fdi\aw\usuarios\Usuario;
 use es\ucm\fdi\aw\ligas\Liga;

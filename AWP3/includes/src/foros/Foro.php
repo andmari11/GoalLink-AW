@@ -1,4 +1,6 @@
 <?php
+namespace es\ucm\fdi\aw\foros;
+use es\ucm\fdi\aw\Aplicacion;
 
 class Foro
 {
@@ -21,10 +23,12 @@ class Foro
 
     public static function listaDestacados($n) {
 
-        $conn = new mysqli('localhost', 'root', '', 'goallink_1');
-        if ($conn->connect_error){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
             die("La conexión ha fallado" . $conn->connect_error);
         }
+
 
         $result = $conn->query("SELECT * FROM foro WHERE destacado>=$n");
         if($result && $result->num_rows>0){

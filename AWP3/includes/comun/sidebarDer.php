@@ -2,7 +2,6 @@
     <h3>Noticias destacadas</h3>
     <ul>
         <?php
-            require_once "includes/src/noticias/noticiaModel.php";
             use \es\ucm\fdi\aw\noticias\Noticia;
 
             // Obtener la lista de noticias destacadas
@@ -28,7 +27,7 @@
     <h3>Foros destacados</h3>
     <ul>
         <?php
-            require "includes/model/foroModel.php";
+            use \es\ucm\fdi\aw\foros\Foro;
 
             // Obtener la lista de foros destacados
             $forosDestacados = Foro::listaDestacados(1);

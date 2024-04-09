@@ -1,6 +1,8 @@
 <?php
 
 require_once __DIR__.'/includes/config.php';
+use es\ucm\fdi\aw\foros;
+use es\ucm\fdi\aw\noticias;
 
 $titulo = 'Index';
 $contenido = '';
@@ -22,7 +24,6 @@ $contenido .= <<<EOS
             <div class='notscontent'>
 EOS;
 
-require "includes/src/noticias/noticiaModel.php";
 $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados(1);
 
 if ($noticiasDestacadas != NULL) {
@@ -52,8 +53,7 @@ $contenido .= <<<EOS
             <div class='foroscontent'>
 EOS;
 
-require "includes/model/foroModel.php";
-$forosDestacados = Foro::listaDestacados(1);
+$forosDestacados = es\ucm\fdi\aw\foros\Foro::listaDestacados(1);
 
 if ($forosDestacados != NULL) {
     foreach ($forosDestacados as $foro) {

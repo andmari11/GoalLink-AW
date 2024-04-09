@@ -47,7 +47,6 @@ if($app->esEditor() || $app->esAdmin()){
     <h3>Noticias
     <a href="crearNoticia.php"><button type="button"> Crear noticia</button></a></h3>
     EOS;
-    require "includes/src/noticias/noticiaModel.php";
     $noticias = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados(0);
 
     if ($noticias !== NULL) {
@@ -84,7 +83,6 @@ if($app->esEditor() || $app->esAdmin()){
     <a href="crearLiga.php"><button type="button"> Crear liga</button></a></h3>
 
     EOS;
-    require "includes/src/ligas/ligasModel.php";
     $ligas = \es\ucm\fdi\aw\ligas\Liga::listaLigas();
     if ($ligas !== NULL) {
         $contenido .= "<table class='tabla-ligas'>";
