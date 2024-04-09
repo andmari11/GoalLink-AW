@@ -62,6 +62,9 @@ class Liga
     {
 
         $liga= self::getLigaByName($nombre);
+        if(!$liga){
+            return null;
+        }
 
         return $liga->getLogo();
     }
