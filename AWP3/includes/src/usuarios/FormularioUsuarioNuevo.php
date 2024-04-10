@@ -62,7 +62,7 @@ class FormularioUsuarioNuevo extends Formulario
             </div>
             <div>
                 <label>Elija su liga favorita:</label>
-                <select name="liga">
+                <select name="liga"required>
                 {$ligas}
                 {$erroresCampos['liga']}
                 </select>
