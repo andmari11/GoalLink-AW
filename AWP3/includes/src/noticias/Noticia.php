@@ -65,6 +65,16 @@ class Noticia
         }
         return NULL;
     }
+    public static function deleteListaLigas($liga) {
+
+        $noticiasAsociadas = Noticia::listaLigas($liga);
+
+        if ($noticiasAsociadas) {
+            foreach ($noticiasAsociadas as $noticia) {
+                self::eliminarNoticia($noticia->getId());
+            }
+        }
+    }
 
     public static function listaLigas($ligas) {
 

@@ -1,6 +1,6 @@
 <?php
 namespace es\ucm\fdi\aw\ligas;
-
+use es\ucm\fdi\aw\noticias\Noticia;
 use es\ucm\fdi\aw\Aplicacion;
 
 class Liga
@@ -91,6 +91,9 @@ class Liga
         if (file_exists($liga->getRutaImg())) {
             unlink($liga->getRutaImg());
         }
+
+        Noticia::deleteListaLigas($nombreLiga);
+
         $sql = "DELETE FROM ligas WHERE nombre = '$nombreLiga'";
         $result = $conn->query($sql);
 
