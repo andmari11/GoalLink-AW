@@ -12,7 +12,7 @@ class FormularioNoticiaLike extends Formulario
     public function __construct($noticia, $url) {
         $this->noticia=$noticia;
         parent::__construct('formLike', [
-            'urlRedireccion' => Aplicacion::getInstance()->resuelve($url)]);
+            'urlRedireccion' => ($url)]);
     }
 
     protected function generaCamposFormulario(&$datos)

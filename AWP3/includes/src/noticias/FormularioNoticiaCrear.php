@@ -29,7 +29,9 @@ class FormularioNoticiaCrear extends Formulario {
             $fecha=$datos['fecha'] ?? date('Y-m-d');
             $usuarioId=$app->getUsuarioID();
             $ligas=self::obtenerOpcionesLigas();
-
+            $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
+            $erroresCampos = self::generaErroresCampos(['ligas', 'imagen'], $this->errores, 'span', array('class' => 'error'));
+    
             $html = <<<EOS
             <div class="formulario">
             <form action="crearNoticia.php" method="POST" ">
@@ -45,12 +47,14 @@ class FormularioNoticiaCrear extends Formulario {
                 <input type="date" id="fecha" name="fecha" value="{$fecha}"><br><br>
                 
                 <label for="imagen1">Imagen:</label><br>
-                <input type="file" id="imagen1" name="imagen1"><br><br>
+                <input type="file" id="imagen1" name="imagen1" required><br><br>
+                {$erroresCampos['file']}
                 <div>
                 <label>Elija la liga relacionada:</label>
-                <select name="liga">
+                <select name="liga" required>
                 {$ligas}
                 </select>
+                {$erroresCampos['ligas']}
                 </div>
                 <br><br><br>
                 <input type="checkbox" id="destacado" name="destacado" value="1">

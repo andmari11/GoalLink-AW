@@ -134,12 +134,13 @@ class Noticia
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
 
-        $ruta_destino = "img/noticias/" . basename($imagen1["name"]);
+        if($imagen1!=null){
+            $ruta_destino = "img/noticias/" . basename($imagen1["name"]);
 
-        if(!move_uploaded_file($imagen1["tmp_name"], $ruta_destino)){
-            die(error_get_last()['message']);
+            if(!move_uploaded_file($imagen1["tmp_name"], $ruta_destino)){
+                die(error_get_last()['message']);
+            }
         }
-
         $titulo = $conn->real_escape_string($titulo);
         $contenido = $conn->real_escape_string($contenido);
         $id_autor = $conn->real_escape_string($id_autor);
