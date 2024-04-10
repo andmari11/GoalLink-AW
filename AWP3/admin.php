@@ -107,4 +107,4 @@ if(!$app->esAdmin() and !$app->esEditor() and !$app->esModerador()) {
 }
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
-$app->generaVista('/esqueleto.php', $params);
+$app->generaVista('/esqueleto2.php', $params);

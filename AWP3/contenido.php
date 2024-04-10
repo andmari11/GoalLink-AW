@@ -36,7 +36,7 @@ else{
     EOS;
 }
 
-    if ($noticia==NULL or $noticiasDestacadas == NULL) {
+    if ($noticiasDestacadas == NULL) {
         $contenido .= '<p>No hay noticias de tu liga favorita</p>'; // Cerrar contenedor de noticia
 
     }
