@@ -34,6 +34,7 @@ class FormularioUsuarioEdit extends Formulario
         $usuario=Usuario::buscaUsuario($username);
         $nombre=$usuario->getNombre();
         $email=$usuario->getEmail(); 
+        $rol=$usuario->getRol();
         $ligas=self::obtenerOpcionesLigas();
 
         if($nombre!='admin'){
@@ -68,6 +69,15 @@ class FormularioUsuarioEdit extends Formulario
                         </select>
                         </div>
                 EOF;
+            }
+            else{
+                $html.=<<<EOF
+                <div>
+                <label>Rol:</label> 
+                <b>{$rol}</b>
+
+                </div>
+        EOF;
             }
             $html.=<<<EOF
                     <div>

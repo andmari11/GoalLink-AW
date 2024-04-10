@@ -28,7 +28,7 @@ class Noticia
         if ($imagen1 !== NULL) {
             $this->imagen1 = file_get_contents($imagen1);
             if ($this->imagen1 === FALSE) {
-                die("Error al leer el archivo de imagen.");
+                die("Error al leer el archivo de imagen.". $imagen1);
             }
         }            
         $this->liga=$liga;
