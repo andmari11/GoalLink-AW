@@ -127,6 +127,7 @@ nav {
     height: 800px;
     background-color: #f3fff8;
     margin-top: 70px;
+    
 }
 
 nav a,
@@ -238,7 +239,7 @@ i {
 
 #container {
     display: grid;
-    grid-template-columns: repeat(2, 45%);
+    grid-template-columns: repeat(2, 47%);
     grid-column-gap: 45px;
     grid-row-gap: 20px;
     margin-left: 20px;
@@ -451,4 +452,7 @@ i {
     }
 
 }
+
+
+
 

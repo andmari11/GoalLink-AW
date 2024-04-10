@@ -5,10 +5,10 @@
 }
 
 .imagen-noticia-din {
-    width: 500px;
-    height: 300px;
+    width: 35%;
+    height: 35%;
     margin-right: 20px; /* Añade un margen a la derecha de la imagen de la noticia */
-    margin-left: 60px;
+    margin-left: 5%;
     border-radius: 5%; /* Añade bordes redondeados a las imágenes */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Añade una sombra a las imágenes */
     transition: 0.3s; /* Añade una transición suave al pasar el ratón por encima */
