@@ -11,20 +11,22 @@ $contenido = '';
 if ($app->usuarioLogueado()) {
 
     $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas(Usuario::getLigaDeUsuarioId($app->getUsuarioID()));
-    $contenido.='<div class="contenido-con-imagen">';
-    $contenido .= '<p class="liga-favorita">Liga favorita</p>';
-    $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(Liga::LogoLiga(Usuario::getLigaDeUsuarioId($app->getUsuarioID()))).'" />';
 
-    if($app->esAdmin() || $app->esEditor()){
+    if($noticiasDestacadas!=null){
+        $contenido.='<div class="contenido-con-imagen">';
+        $contenido .= '<p class="liga-favorita">Liga favorita</p>';
+        $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(Liga::LogoLiga(Usuario::getLigaDeUsuarioId($app->getUsuarioID()))).'" />';
+        if($app->esAdmin() || $app->esEditor()){
 
-        $contenido .= '<a href="admin.php"><button class="editar-btn" type="button"><i class="fas fa-user-cog"></i>Editar</button></a></div>';
-    }
-    else{
-        $contenido .= <<<EOS
-        <h2>Contenido</h2>
+            $contenido .= '<a href="admin.php"><button class="editar-btn" type="button"><i class="fas fa-user-cog"></i>Editar</button></a></div>';
+        }
+        else{
+            $contenido .= <<<EOS
+            <h2>Contenido</h2>
 
-        EOS;
-    
+            EOS;
+        
+        }
     }
 }
 else{

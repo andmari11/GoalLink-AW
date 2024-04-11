@@ -1,6 +1,6 @@
 <?php
 namespace es\ucm\fdi\aw\ligas;
-
+use es\ucm\fdi\aw\noticias\Noticia;
 use es\ucm\fdi\aw\Aplicacion;
 
 class Liga
@@ -47,7 +47,7 @@ class Liga
         if ($conn->connect_error) {
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
-        $result = $conn->query("SELECT logo FROM ligas WHERE nombre = '$liga'");
+        $result = $conn->query("SELECT nombre, logo FROM ligas WHERE nombre = '$liga'");
         if ($result->num_rows > 0) {
             // Si hay resultados, devolvemos el logo de la liga
             $row = $result->fetch_assoc();
@@ -94,6 +94,9 @@ class Liga
         if (file_exists($liga->getRutaImg())) {
             unlink($liga->getRutaImg());
         }
+
+        Noticia::deleteListaLigas($nombreLiga);
+
         $sql = "DELETE FROM ligas WHERE nombre = '$nombreLiga'";
         $result = $conn->query($sql);
 

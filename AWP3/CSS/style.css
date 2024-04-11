@@ -21,7 +21,7 @@ header {
     padding: 10px;
     height: 100px;
     width: 100%;
-    background-color: #7d7d7d;
+    background-color: rgb(2, 199, 2);
     color: white;
     display: flex;
     justify-content: space-between;
@@ -125,8 +125,9 @@ nav {
     float: left;
     width: 170px;
     height: 800px;
-    background-color: #f3fff8;
+    background-color: #b3fa9c;
     margin-top: 70px;
+    
 }
 
 nav a,
@@ -147,16 +148,16 @@ aside {
     float: right;
     width: 250px;
     height: 800px;
-    background-color: #e6ffe6;
+    background-color: #b3fa9c;;
     margin-top: 70px;
-    margin-right: 139px;
+    
 }
 
 main {
     padding: 10px;
     float: left;
     min-height: 800px;
-    width: 900px;
+    width: 910px;
     background-color: white;
     margin-top: 70px;
 }
@@ -238,7 +239,7 @@ i {
 
 #container {
     display: grid;
-    grid-template-columns: repeat(2, 610px);
+    grid-template-columns: repeat(2, 47%);
     grid-column-gap: 45px;
     grid-row-gap: 20px;
     margin-left: 20px;
@@ -391,11 +392,67 @@ i {
     text-transform: uppercase;
 }
 
-@media(max-width: 480px){
+@media screen and (max-width: 1510px) {
     #container {
-        display: grid;
-        grid-template-columns: repeat(1, 610px);
-        grid-row-gap: 20px;
-        margin-left: 20px;
+        display: block; /* Cambiar a una sola columna */
     }
+
+    .noticia,
+    .foroscontent {
+        width: 100%; /* Ocupar todo el ancho de la columna */
+    }
+
+    .main-esqueleto2 {
+        padding: 10px;
+        float: left;
+        min-height: 800px;
+        width: 50%;
+        background-color: white;
+        margin-top: 70px;
+    }
+
+    div.saludo {
+        width: 30%;
+        display: flex;
+        margin-right: 80px;
+        align-items: center;
+        text-align: right;
+        font-weight: bold;
+        
+    }
+
+    main {
+        padding: 10px;
+        float: left;
+        min-height: 800px;
+        width: 34%;
+        background-color: white;
+        margin-top: 70px;
+    }
+
+    aside {
+        padding: 10px;
+        float: right;
+        width: 20%;
+        height: 800px;
+        background-color: #e6ffe6;
+        margin-top: 70px;
+        right: 0;
+        
+    }
+
+    nav {
+        padding: 10px;
+        float: left;
+        width: 20%;
+        height: 800px;
+        background-color: #f3fff8;
+        margin-top: 70px;
+        
+    }
+
 }
+
+
+
+
