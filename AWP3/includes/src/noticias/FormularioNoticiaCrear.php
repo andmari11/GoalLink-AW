@@ -80,7 +80,7 @@ class FormularioNoticiaCrear extends Formulario {
     {
         $titulo = $datos['titulo'] ?? null;
         $contenido = $datos['contenido'] ?? null;
-        $id_autor = 1; 
+        $id_autor = $datos['id_autor']; 
         $fecha = $datos['fecha'];
         $destacado = isset($datos["destacado"]) ? 1 : 0;
         $ligas= $_REQUEST['liga'];
