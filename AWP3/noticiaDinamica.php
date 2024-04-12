@@ -29,9 +29,9 @@ $contenido .= "<h2 class='titulo-noticia'>" . $titulo . "</h2>";
 
 $contenido .= '<div class="noticia-imagenes-din">';
 if ($noticia->getImagen1() !== null) {
-    $contenido .= '<img class="imagen-noticia-din" src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" />';
+    $contenido .= '<img class="imagen-noticia-din" src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" alt="noticiadin">';
 }
-$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(es\ucm\fdi\aw\ligas\Liga::LogoLiga($noticia->getLiga())).'" />';
+$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(es\ucm\fdi\aw\ligas\Liga::LogoLiga($noticia->getLiga())).'" alt = "logoliga">';
 $contenido .= '</div>';
 
 $contenido .= "<p class ='contenido'>" .$noticia->getContenido()."</p>";

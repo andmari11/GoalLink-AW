@@ -16,7 +16,7 @@ class FormularioUsuarioEdit extends Formulario
 
     }
     function obtenerOpcionesLigas() {
-        $opciones = '';
+        $opciones = '<option value="">Selecciona una liga...</option>';
         $ligas = Liga::listaLigas();
 
         if ($ligas) {
@@ -82,17 +82,17 @@ class FormularioUsuarioEdit extends Formulario
             $html.=<<<EOF
                     <div>
                     <label for="password">Password:</label>
-                    <input id="password" type="password" name="password" />
+                    <input id="password" type="password" name="password">
                     {$erroresCampos['password']}
                     </div>
                     <div>
                     <label for="password2">Reintroduce el password:</label>
-                    <input id="password2" type="password" name="password2" />
+                    <input id="password2" type="password" name="password2">
                     {$erroresCampos['password2']}
                     </div>
                     <div>
                     <label>Elija su liga favorita:</label>
-                    <select name="liga"required>
+                    <select name="liga" required>
                     {$ligas}
                     {$erroresCampos['liga']}
                     </select>

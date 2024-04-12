@@ -35,7 +35,7 @@ if ($noticiasDestacadas != NULL) {
 
         if($noticia->getImagen1()!=NULL){
             $contenido .= '<figure class="noticia-imagen">'; //contenedor de figura
-            $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" />';
+            $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" alt="imgnoticia">';
             $contenido .= '</figure>'; // Cerrar contenedor de figura
                 }
                 $contenido .= "<p class = 'autorfechahome'>" . es\ucm\fdi\aw\usuarios\Usuario::getNombreAutor($noticia->getIdAutor()). " " .$noticia->getFecha()."</p>";

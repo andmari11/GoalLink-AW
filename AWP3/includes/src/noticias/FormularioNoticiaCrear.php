@@ -11,7 +11,7 @@ class FormularioNoticiaCrear extends Formulario {
         parent::__construct('formNoticiaCrear', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php'), 'method'=>'POST', 'enctype'=>'multipart/form-data']);
     }
     function obtenerOpcionesLigas() {
-        $opciones = '';
+        $opciones = '<option value="">Selecciona una liga...</option>';
         $ligas = Liga::listaLigas();
 
         if ($ligas) {
@@ -30,11 +30,11 @@ class FormularioNoticiaCrear extends Formulario {
             $usuarioId=$app->getUsuarioID();
             $ligas=self::obtenerOpcionesLigas();
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-            $erroresCampos = self::generaErroresCampos(['ligas', 'imagen'], $this->errores, 'span', array('class' => 'error'));
+            $erroresCampos = self::generaErroresCampos(['ligas', 'file'], $this->errores, 'span', array('class' => 'error'));
     
             $html = <<<EOS
             <div class="formulario">
-            <form action="crearNoticia.php" method="POST" ">
+            <form action="crearNoticia.php" method="POST">
                 <label for="titulo">Título:</label><br>
                 <input type="text" id="titulo" name="titulo" required><br><br>
                 

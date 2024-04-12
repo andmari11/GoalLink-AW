@@ -125,7 +125,7 @@ nav {
     float: left;
     width: 170px;
     height: 800px;
-    background-color: #b3fa9c;
+    background-color: #e6fbde;
     margin-top: 70px;
     
 }
@@ -148,7 +148,7 @@ aside {
     float: right;
     width: 250px;
     height: 800px;
-    background-color: #b3fa9c;;
+    background-color: #e6fbde;
     margin-top: 70px;
     
 }
@@ -280,6 +280,7 @@ i {
 }
 
 .noticia {
+    text-align: center;
     border-bottom: 1px solid #ccc; /* Borde sólido de color gris */
     padding: 20px; /* Espacio alrededor del contenido de cada noticia */
     margin-bottom: 20px; /* Espacio entre cada noticia */
@@ -435,7 +436,7 @@ i {
         float: right;
         width: 20%;
         height: 800px;
-        background-color: #e6ffe6;
+        background-color: #b3fa9c;
         margin-top: 70px;
         right: 0;
         
@@ -446,7 +447,7 @@ i {
         float: left;
         width: 20%;
         height: 800px;
-        background-color: #f3fff8;
+        background-color: #b3fa9c;
         margin-top: 70px;
         
     }

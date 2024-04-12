@@ -9,7 +9,7 @@ $titulo = 'Editar';
 if (($app->usuarioLogueado())) {
 
     $contenido=<<<EOF
-    <h1>Acceso al sistema</h1>
+    <h2>Acceso al sistema</h2>
     $formulario    
     EOF;
 } else {

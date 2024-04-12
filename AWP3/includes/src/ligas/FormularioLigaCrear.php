@@ -18,7 +18,7 @@ class FormularioLigaCrear extends Formulario {
 
             $html = <<<EOS
             <div class="formulario">
-            <form action="crearLiga.php" method="POST" ">
+            <form action="crearLiga.php" method="POST">
                 <label for="titulo">Nombre de la liga:</label><br>
                 <input type="text" id="titulo" name="titulo" required><br><br>
                 

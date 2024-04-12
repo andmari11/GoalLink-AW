@@ -7,7 +7,7 @@ $formRegistro = $formRegistro->gestiona();
 
 $tituloPagina = 'Registro';
 $contenidoPrincipal=<<<EOF
-  	<h1>Registro de usuario</h1>
+  	<h2>Registro de usuario</h2>
     $formRegistro
 EOF;
 
