@@ -33,7 +33,7 @@ class FormularioNoticiaEditar extends Formulario
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['titulo', 'contenido', 'imagen', 'liga'], $this->errores, 'span', array('class' => 'error'));
         $app = Aplicacion::getInstance();
-        if(!$app->esAdmin() or !$app->esEditor()){
+        if(!$app->esAdmin() and !$app->esEditor()){
             return "ACCESO DENEGADO";
         }
 
