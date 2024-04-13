@@ -42,7 +42,7 @@ class FormularioNoticiaEditar extends Formulario
 
         $html .= <<<EOF
         <h2>Editar Noticia</h2>
-        <form action="procesarEditNoticia.php" method="post"> 
+         
             <fieldset class="formulario">
                 <legend>Editar datos:</legend>
                 <div>
@@ -66,7 +66,7 @@ class FormularioNoticiaEditar extends Formulario
                 <button type="submit">Guardar Cambios</button>
                 <input type="hidden" name="id_noticia" value="$this->id">
             </fieldset>
-        </form>
+        
     EOF;
         return $html;
     }

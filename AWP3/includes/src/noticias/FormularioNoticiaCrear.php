@@ -34,7 +34,7 @@ class FormularioNoticiaCrear extends Formulario {
     
             $html = <<<EOS
             <div class="formulario">
-            <form action="crearNoticia.php" method="POST">
+            
                 <label for="titulo">Título:</label><br>
                 <input type="text" id="titulo" name="titulo" required><br><br>
                 
@@ -60,7 +60,7 @@ class FormularioNoticiaCrear extends Formulario {
                 <input type="checkbox" id="destacado" name="destacado" value="1">
                 <label for="destacado">Destacado</label><br><br>
                 <input type="submit" value="Crear Noticia">
-            </form>
+            
             </div>
             EOS;
         }
