@@ -264,51 +264,51 @@ i {
 
 .notscontent,
 .foroscontent {
-    border: 1px solid #ddd; /* Cambio del color del borde */
-    border-radius: 8px; /* Reducción del radio de borde */
-    padding: 15px; /* Reducción del relleno */
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    padding: 15px; 
     margin-bottom: 20px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Añadir sombra */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 }
 
 
 .notscontent p,
 .foroscontent p {
-    margin-bottom: 10px; /* Reducción del margen inferior */
-    line-height: 1.5; /* Aumento del espacio entre líneas */
+    margin-bottom: 10px; 
+    line-height: 1.5; 
     text-align: justify;
 }
 
 .noticia {
     text-align: center;
-    border-bottom: 1px solid #ccc; /* Borde sólido de color gris */
-    padding: 20px; /* Espacio alrededor del contenido de cada noticia */
-    margin-bottom: 20px; /* Espacio entre cada noticia */
+    border-bottom: 1px solid #ccc; 
+    padding: 20px; 
+    margin-bottom: 20px; 
     border: 2px;
     grid-row-start: span;
     grid-row-end: auto;
     box-shadow: 0px 0px 10px 0px rgb(160, 164, 160) inset;
-    background-color: #fff; /* Fondo blanco para cada noticia */
-    border-radius: 10px; /* Bordes redondeados para cada noticia */
+    background-color: #fff; 
+    border-radius: 10px; 
 }
 
 .noticia h3 {
-    text-align: center; /* Centrar el texto */
-    font-size: 24px; /* Tamaño de fuente */
-    color: #333; /* Color del texto */
-    margin-bottom: 10px; /* Espacio inferior */
-    font-weight: bold; /* Negrita */
-    text-transform: uppercase; /* Convertir texto a mayúsculas */
+    text-align: center; 
+    font-size: 24px; 
+    color: #333; 
+    margin-bottom: 10px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
 }
 
 .noticia h3 a {
-    text-decoration: none; /* Quitar subrayado del enlace */
-    color: #62a370; /* Color del enlace */
-    transition: color 0.3s ease; /* Transición suave */
+    text-decoration: none; 
+    color: #62a370; 
+    transition: color 0.3s ease; 
 }
 
 .noticia h3 a:hover {
-    color: #01579b; /* Cambiar color al pasar el ratón */
+    color: #01579b; 
 }
 .admin-buttons {
     list-style-type: none;
@@ -355,52 +355,52 @@ i {
 
 #nots h2,
 #foros h2 {
-    text-align: center; /* Centrar el texto */
-    font-size: 36px; /* Ajustar el tamaño del texto */
-    color: #62a370; /* Color del texto */
-    margin-bottom: 20px; /* Espacio inferior */
-    font-weight: bold; /* Negrita */
-    text-transform: uppercase; /* Convertir texto a mayúsculas */
+    text-align: center; 
+    font-size: 36px; 
+    color: #62a370; 
+    margin-bottom: 20px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
 }
 
 #nots h2 a,
 #foros h2 a {
-    text-decoration: none; /* Quitar subrayado del enlace */
-    color: #62a370; /* Color del enlace */
-    transition: color 0.3s ease; /* Transición suave */
+    text-decoration: none; 
+    color: #62a370; 
+    transition: color 0.3s ease; 
 }
 
 #nots h2 a:hover,
 #foros h2 a:hover {
-    color: #01579b; /* Cambiar color al pasar el ratón */
+    color: #01579b; 
 }
 
 .editar-btn {
     margin-top: 50px;
     margin-right: 100px;
-    margin-bottom: 10px; /* Espacio entre el botón y las noticias */
+    margin-bottom: 10px; 
     border: none;
     color: white;
     cursor: pointer;
 }
 
 .titulo-noticia-BarraLateral a {
-    text-decoration: none; /* quita el subrayado */
-    font-family: 'Signika Negative', sans-serif; /* cambia la fuente */
-    font-size: 13px; /* aumenta el tamaño de la fuente */
-    color: #62a370; /* cambia el color del texto */
+    text-decoration: none; 
+    font-family: 'Signika Negative', sans-serif; 
+    font-size: 13px; 
+    color: #62a370; 
     font-weight: bold;
     text-transform: uppercase;
 }
 
 @media screen and (max-width: 1510px) {
     #container {
-        display: block; /* Cambiar a una sola columna */
+        display: block; 
     }
 
     .noticia,
     .foroscontent {
-        width: 100%; /* Ocupar todo el ancho de la columna */
+        width: 100%; 
     }
 
     .main-esqueleto2 {

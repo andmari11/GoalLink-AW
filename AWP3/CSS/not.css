@@ -1,17 +1,17 @@
 .noticia-imagenes-din {
     display: flex;
-    align-items: center; /* Alinea las imágenes verticalmente en el centro */
-    justify-content: space-between; /* Separa las imágenes */
+    align-items: center; 
+    justify-content: space-between; 
 }
 
 .imagen-noticia-din {
     width: 35%;
     height: 35%;
-    margin-right: 20px; /* Añade un margen a la derecha de la imagen de la noticia */
+    margin-right: 20px; 
     margin-left: 5%;
-    border-radius: 5%; /* Añade bordes redondeados a las imágenes */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Añade una sombra a las imágenes */
-    transition: 0.3s; /* Añade una transición suave al pasar el ratón por encima */
+    border-radius: 5%; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    transition: 0.3s; 
 }
 
 .logo-liga-din {
@@ -23,19 +23,19 @@
 
 .titulo-noticia {
     text-align: center;
-    font-size: 50px; /* Aumentar el tamaño del texto */
-    font-weight: bold; /* Hacer el texto en negrita para que destaque más */
-    color: #62a370; /* Cambiar el color del texto para que sea más legible */
-    text-transform: uppercase; /* Convertir el texto a mayúsculas para un aspecto más elegante */
+    font-size: 50px;
+    font-weight: bold; 
+    color: #62a370; 
+    text-transform: uppercase; 
     margin-bottom: 60px;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Agregar una sombra al texto para hacerlo resaltar */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
 .contenido{
     font-size: 20px;
     margin-right: 20px;
-    column-count: 2; /* Número de columnas */
-    column-gap: 20px; /* Espacio entre columnas */
+    column-count: 2; 
+    column-gap: 20px; 
 }
 
 .autorfecha{
@@ -54,9 +54,9 @@
     text-align: center;
     font-size: 50px;
     font-weight: bold;
-    color: #62a370; /* Cambia este color según tu diseño */
-    text-transform: uppercase; /* Convertir el texto a mayúsculas para un aspecto más elegante */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Agregar una sombra al texto para hacerlo resaltar */
+    color: #62a370; 
+    text-transform: uppercase; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
 }
 
 .contenido-con-imagen {
@@ -67,24 +67,24 @@
 .noticia-imagen img {
     width: 100%;
     height: auto;
-    border-radius: 5%; /* Añade bordes redondeados a las imágenes */
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Añade una sombra a las imágenes */
-    transition: 0.3s; /* Añade una transición suave al pasar el ratón por encima */
+    border-radius: 5%; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s; 
 }
 
 .noticia-imagen img:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); /* Aumenta la sombra al pasar el ratón por encima */
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2); 
 }
 
 .imagen-noticia-container {
-    text-align: center; /* Centrar la imagen horizontalmente */
+    text-align: center; 
     margin-bottom: 10px;
 }
 
 .imagen-noticia {
-    max-width: 50%; /* Ajustar el ancho máximo de la imagen */
-    height: auto; /* Permitir que la altura se ajuste automáticamente */
-    border-radius: 10px; /* Agregar un radio de borde */
-    overflow: hidden; /* Ocultar cualquier parte de la imagen que se desborde del radio de borde */
+    max-width: 50%; 
+    height: auto; 
+    border-radius: 10px; 
+    overflow: hidden; 
 }
 
