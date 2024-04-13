@@ -203,7 +203,7 @@ legend {
 }
 
 label {
-    width: 3000x;
+    width: 300px;
     float: left;
     text-align: left;
     margin-right: 0.5em;
@@ -436,7 +436,7 @@ i {
         float: right;
         width: 20%;
         height: 800px;
-        background-color: #b3fa9c;
+        background-color: #e6fbde;
         margin-top: 70px;
         right: 0;
         
@@ -447,7 +447,7 @@ i {
         float: left;
         width: 20%;
         height: 800px;
-        background-color: #b3fa9c;
+        background-color: #e6fbde;
         margin-top: 70px;
         
     }
