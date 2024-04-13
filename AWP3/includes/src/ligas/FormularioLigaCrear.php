@@ -15,8 +15,11 @@ class FormularioLigaCrear extends Formulario {
 
         $app = Aplicacion::getInstance();
         if($app->esAdmin() or $app->esEditor()){
-
+            $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
+            $erroresCampos = self::generaErroresCampos(['ligas', 'file'], $this->errores, 'span', array('class' => 'error'));
+    
             $html = <<<EOS
+            $htmlErroresGlobales
             <div class="formulario">
             
                 <label for="titulo">Nombre de la liga:</label><br>
@@ -24,7 +27,7 @@ class FormularioLigaCrear extends Formulario {
                 
                 <label for="imagen1">Imagen:</label><br>
                 <input type="file" id="imagen1" name="imagen1" required><br><br>
-
+                {$erroresCampos['file']}
                 
                 <button type="submit" name="crearliga">Crear Liga</button>
             
@@ -47,10 +50,17 @@ class FormularioLigaCrear extends Formulario {
         $titulo = $datos['titulo'] ?? null;
         $imagen1 = null;
 
-        if(isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
-            $imagen1= ($_FILES['imagen1']);
+        
+        if (isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
+            $imagen1 = $_FILES['imagen1'];
+            if ($imagen1['size'] > 10485760) {
+                $this->errores['file'] = 'El tamaño del archivo excede el límite permitido.';
+            }
         } 
-        Liga::add($titulo, $imagen1);
+        if (count($this->errores) === 0) {
+
+            Liga::add($titulo, $imagen1);
+        }
     }
 
 }

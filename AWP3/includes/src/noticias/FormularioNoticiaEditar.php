@@ -1,10 +1,9 @@
 <?php
 namespace es\ucm\fdi\aw\noticias;
 
-
+use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\Formulario;
 use \es\ucm\fdi\aw\noticias\Noticia;
-
 use es\ucm\fdi\aw\ligas\Liga;
 
 class FormularioNoticiaEditar extends Formulario
@@ -33,6 +32,10 @@ class FormularioNoticiaEditar extends Formulario
         }
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
         $erroresCampos = self::generaErroresCampos(['titulo', 'contenido', 'imagen', 'liga'], $this->errores, 'span', array('class' => 'error'));
+        $app = Aplicacion::getInstance();
+        if(!$app->esAdmin() or !$app->esEditor()){
+            return "ACCESO DENEGADO";
+        }
 
         $ligas=self::obtenerOpcionesLigas();
         $titulo = htmlspecialchars($noticia->getTitulo());
@@ -41,6 +44,7 @@ class FormularioNoticiaEditar extends Formulario
         $html="";
 
         $html .= <<<EOF
+        $htmlErroresGlobales
         <h2>Editar Noticia</h2>
          
             <fieldset class="formulario">
@@ -55,6 +59,7 @@ class FormularioNoticiaEditar extends Formulario
                 </div>
                 <label for="imagen1">Imagen:</label><br>
                 <input type="file" id="imagen1" name="imagen1"><br><br>
+                {$erroresCampos['file']}
                 <div>
                     <label>Elija la liga relacionada:</label>
                     <select name="liga">
@@ -77,12 +82,15 @@ class FormularioNoticiaEditar extends Formulario
         $destacado = isset($datos["destacado"]) ? 1 : 0;
         $ligas= $_REQUEST['liga'];
         $imagen1 = null;
-
-        if(isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
-            $imagen1= ($_FILES['imagen1']);
+        if (isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
+            $imagen1 = $_FILES['imagen1'];
+            if ($imagen1['size'] > 10485760) {
+                $this->errores['file'] = 'El tamaño del archivo excede el límite permitido.';
+            }
+        } 
+        if (count($this->errores) === 0) {
+            Noticia::updateNoticia($id, $titulo, $contenido, $imagen1, $destacado, $ligas);
         }
-        Noticia::updateNoticia($id, $titulo, $contenido, $imagen1, $destacado, $ligas);
-
 
     }
 }

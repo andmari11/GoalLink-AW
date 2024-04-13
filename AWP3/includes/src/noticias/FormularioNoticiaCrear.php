@@ -33,6 +33,7 @@ class FormularioNoticiaCrear extends Formulario {
             $erroresCampos = self::generaErroresCampos(['ligas', 'file'], $this->errores, 'span', array('class' => 'error'));
     
             $html = <<<EOS
+            $htmlErroresGlobales
             <div class="formulario">
             
                 <label for="titulo">Título:</label><br>
@@ -87,10 +88,17 @@ class FormularioNoticiaCrear extends Formulario {
         $imagen1 = null;
 
 
-        if(isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
-            $imagen1 = $_FILES["imagen1"];
+        if (isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
+            $imagen1 = $_FILES['imagen1'];
+            if ($imagen1['size'] > 10485760) {
+                $this->errores['file'] = 'El tamaño del archivo excede el límite permitido.';
+            }
         } 
+        if (count($this->errores) === 0) {
 
-        Noticia::insertarNoticia($titulo, $contenido, $id_autor, $fecha, $imagen1, $destacado, $ligas);
+            Noticia::insertarNoticia($titulo, $contenido, $id_autor, $fecha, $imagen1, $destacado, $ligas);
+
+        }
+
     }
 }
