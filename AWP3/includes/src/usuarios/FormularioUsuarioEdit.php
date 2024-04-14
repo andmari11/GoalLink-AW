@@ -9,12 +9,12 @@ class FormularioUsuarioEdit extends Formulario
 {
     public function __construct() {
         $app = Aplicacion::getInstance();
-        if($app->esAdmin())
+        if ($app->esAdmin())
             parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php')]);
         else
             parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
-
     }
+
     function obtenerOpcionesLigas() {
         $opciones = '<option value="">Selecciona una liga...</option>';
         $ligas = Liga::listaLigas();
@@ -26,94 +26,85 @@ class FormularioUsuarioEdit extends Formulario
         }
         return $opciones;
     }
-    
-    protected function generaCamposFormulario(&$datos)
-    {
-        $username= htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
 
-        $usuario=Usuario::buscaUsuario($username);
-        $nombre=$usuario->getNombre();
-        $email=$usuario->getEmail(); 
-        $rol=$usuario->getRol();
-        $ligas=self::obtenerOpcionesLigas();
+    protected function generaCamposFormulario(&$datos) {
+        $username = htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
+
+        $usuario = Usuario::buscaUsuario($username);
+        $nombre = $usuario->getNombre();
+        $email = $usuario->getEmail(); 
+        $rol = $usuario->getRol();
+        $ligas = self::obtenerOpcionesLigas();
         $app = Aplicacion::getInstance();
-        if(!$app->esAdmin() and !$app->esEditor()){
+        if (!$app->esAdmin() && !$app->esEditor()) {
             return "ACCESO DENEGADO";
         }
 
-        if($nombre!='admin'){
-            // Se generan los mensajes de error si existen.
+        if ($nombre != 'admin') {
+            // Generación de mensajes de error si existen
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
             $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'email', 'rol', 'password', 'password2', 'liga'], $this->errores, 'span', array('class' => 'error'));
 
             $html = <<<EOF
-            $htmlErroresGlobales
+            {$htmlErroresGlobales}
             <h2>Editar usuario</h2>
-            
-                <fieldset class="formulario">
-                    <legend>Editar datos:</legend>
-                    <div>
+            <fieldset class="formulario">
+                <legend>Editar datos:</legend>
+                <div>
                     <label>Nombre:</label><input type="text" name="nombre" value="{$nombre}" required> 
                     {$erroresCampos['nombreUsuario']}
-                    </div>
-                    <div>
+                </div>
+                <div>
                     <label>Email:</label><input type="text" name="email" value="{$email}" required> 
                     {$erroresCampos['email']}
-                    </div>
-            EOF;
-            if( Aplicacion::getInstance()->esAdmin()){
-                $html.=<<<EOF
-                        <div>
-                        <label>Rol:</label> 
-                        <select name="rol">
-                            <option value="e">Editor</option>
-                            <option value="m">Moderador</option>
-                            <option value="u">Usuario</option>
-                            {$erroresCampos['rol']}
-                        </select>
-                        </div>
-                EOF;
-            }
-            else{
-                $html.=<<<EOF
-                <div>
-                <label>Rol:</label> 
-                <b>{$rol}</b>
-
                 </div>
-        EOF;
+EOF;
+            if (Aplicacion::getInstance()->esAdmin()) {
+                $html .= <<<EOF
+                <div>
+                    <label>Rol:</label> 
+                    <select name="rol">
+                        <option value="e">Editor</option>
+                        <option value="m">Moderador</option>
+                        <option value="u">Usuario</option>
+                    </select>
+                    {$erroresCampos['rol']}
+                </div>
+EOF;
+            } else {
+                $html .= <<<EOF
+                <div>
+                    <label>Rol:</label> 
+                    <b>{$rol}</b>
+                </div>
+EOF;
             }
-            $html.=<<<EOF
-                    <div>
+            $html .= <<<EOF
+                <div>
                     <label for="password">Password:</label>
                     <input id="password" type="password" name="password">
                     {$erroresCampos['password']}
-                    </div>
-                    <div>
+                </div>
+                <div>
                     <label for="password2">Reintroduce el password:</label>
                     <input id="password2" type="password" name="password2">
                     {$erroresCampos['password2']}
-                    </div>
-                    <div>
+                </div>
+                <div>
                     <label>Elija su liga favorita:</label>
                     <select name="liga" required>
-                    {$ligas}
-                    {$erroresCampos['liga']}
+                        {$ligas}
                     </select>
+                    {$erroresCampos['liga']}
                 </div>
-                    <button type="submit">Siguiente</button>
-                    <input type="hidden" name="nombreAntiguo" value="{$username}">
-                </fieldset>
-            
-            </div>
-            EOF;
-        }
-        else{
-
+                <button type="submit">Siguiente</button>
+                <input type="hidden" name="nombreAntiguo" value="{$username}">
+            </fieldset>
+EOF;
+        } else {
             $html = "<h2>No es posible editar admin</h2>";
         }
         return $html;
-
     }
 
     protected function procesaFormulario(&$datos){
