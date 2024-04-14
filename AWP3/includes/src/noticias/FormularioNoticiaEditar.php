@@ -87,6 +87,11 @@ class FormularioNoticiaEditar extends Formulario
             if ($imagen1['size'] > 10485760) {
                 $this->errores['file'] = 'El tamaño del archivo excede el límite permitido.';
             }
+            $extension = strtolower(pathinfo($imagen1['name'], PATHINFO_EXTENSION));
+            $extensionesPermitidas = array("jpg", "jpeg", "png", "gif");
+            if (!in_array($extension, $extensionesPermitidas)) {
+                $this->errores['file'] = 'El archivo debe ser una imagen (JPEG, PNG, GIF).';
+            } 
         } 
         if (count($this->errores) === 0) {
             Noticia::updateNoticia($id, $titulo, $contenido, $imagen1, $destacado, $ligas);
