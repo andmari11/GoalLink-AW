@@ -50,7 +50,7 @@ if($app->usuarioLogueado()){
 }
 if($app->usuarioLogueado() and($app->esEditor() or $app->esAdmin())){    
     $contenido .= "<br>";
-    $contenido .= " <a href='editNoticias.php?noticia=" . urlencode($noticia->getId()) . "'><button class = 'enlace'>Editar</button></a>";
+    $contenido .= " <a href='editNoticias.php?noticia=" . urlencode($noticia->getId()) . "'>Editar</a>";
   
 } 
 

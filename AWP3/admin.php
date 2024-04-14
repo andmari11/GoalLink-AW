@@ -10,7 +10,7 @@ $contenido="<h2>Panel de Administración</h2>";
 
 if($app->esAdmin()){
     $contenido .= <<<EOS
-    <h3>Usuarios<a href='anadirUsuario.php'><button type="button">Añadir nuevo usuario</button></a></h3>
+    <h3>Usuarios   <a href='anadirUsuario.php'>Añadir nuevo usuario</a></h3>
     EOS;
     $usuarios=es\ucm\fdi\aw\usuarios\Usuario::listaUsuario();
     if ($usuarios !== NULL) {
@@ -45,7 +45,7 @@ if($app->esAdmin()){
 if($app->esEditor() || $app->esAdmin()){
     $contenido .= <<<EOS
     <h3>Noticias
-    <a href="crearNoticia.php"><button type="button"> Crear noticia</button></a></h3>
+    <a href="crearNoticia.php">   Crear noticia</a></h3>
     EOS;
     $noticias = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados(0);
 
@@ -80,7 +80,7 @@ if($app->esEditor() || $app->esAdmin()){
 if($app->esEditor() || $app->esAdmin()){
     $contenido .= <<<EOS
     <h3>Ligas
-    <a href="crearLiga.php"><button type="button"> Crear liga</button></a></h3>
+    <a href="crearLiga.php">   Crear liga</a></h3>
 
     EOS;
     $ligas = \es\ucm\fdi\aw\ligas\Liga::listaLigas();

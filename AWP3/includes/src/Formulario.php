@@ -276,7 +276,7 @@ abstract class Formulario
         $enctypeAtt = $this->enctype != null ? "enctype=\"{$this->enctype}\"" : '';
 
         $htmlForm = <<<EOS
-        <form method="{$this->method}" action="{$this->action}" id="{$this->formId}" {$classAtt} {$enctypeAtt}>
+        <form method="{$this->method}" action="{$this->action}" class="{$this->formId}" {$classAtt} {$enctypeAtt}>
             <input type="hidden" name="tipoFormulario" value="{$this->tipoFormulario}">
             $htmlCamposFormularios
         </form>

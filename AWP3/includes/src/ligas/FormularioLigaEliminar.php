@@ -17,7 +17,7 @@ class FormularioLigaEliminar extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $camposFormulario = <<<EOS
-        <form action="procesarEliminarLiga.php" method="post"> 
+       
         <input type="hidden" name="liga_id" value="$this->liga">
 
             <button class="enlace" type="submit"> 🗑️</button>

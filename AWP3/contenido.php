@@ -8,6 +8,7 @@ use es\ucm\fdi\aw\ligas\Liga;
 $titulo = 'Contenido';
 
 $contenido = '';
+$noticiasDestacadas = null;
 if ($app->usuarioLogueado()) {
 
     $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas(Usuario::getLigaDeUsuarioId($app->getUsuarioID()));

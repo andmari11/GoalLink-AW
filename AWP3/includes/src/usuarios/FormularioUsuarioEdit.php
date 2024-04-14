@@ -49,7 +49,7 @@ class FormularioUsuarioEdit extends Formulario
             $html = <<<EOF
             $htmlErroresGlobales
             <h2>Editar usuario</h2>
-            <form action="procesareditUsuarios.php" method="post"> 
+            
                 <fieldset class="formulario">
                     <legend>Editar datos:</legend>
                     <div>
@@ -104,7 +104,7 @@ class FormularioUsuarioEdit extends Formulario
                     <button type="submit">Siguiente</button>
                     <input type="hidden" name="nombreAntiguo" value="{$username}">
                 </fieldset>
-            </form>
+            
             </div>
             EOF;
         }

@@ -31,7 +31,7 @@ class FormularioNoticiaEditar extends Formulario
             return "<p>La noticia no existe.</p>";
         }
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['titulo', 'contenido', 'imagen', 'liga'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['titulo', 'contenido', 'file', 'liga'], $this->errores, 'span', array('class' => 'error'));
         $app = Aplicacion::getInstance();
         if(!$app->esAdmin() and !$app->esEditor()){
             return "ACCESO DENEGADO";

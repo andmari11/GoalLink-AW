@@ -17,7 +17,7 @@ class FormularionoticiaEliminar extends Formulario
     protected function generaCamposFormulario(&$datos)
     {
         $camposFormulario = <<<EOS
-        <form action="procesarEliminarNoticia.php" method="post"> 
+        
         <input type="hidden" name="id_noticia" value="$this->noticia">
 
             <button class="enlace" type="submit"> 🗑️</button>
