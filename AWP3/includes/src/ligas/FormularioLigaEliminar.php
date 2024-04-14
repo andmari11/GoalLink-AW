@@ -20,7 +20,7 @@ class FormularioLigaEliminar extends Formulario
         <form action="procesarEliminarLiga.php" method="post"> 
         <input type="hidden" name="liga_id" value="$this->liga">
 
-            <button class="enlace" type="submit">$this->liga  🗑️</button>
+            <button class="enlace" type="submit"> 🗑️</button>
         EOS;
         return $camposFormulario;
     }
