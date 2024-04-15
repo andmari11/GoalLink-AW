@@ -124,14 +124,14 @@ class Foro
     }
 
     public function getMensajesNum(){
-
+        
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
         if ($conn->connect_error) {
             die("La conexión ha fallado" . $conn->connect_error);
         }
 
-        $result=$conn->query("SELECT COUNT(*) FROM favoritos_foro WHERE foro_id='$this->id'");
+        $result=$conn->query("SELECT COUNT(*) FROM mensaje WHERE foro_id='$this->id'");
 
         if($result){
 
