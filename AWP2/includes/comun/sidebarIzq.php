@@ -6,8 +6,8 @@ function mostrarLista()
         
         echo "<ul>";
         echo "<li><a href='index.php'>Inicio</a></li>";
-        echo "<li><a href='noticiasContenido.php'>Ver contenido</a></li>";
-        echo "<li><a href='forosContenido.php'>Foro</a></li>";
+        echo "<li><a href='contenido.php'>Ver contenido</a></li>";
+        echo "<li><a href='foro.php'>Foro</a></li>";
         echo "<li><a href='admin.php'>Administrar</a></li>";
         echo "</ul>";
         
@@ -15,8 +15,8 @@ function mostrarLista()
         
         echo "<ul>";
         echo "<li><a href='index.php'>Inicio</a></li>";
-        echo "<li><a href='noticiasContenido.php'>Ver contenido</a></li>";
-        echo "<li><a href='forosContenido.php'>Foro</a></li>";
+        echo "<li><a href='contenido.php'>Ver contenido</a></li>";
+        echo "<li><a href='foro.php'>Foro</a></li>";
         echo "</ul>";
         
     }
