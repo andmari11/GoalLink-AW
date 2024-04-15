@@ -36,9 +36,9 @@
             if ($forosDestacados != NULL) {
                 foreach ($forosDestacados as $foro) {
                     echo "<li>";
-                    echo "<h4>" . $foro->getTitulo() . "</h4>";
+                    echo "<h4 class='titulo-foro-BarraLateral'><a href='foroDinamico.php?id=" . $foro->getId() . "'>" . $foro->getTitulo() . "</a></h4>";
                     echo "<p>" . $foro->getDescripcion() . "</p>";
-                    echo "<p>" . $foro->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+                    echo "<p>" . $foro->getfavoritos() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
                     echo "</li>";
                 }
             } else {

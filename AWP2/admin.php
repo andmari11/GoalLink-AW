@@ -40,8 +40,8 @@ $titulo = "Administración";
     $contenido .= <<<EOS
     <ul>
     <li><a href="index.php">Editar home</a></li>
-    <li><a href="contenido.php">Editar contenido</a></li>
-    <li><a href="foro.php"> Editar foro</a></li>
+    <li><a href="noticiasContenido.php">Editar contenido</a></li>
+    <li><a href="forosContenido.php"> Editar foro</a></li>
     </ul>
     EOS;
 

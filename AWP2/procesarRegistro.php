@@ -34,7 +34,7 @@
         
                 $contenido = <<<EOS
                 <h2>Registrado {$_SESSION['nombre']} </h2>
-                <p>Descubre contenido exclusivo <a href='contenido.php'>aquí.</a></p>
+                <p>Descubre contenido exclusivo <a href='noticiasContenido.php'>aquí.</a></p>
                 EOS;
             }
         

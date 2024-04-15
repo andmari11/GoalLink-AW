@@ -109,14 +109,10 @@ class Noticia
             die("La conexión ha fallado" . $conn->connect_error);
         }
     
-        // Prepara la consulta SQL para evitar inyecciones SQL
         $stmt = $conn->prepare("SELECT * FROM noticia WHERE id = ?");
-        $stmt->bind_param("i", $id); // "i" indica que $id es un entero
-    
-        // Ejecuta la consulta
+        $stmt->bind_param("i", $id); 
         $stmt->execute();
     
-        // Obtiene los resultados
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             $array = $result->fetch_assoc();
@@ -292,7 +288,7 @@ class Noticia
         }
 
 
-        $result=($conn->query("UPDATE noticia SET likes_noticias='$this->likes' WHERE id = '$this->id'"));
+        $result=($conn->query("UPDATE noticia SET likes='$this->likes' WHERE id = '$this->id'"));
         return $result;
     }
 

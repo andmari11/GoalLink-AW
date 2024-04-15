@@ -57,9 +57,9 @@ $forosDestacados = es\ucm\fdi\aw\foros\Foro::listaDestacados(1);
 
 if ($forosDestacados != NULL) {
     foreach ($forosDestacados as $foro) {
-        $contenido .= "<h3>" . $foro->getTitulo() . "</h3>";
+        $contenido .= '<h3><a href="foroDinamico.php?id=' . $foro->getId() . '">' . $foro->getTitulo() . '</a></h3>';
         $contenido .= "<p>" . $foro->getDescripcion() . "</p>";
-        $contenido .= "<p>" . $foro->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+        $contenido .= "<p>" . $foro->getfavoritos() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
     }
 } else {
     $contenido .= "<p>No se encontraron foros destacados.</p>";

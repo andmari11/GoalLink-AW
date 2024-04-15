@@ -8,18 +8,43 @@ class Foro
     private $titulo;
     private $descripcion;
     private $fecha;
-    private $likes;
+    private $favoritos;
     private $destacado;
 
-    public function __construct($id, $titulo, $descripcion, $fecha, $likes, $destacado)
+    public function __construct($id, $titulo, $descripcion, $fecha, $favoritos, $destacado)
     {
         $this->id = $id;
         $this->titulo = $titulo;
         $this->descripcion = $descripcion;
         $this->fecha = $fecha;
-        $this->likes = $likes;
+        $this->favoritos = $favoritos;
         $this->destacado = $destacado;
     }
+
+    public static function getForoById($id) {
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("La conexión ha fallado" . $conn->connect_error);
+        }
+    
+        $stmt = $conn->prepare("SELECT * FROM foro WHERE id = ?");
+        $stmt->bind_param("i", $id); 
+
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $array = $result->fetch_assoc();
+            $foro = new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["favoritos"], $array["destacado"]);
+            return $foro;
+        } else {
+
+            return NULL;
+        }
+    }
+    
 
     public static function listaDestacados($n) {
 
@@ -35,7 +60,7 @@ class Foro
 
             while($array=$result->fetch_assoc()){
 
-                $foro= new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["likes"], $array["destacado"]);
+                $foro= new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["favoritos"], $array["destacado"]);
                 $lista[]=$foro;
             }
 
@@ -66,9 +91,9 @@ class Foro
         return $this->fecha;
     }
 
-    public function getLikes()
+    public function getfavoritos()
     {
-        return $this->likes;
+        return $this->favoritos;
     }
 
     public function getDestacado()
