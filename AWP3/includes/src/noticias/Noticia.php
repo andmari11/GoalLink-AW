@@ -280,19 +280,19 @@ class Noticia
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
 
-        $result = $conn->query("SELECT * FROM likes WHERE usuario_id = {$app->getUsuarioID()} AND noticia_id = $this->id");
+        $result = $conn->query("SELECT * FROM likes_noticias WHERE usuario_id = {$app->getUsuarioID()} AND noticia_id = $this->id");
 
         if ($result && $result->num_rows > 0) {
             $this->likes -= $n;
-            $conn->query("DELETE FROM likes WHERE usuario_id = {$app->getUsuarioID()} AND noticia_id = $this->id");
+            $conn->query("DELETE FROM likes_noticias WHERE usuario_id = {$app->getUsuarioID()} AND noticia_id = $this->id");
 
         } else {
             $this->likes+=$n;
-            $conn->query("INSERT INTO likes (usuario_id, noticia_id) VALUES ({$app->getUsuarioID()}, $this->id)");
+            $conn->query("INSERT INTO likes_noticias (usuario_id, noticia_id) VALUES ({$app->getUsuarioID()}, $this->id)");
         }
 
 
-        $result=($conn->query("UPDATE noticia SET likes='$this->likes' WHERE id = '$this->id'"));
+        $result=($conn->query("UPDATE noticia SET likes_noticias='$this->likes' WHERE id = '$this->id'"));
         return $result;
     }
 
