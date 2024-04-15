@@ -59,7 +59,7 @@ if ($forosDestacados != NULL) {
     foreach ($forosDestacados as $foro) {
         $contenido .= '<h3><a href="foroDinamico.php?id=' . $foro->getId() . '">' . $foro->getTitulo() . '</a></h3>';
         $contenido .= "<p>" . $foro->getDescripcion() . "</p>";
-        $contenido .= "<p>" . $foro->getfavoritos() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+        $contenido .= "<p>" . $foro->getfavoritos() . " <span style='color: red;'>&#11088;&#65039;</span></p>" . $foro->getMensajesNum() .  "<span style='color: red;'>&#128172;</span></p>";
     }
 } else {
     $contenido .= "<p>No se encontraron foros destacados.</p>";

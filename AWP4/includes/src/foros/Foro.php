@@ -1,6 +1,7 @@
 <?php
 namespace es\ucm\fdi\aw\foros;
 use es\ucm\fdi\aw\Aplicacion;
+use es\ucm\fdi\aw\mensajes\Mensaje;
 
 class Foro
 {
@@ -10,6 +11,8 @@ class Foro
     private $fecha;
     private $favoritos;
     private $destacado;
+    private $mensajes;
+
 
     public function __construct($id, $titulo, $descripcion, $fecha, $favoritos, $destacado)
     {
@@ -19,6 +22,16 @@ class Foro
         $this->fecha = $fecha;
         $this->favoritos = $favoritos;
         $this->destacado = $destacado;
+    }
+
+    public static function compararFechas($a, $b) {
+        $aFecha=strtotime($a->getFecha());
+        $bFecha=strtotime($b->getFecha());
+
+        if ($bFecha==$aFecha) {
+            return 0;
+        }
+        return ($aFecha > $bFecha) ? -1 : 1;
     }
 
     public static function getForoById($id) {
@@ -63,6 +76,7 @@ class Foro
                 $foro= new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["favoritos"], $array["destacado"]);
                 $lista[]=$foro;
             }
+            usort($lista, array('es\ucm\fdi\aw\foros\Foro', 'compararFechas'));
 
             return $lista;
             
@@ -70,6 +84,14 @@ class Foro
         }
         return NULL;
     }
+
+
+    public function getMensajes(){
+
+       
+        return Mensaje::getMensajesForo($this->id);;
+    }
+
 
     public function getId()
     {
@@ -99,5 +121,24 @@ class Foro
     public function getDestacado()
     {
         return $this->destacado;
+    }
+
+    public function getMensajesNum(){
+
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("La conexión ha fallado" . $conn->connect_error);
+        }
+
+        $result=$conn->query("SELECT COUNT(*) FROM favoritos_foro WHERE foro_id='$this->id'");
+
+        if($result){
+
+            $ret = $result->fetch_row();
+            return $ret[0];
+        }
+
+        return 0;
     }
 }

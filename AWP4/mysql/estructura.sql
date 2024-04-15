@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost
--- Tiempo de generación: 15-04-2024 a las 11:54:02
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 15-04-2024 a las 18:28:32
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -24,6 +24,18 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `favoritos_foro`
+--
+
+CREATE TABLE `favoritos_foro` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `foro_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `foro`
 --
 
@@ -32,9 +44,9 @@ CREATE TABLE `foro` (
   `titulo` varchar(100) NOT NULL,
   `descripcion` varchar(200) DEFAULT NULL,
   `fecha` date NOT NULL,
-  `likes` int(11) DEFAULT 0,
+  `favoritos` int(11) DEFAULT 0,
   `destacado` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -45,7 +57,7 @@ CREATE TABLE `foro` (
 CREATE TABLE `ligas` (
   `nombre` varchar(20) NOT NULL,
   `logo` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -57,7 +69,7 @@ CREATE TABLE `likes_mensajes` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `mensaje_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -69,7 +81,7 @@ CREATE TABLE `likes_noticias` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `noticia_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -85,7 +97,7 @@ CREATE TABLE `mensaje` (
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
   `likes` int(11) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -95,15 +107,15 @@ CREATE TABLE `mensaje` (
 
 CREATE TABLE `noticia` (
   `id` int(11) NOT NULL,
-  `titulo` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `titulo` varchar(100) NOT NULL,
   `id_autor` int(11) DEFAULT NULL,
-  `contenido` text CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci DEFAULT NULL,
+  `contenido` text DEFAULT NULL,
   `fecha` date NOT NULL,
   `likes` int(11) DEFAULT 0,
   `destacado` tinyint(1) NOT NULL DEFAULT 0,
   `imagen1` varchar(255) DEFAULT NULL,
   `liga` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -118,11 +130,19 @@ CREATE TABLE `usuario` (
   `password` varchar(100) NOT NULL,
   `rol` char(1) NOT NULL DEFAULT 'u' COMMENT '(u)suario(default), (a)dmin, (e)ditor, (m)oderador',
   `liga_fav` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `favoritos_foro`
+--
+ALTER TABLE `favoritos_foro`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `foro_id` (`foro_id`);
 
 --
 -- Indices de la tabla `foro`
@@ -179,6 +199,12 @@ ALTER TABLE `usuario`
 --
 
 --
+-- AUTO_INCREMENT de la tabla `favoritos_foro`
+--
+ALTER TABLE `favoritos_foro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `likes_noticias`
 --
 ALTER TABLE `likes_noticias`
@@ -205,6 +231,13 @@ ALTER TABLE `usuario`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `favoritos_foro`
+--
+ALTER TABLE `favoritos_foro`
+  ADD CONSTRAINT `favoritos_foro_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `favoritos_foro_ibfk_2` FOREIGN KEY (`foro_id`) REFERENCES `foro` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `likes_mensajes`
