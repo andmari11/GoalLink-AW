@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 08-04-2024 a las 13:01:25
+-- Tiempo de generación: 15-04-2024 a las 11:54:02
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -50,13 +50,41 @@ CREATE TABLE `ligas` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `likes`
+-- Estructura de tabla para la tabla `likes_mensajes`
 --
 
-CREATE TABLE `likes` (
+CREATE TABLE `likes_mensajes` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `mensaje_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `likes_noticias`
+--
+
+CREATE TABLE `likes_noticias` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `noticia_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `mensaje`
+--
+
+CREATE TABLE `mensaje` (
+  `id` int(11) NOT NULL,
+  `foro_id` int(11) DEFAULT NULL,
+  `usuario_id` int(11) DEFAULT NULL,
+  `text` text NOT NULL,
+  `fecha` date NOT NULL,
+  `hora` time NOT NULL,
+  `likes` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -97,18 +125,39 @@ CREATE TABLE `usuario` (
 --
 
 --
+-- Indices de la tabla `foro`
+--
+ALTER TABLE `foro`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `ligas`
 --
 ALTER TABLE `ligas`
   ADD PRIMARY KEY (`nombre`);
 
 --
--- Indices de la tabla `likes`
+-- Indices de la tabla `likes_mensajes`
 --
-ALTER TABLE `likes`
+ALTER TABLE `likes_mensajes`
+  ADD KEY `usuario_id` (`usuario_id`,`mensaje_id`),
+  ADD KEY `mensaje_id` (`mensaje_id`);
+
+--
+-- Indices de la tabla `likes_noticias`
+--
+ALTER TABLE `likes_noticias`
   ADD PRIMARY KEY (`id`),
   ADD KEY `usuario_id` (`usuario_id`),
   ADD KEY `noticia_id` (`noticia_id`);
+
+--
+-- Indices de la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `foro_id` (`foro_id`),
+  ADD KEY `usuario_id` (`usuario_id`);
 
 --
 -- Indices de la tabla `noticia`
@@ -130,9 +179,15 @@ ALTER TABLE `usuario`
 --
 
 --
--- AUTO_INCREMENT de la tabla `likes`
+-- AUTO_INCREMENT de la tabla `likes_noticias`
 --
-ALTER TABLE `likes`
+ALTER TABLE `likes_noticias`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -152,6 +207,27 @@ ALTER TABLE `usuario`
 --
 
 --
+-- Filtros para la tabla `likes_mensajes`
+--
+ALTER TABLE `likes_mensajes`
+  ADD CONSTRAINT `likes_mensajes_ibfk_1` FOREIGN KEY (`mensaje_id`) REFERENCES `mensaje` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `likes_mensajes_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `likes_noticias`
+--
+ALTER TABLE `likes_noticias`
+  ADD CONSTRAINT `fk_noticia_likes` FOREIGN KEY (`noticia_id`) REFERENCES `noticia` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_usuario_likes` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
+
+--
+-- Filtros para la tabla `mensaje`
+--
+ALTER TABLE `mensaje`
+  ADD CONSTRAINT `mensaje_ibfk_1` FOREIGN KEY (`foro_id`) REFERENCES `foro` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `mensaje_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE SET NULL;
+
+--
 -- Filtros para la tabla `noticia`
 --
 ALTER TABLE `noticia`
@@ -163,15 +239,6 @@ ALTER TABLE `noticia`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`liga_fav`) REFERENCES `ligas` (`nombre`) ON DELETE SET NULL;
-
---
--- Filtros para la tabla `likes`
---
-ALTER TABLE `likes`
-  ADD CONSTRAINT `fk_usuario_likes` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `fk_noticia_likes` FOREIGN KEY (`noticia_id`) REFERENCES `noticia` (`id`) ON DELETE CASCADE;
-
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
