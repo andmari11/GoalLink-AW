@@ -1,0 +1,106 @@
+.formulario{
+    width: 80%; 
+    max-width: 600px; 
+    margin: auto; 
+    padding: 30px; 
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    
+}
+
+/* Estilo para las etiquetas del formulario */
+.formulario label {
+    font-weight: bold; 
+}
+
+/* Estilo para los campos de texto */
+.formulario input,
+.formulario textarea {
+    width: 100%; 
+    padding: 10px; 
+    margin-bottom: 15px; 
+    border: 1px solid #ced4da; 
+    border-radius: 5px; 
+    box-sizing: border-box; 
+}
+
+/* Estilo para el botón de enviar */
+.formulario input[type="submit"] {
+    background-color: #007bff;
+    color: #fff; 
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+
+/* Estilo hover para el botón de enviar */
+.formulario input[type="submit"]:hover {
+    background-color: #0056b3; 
+}
+
+
+/* Estilos para el formulario de nuevo usuario */
+.formulario-nuevo-usuario {
+    width: 80%; 
+    max-width: 600px; 
+    margin: 0 auto; 
+    padding: 30px; 
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    
+}
+
+
+.formulario select {
+    width: 100%;
+    padding: 15px; 
+    margin-bottom: 20px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+
+.formulario button {
+    width: 65%; 
+    background-color: #007bff;
+    color: #fff;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block; 
+    text-align: center;
+    font-family: 'Signika Negative', sans-serif;
+}
+
+
+
+
+/* Estilos para los mensajes de error */
+.error {
+    color: red;
+    font-size: 14px;
+    margin-top: 10px; 
+}
+
+
+
+/* Estilos para el formulario de login */
+
+
+.formulario legend {
+    font-weight: bold; 
+    margin-bottom: 20px; 
+}
+
+
+.formulario .centrar {
+    text-align: center; 
+}
+
