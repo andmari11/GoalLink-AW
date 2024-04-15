@@ -45,20 +45,25 @@ if($app->usuarioLogueado()){
   
 } 
 $resultado = $foro->getMensajes();
-
+$contenido.= "<div id ='forosdinamicos'>";
 foreach ($resultado as $mensaje) {
-    $contenido.= "<div>";
-    $contenido.= "<p>Usuario: " . Usuario::getNombreAutor($mensaje->getUsuarioId()) . "</p>";
-    $contenido.= "<p>Texto: " . $mensaje->getText() . "</p>";
-    $contenido.= "<p>Fecha: " . $mensaje->getFecha() . "</p>";
-    $contenido.= "<p>Hora: " . $mensaje->getHora() . "</p>";
-    $contenido.= "<p>Likes: " . $mensaje->getLikes() . "</p>";
+    $contenido.= "<div class ='forodin'>";
+    $contenido.= "<div class ='usfeho'>";
+    $contenido.= "<p class ='usermsg'> " . Usuario::getNombreAutor($mensaje->getUsuarioId()) . "</p>";
+    $contenido.= "<p class ='fechamsg'> Fecha: " . $mensaje->getFecha() . "</p>";
+    $contenido.= "<p class ='horamsg'>" . $mensaje->getHora() . "</p>";
+    $contenido.= "</div>";
+   
+    $contenido.= "<div class ='mensaje'>";
+    $contenido.= "<p>" . $mensaje->getText() . "</p>";
+    $contenido.= "</div>";
+    $contenido.= "<p class= 'likemsg'>" . $mensaje->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
     $contenido.= "</div>";
 }
-
+$contenido.= "</div>";
 
 
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
-$app->generaVista('/esqueleto2.php', $params);
+$app->generaVista('/esqueleto.php', $params);
 

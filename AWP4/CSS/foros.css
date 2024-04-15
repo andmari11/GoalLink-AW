@@ -1,0 +1,65 @@
+.titulo-foro{
+    text-align: center; 
+    font-size: 36px; 
+    color: #62a370; 
+    margin-bottom: 20px; 
+    font-weight: bold; 
+    text-transform: uppercase;
+}
+
+#forosdinamicos{
+    display: flex;
+    flex-direction: column;
+}
+
+.forodin{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #ccc; 
+    padding: 20px; 
+    margin: 20px; 
+    border: 2px;
+    box-shadow: 0px 0px 10px 0px rgb(160, 164, 160) inset;
+    background-color: #fff; 
+    border-radius: 10px; 
+}
+
+.mensaje{
+    border-top: 2px solid rgb(2, 199, 2); 
+  
+}
+
+.usfeho{
+    display: flex;
+
+}
+.usermsg{
+    text-align: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    flex-grow: 25;
+}
+
+.fechamsg{
+    margin-top: 10px;
+    text-align: right;
+    margin-right: 10px;
+    color:grey;
+    flex-grow: 1;
+}
+
+.horamsg{
+    margin-top: 10px;
+    text-align: right;
+    margin-right: 10px;
+    color:grey;
+    flex-grow: 1;
+}
+
+.likemsg{
+    margin-top: 10px;
+    text-align: right;
+    margin-right: 10px;
+}
