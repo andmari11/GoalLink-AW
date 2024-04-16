@@ -8,7 +8,7 @@ use es\ucm\fdi\aw\ligas\Liga;
 class FormularioUsuarioNuevo extends Formulario
 {
     public function __construct() {
-        parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
+        parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php'),'method'=>'POST', 'enctype'=>'multipart/form-data']);
     }
     function obtenerOpcionesLigas() {
         $opciones = '<option value="">Selecciona una liga...</option>';
@@ -61,6 +61,11 @@ class FormularioUsuarioNuevo extends Formulario
                 {$erroresCampos['password2']}
             </div>
             <div>
+                <label for="imagen">Imagen:</label><br>
+                <input type="file" id="imagen" name="imagen" required><br><br>
+                {$erroresCampos['file']}
+            </div>
+            <div>
                 <label>Elija su liga favorita:</label>
                 <select name="liga" required>
                 {$ligas}
@@ -108,6 +113,17 @@ class FormularioUsuarioNuevo extends Formulario
             $this->errores['password2'] = 'Los passwords deben coincidir';
         }
 
+        if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
+            $imagen = $_FILES['imagen'];
+            if ($imagen['size'] > 10485760) {
+                $this->errores['file'] = 'El tamaño del archivo excede el límite permitido.';
+            }
+            $extension = strtolower(pathinfo($imagen['name'], PATHINFO_EXTENSION));
+            $extensionesPermitidas = array("jpg", "jpeg", "png", "gif");
+            if (!in_array($extension, $extensionesPermitidas)) {
+                $this->errores['file'] = 'El archivo debe ser una imagen (JPEG, PNG, GIF).';
+            } 
+        } 
         if (count($this->errores) === 0) {
             $usuario = Usuario::buscaUsuario($nombreUsuario);
 	
@@ -115,7 +131,7 @@ class FormularioUsuarioNuevo extends Formulario
                 $this->errores[] = "El usuario ya existe";
             } else {
                 $usuario = new Usuario($nombreUsuario, $email, $password, 'u', 'LaLiga');
-                if (Usuario::insertaUsuario($usuario)) {
+                if (Usuario::insertaUsuario($usuario, $imagen)) {
                     $this->accionSecundaria($usuario);
                 } else {
                     $this->errores[] = "Error al insertar el usuario";

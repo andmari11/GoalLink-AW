@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2024 a las 18:28:32
+-- Servidor: localhost
+-- Tiempo de generación: 16-04-2024 a las 15:54:05
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -31,7 +31,7 @@ CREATE TABLE `favoritos_foro` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `foro_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
 
@@ -129,7 +129,8 @@ CREATE TABLE `usuario` (
   `email` varchar(30) NOT NULL,
   `password` varchar(100) NOT NULL,
   `rol` char(1) NOT NULL DEFAULT 'u' COMMENT '(u)suario(default), (a)dmin, (e)ditor, (m)oderador',
-  `liga_fav` varchar(20) DEFAULT NULL
+  `liga_fav` varchar(20) DEFAULT NULL,
+  `imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
@@ -160,6 +161,7 @@ ALTER TABLE `ligas`
 -- Indices de la tabla `likes_mensajes`
 --
 ALTER TABLE `likes_mensajes`
+  ADD PRIMARY KEY (`id`),
   ADD KEY `usuario_id` (`usuario_id`,`mensaje_id`),
   ADD KEY `mensaje_id` (`mensaje_id`);
 
@@ -198,13 +200,16 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
-ALTER TABLE `likes_mensajes` 
-  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `favoritos_foro`
 --
 ALTER TABLE `favoritos_foro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `likes_mensajes`
+--
+ALTER TABLE `likes_mensajes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --

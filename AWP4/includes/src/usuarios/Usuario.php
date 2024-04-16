@@ -12,15 +12,16 @@ class Usuario
     private $password_hash;
     private $rol;
     private $liga_fav;
+    private $imagen;
 
-    public function __construct($nombre, $email, $password, $rol, $liga_fav, $id=null)
+    public function __construct($nombre, $email, $password, $rol, $liga_fav,  $imagen=null, $id=null)
     {
         $this->id=$id;
         $this->nombre = $nombre;
         $this->email=$email;
         $this->rol = $rol;
         $this->liga_fav=$liga_fav;
-
+        $this->imagen=$imagen;
         // Almacena la contraseña como un hash
         $this->password_hash=$password;
     }
@@ -53,7 +54,7 @@ class Usuario
 
             if($result->num_rows>0){
                 $array=$result->fetch_assoc();
-                $user= new Usuario($array['nombre'], $array['email'], ($array['password']), $array['rol'], $array['liga_fav'], $array['id']);
+                $user= new Usuario($array['nombre'], $array['email'], ($array['password']), $array['rol'], $array['liga_fav'], $array['imagen'],$array['id']);
                 return $user;
             }
             else{
@@ -63,23 +64,30 @@ class Usuario
 
     }
 
-    public static function insertaUsuario($usuario) {
+    public static function insertaUsuario($usuario, $imagen) {
+
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
-    
-        if (Usuario::buscaUsuario($usuario->nombre) == NULL) {
+        $ruta_destino="";
 
-            $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`) VALUES('%s', '%s', '%s', '%s', '%s')",
+        if (Usuario::buscaUsuario($usuario->nombre) == NULL) {
+            if($imagen!=null){
+                $ruta_destino = "img/usuarios/" . basename($imagen["name"]);
+                if(!move_uploaded_file($imagen["tmp_name"], $ruta_destino)){
+                    die(error_get_last()['message']);
+                }
+            }
+
+            $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`, `imagen`) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
                 $conn->real_escape_string($usuario->nombre),
                 $conn->real_escape_string($usuario->email),
                 $conn->real_escape_string(self::hashPassword($usuario->password_hash)), // Utiliza el hash almacenado
                 $conn->real_escape_string($usuario->rol),
-                $conn->real_escape_string($usuario->liga_fav));
-    
+                $conn->real_escape_string($usuario->liga_fav),
+                ($ruta_destino));
     
             if (!$conn->query($query)) {
-                echo "Error: " . $query . "<br>" . $conn->error; // Output error message
-                die();
+                die("Error: " . $query . "<br>" . $conn->error);
             }
     
             return true;
@@ -141,7 +149,7 @@ class Usuario
         if($result){
             if($result->num_rows>0){
                 while($array=$result->fetch_assoc()){
-                    $user= new Usuario($array['nombre'], $array['email'],($array['password']),$array['rol'], $array['liga_fav'],$array['id']);
+                    $user= new Usuario($array['nombre'], $array['email'],($array['password']),$array['rol'], $array['liga_fav'],$array['imagen'],$array['id']);
                     $lista[]=$user;
                 }
                 return $lista;
@@ -211,5 +219,10 @@ class Usuario
     public function getLigaFav(){
         
         return $this->liga_fav;
+    }
+
+    public function getImagen(){
+
+        return $this->imagen;
     }
 }
