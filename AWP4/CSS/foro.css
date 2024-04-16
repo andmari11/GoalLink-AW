@@ -63,3 +63,21 @@
     text-align: right;
     margin-right: 10px;
 }
+
+/* Estilos para la tabla de foros */
+.tabla-foros {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 30px;
+}
+
+.tabla-foros th,
+.tabla-foros td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.tabla-foros th {
+    background-color: #f2f2f2;
+}

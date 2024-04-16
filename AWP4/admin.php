@@ -4,6 +4,7 @@ use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\ligas\FormularioLigaEliminar;
 use es\ucm\fdi\aw\usuarios\FormularioUsuarioEliminar;
 use es\ucm\fdi\aw\noticias\FormularioNoticiaEliminar;
+use es\ucm\fdi\aw\foros\FormularioForoEliminar;
 
 $titulo = "Administración";
 $contenido="<h2>Panel de Administración</h2>";
@@ -99,6 +100,35 @@ if($app->esEditor() || $app->esAdmin()){
         $contenido .= "<p>No se encontraron ligas .</p>";
     }
 }
+
+if($app->esAdmin() || $app->esModerador()){
+    $contenido .= <<<EOS
+    <h3>Foros
+    <a href="crearForo.php">Crear foro</a></h3>
+    EOS;
+    $foros = \es\ucm\fdi\aw\foros\Foro::listaForos();
+    if ($foros !== NULL) {
+        $contenido .= "<table class='tabla-foros'>";
+        $contenido .= "<tr><th>Id</th><th>Nombre</th><th>Descripción</th><th>Fecha</th><th>Favoritos</th><th>Destacado</th><th>Editar</th><th>Eliminar</th></tr>";
+        foreach ($foros as $foro) {
+            $contenido .= "<tr>";
+            $contenido .= "<td>" . $foro->getId() . "</td>";
+            $contenido .= "<td>" . $foro->getTitulo() . "</td>";
+            $contenido .= "<td>" . $foro->getDescripcion() . "</td>";
+            $contenido .= "<td>" . $foro->getFecha() . "</td>";
+            $contenido .= "<td>" . $foro->getFavoritos() . "</td>";
+            $contenido .= "<td>" . ($foro->getDestacado() ? 'Sí' : 'No') . "</td>";
+            $contenido .= "<td>" ." <a href='editarForo.php?foro=" . urlencode($foro->getId()) . "'>✏️</a>". "</td>";
+            $formDelete = new FormularioForoEliminar($foro->getId());
+            $contenido .= "<td>" . $formDelete->gestiona(). "</td>";
+            $contenido .= "</tr>";
+        }
+        $contenido .= "</table>";
+    } else {
+        $contenido .= "<p>No se encontraron foros.</p>";
+    }
+}
+
 
 
 if(!$app->esAdmin() and !$app->esEditor() and !$app->esModerador()) {

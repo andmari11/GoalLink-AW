@@ -110,6 +110,76 @@ class Foro
         return $result;
     }
 
+    public static function insertarForo($titulo, $descripcion, $fecha, $favoritos, $destacado)
+    {
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("La conexión ha fallado: " . $conn->connect_error);
+        }
+
+        $stmt = $conn->prepare("INSERT INTO foro (titulo, descripcion, fecha, favoritos, destacado) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssii", $titulo, $descripcion, $fecha, $favoritos, $destacado);
+
+        if ($stmt->execute()) {
+            return $stmt->insert_id; // Devuelve el ID del nuevo foro insertado
+        } else {
+            return false;
+        }
+    }
+
+    public static function eliminarForo($foroId)
+    {
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("La conexión ha fallado: " . $conn->connect_error);
+        }
+
+        // Eliminar primero los mensajes asociados al foro
+        $conn->query("DELETE FROM mensaje WHERE foro_id = $foroId");
+
+        // Luego eliminar el foro
+        $stmt = $conn->prepare("DELETE FROM foro WHERE id = ?");
+        $stmt->bind_param("i", $foroId);
+
+        return $stmt->execute();
+    }
+
+    public static function listaForos()
+    {
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("La conexión ha fallado: " . $conn->connect_error);
+        }
+
+        $lista = array();
+        $result = $conn->query("SELECT * FROM foro");
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $foro = new Foro($row["id"], $row["titulo"], $row["descripcion"], $row["fecha"], $row["favoritos"], $row["destacado"]);
+                $lista[] = $foro;
+            }
+        }
+
+        return $lista;
+    }
+
+    public static function updateForo($id, $titulo, $descripcion, $destacado)
+{
+    $app = Aplicacion::getInstance();
+    $conn = $app->getConexionBd();
+    
+    $query = sprintf("UPDATE foro SET titulo = '%s', descripcion = '%s', destacado = %d WHERE id = %d",
+        $conn->real_escape_string($titulo),
+        $conn->real_escape_string($descripcion),
+        $destacado,
+        $id);
+
+    return $conn->query($query);
+}
+
     public function getMensajes(){
 
        
