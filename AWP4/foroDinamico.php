@@ -3,9 +3,10 @@
 require_once __DIR__.'/includes/config.php';
 
 use es\ucm\fdi\aw\foros\FormularioForoFavorito;
-use es\ucm\fdi\aw\foros\FormularioForoLike;
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\mensajes\FormularioMensajeLike;
+use es\ucm\fdi\aw\mensajes\FormularioMensajeEliminar;
+
 use es\ucm\fdi\aw\usuarios\Usuario;
 
 
@@ -72,6 +73,11 @@ foreach ($resultado as $mensaje) {
         $url = "foroDinamico.php?id=" . $id_foro;
         $form = new FormularioMensajeLike($mensaje, $url);
         $contenido .= $form->gestiona();
+
+        if($app->esAdmin() or $app->esModerador()){
+            $formEliminar = new FormularioMensajeEliminar($mensaje, $url);
+            $contenido .= $formEliminar->gestiona();
+        }
     }
     else{
         $contenido.= "<p class= 'likemsg'>" . $mensaje->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";

@@ -72,10 +72,11 @@ if($app->esEditor() || $app->esAdmin()){
             $contenido .= "</tr>";
         }
         $contenido .= "</table>";
+        } else {
+            $contenido .= "<p>No se encontraron noticias destacadas.</p>";
+        }
     }
-} else {
-    $contenido .= "<p>No se encontraron noticias destacadas.</p>";
-}
+
 
 if($app->esEditor() || $app->esAdmin()){
     $contenido .= <<<EOS
@@ -94,10 +95,11 @@ if($app->esEditor() || $app->esAdmin()){
             $contenido .= "</tr>";
         }
         $contenido .= "</table>";
+    } else {
+        $contenido .= "<p>No se encontraron ligas .</p>";
     }
-} else {
-    $contenido .= "<p>No se encontraron ligas .</p>";
 }
+
 
 if(!$app->esAdmin() and !$app->esEditor() and !$app->esModerador()) {
     $contenido = <<<EOS

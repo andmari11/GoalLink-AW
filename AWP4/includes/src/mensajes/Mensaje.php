@@ -99,12 +99,27 @@ class Mensaje
             usort($lista, array('es\ucm\fdi\aw\mensajes\Mensaje', 'compararFechasHora'));
 
             return $lista;
-            
-            
         }
         return NULL;
     }
+    public static function eliminarMensaje($id){
 
+        $mensaje=self::getMensajeById($id);
+
+        if($mensaje){
+
+            $app = Aplicacion::getInstance();
+            $conn = $app->getConexionBd();
+            if ($conn->connect_error) {
+                die("La conexión ha fallado" . $conn->connect_error);
+            }
+    
+            $query = sprintf("DELETE FROM `mensaje` WHERE `id` = '%s'", $conn->real_escape_string($id));
+
+            return $conn->query($query);
+        }
+        return false;
+    }
     public function setLike($n){
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();        
