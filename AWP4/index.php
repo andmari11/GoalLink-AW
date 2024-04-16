@@ -61,7 +61,7 @@ if ($forosDestacados != NULL) {
         $contenido .= '<div class="foro">';
         $contenido .= '<h3><a href="foroDinamico.php?id=' . $foro->getId() . '">' . $foro->getTitulo() . '</a></h3>';
         $contenido .= "<p>" . $foro->getDescripcion() . "</p>";
-        $contenido .= "<p>" . $foro->getfavoritos() . " <span style='color: red;'>&#11088;&#65039;</span>" . $foro->getMensajesNum() .  "<span style='color: red;'>&#128172;</span></p>";
+        $contenido .= "<p>" . $foro->getfavoritos() . "<span style='color: red;'>&#11088;&#65039;</span>" .$foro->getMensajesNum() .  "<span style='color: red;'>&#128172;</span></p>";
         $contenido .= '</div>';
     }
 } else {

@@ -85,6 +85,30 @@ class Foro
         return NULL;
     }
 
+    public function setFavorito($usuarioId){
+
+
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("La conexión ha fallado" . $conn->connect_error);
+        }
+
+        $result = $conn->query("SELECT * FROM favoritos_foro WHERE usuario_id = {$app->getUsuarioID()} AND foro_id = $this->id");
+
+        if ($result && $result->num_rows > 0) {
+            $this->favoritos -= 1;
+            $conn->query("DELETE FROM favoritos_foro WHERE usuario_id = {$app->getUsuarioID()} AND foro_id = $this->id");
+
+        } else {
+            $this->favoritos+=1;
+            $conn->query("INSERT INTO favoritos_foro (usuario_id, foro_id) VALUES ({$app->getUsuarioID()}, $this->id)");
+        }
+
+
+        $result=($conn->query("UPDATE foro SET favoritos='$this->favoritos' WHERE id = '$this->id'"));
+        return $result;
+    }
 
     public function getMensajes(){
 

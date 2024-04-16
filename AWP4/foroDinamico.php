@@ -2,7 +2,10 @@
 
 require_once __DIR__.'/includes/config.php';
 
-use es\ucm\fdi\aw\foros\Foro;
+use es\ucm\fdi\aw\foros\FormularioForoFavorito;
+use es\ucm\fdi\aw\foros\FormularioForoLike;
+use es\ucm\fdi\aw\Aplicacion;
+use es\ucm\fdi\aw\mensajes\FormularioMensajeLike;
 use es\ucm\fdi\aw\usuarios\Usuario;
 
 
@@ -10,6 +13,7 @@ use es\ucm\fdi\aw\usuarios\Usuario;
 $id_foro = $_GET['id'];
 $id_foro = filter_var($id_foro, FILTER_SANITIZE_NUMBER_INT);
 $id_foro = filter_var($id_foro, FILTER_VALIDATE_INT);
+$app = Aplicacion::getInstance();
 
 if ($id_foro === false) {
     $contenido.= 'El ID del foro no es válido.';
@@ -31,7 +35,13 @@ $contenido .= "<h2 class='titulo-foro'>" . $titulo . "</h2>";
 #$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(es\ucm\fdi\aw\ligas\Liga::LogoLiga($noticia->getLiga())).'" alt = "logoliga">';
 #$contenido .= '</div>';
 
+if($app->usuarioLogueado()){    
+    $url="foroDinamico.php?id=' . $id_foro . '";
+    $form = new FormularioForoFavorito($foro, $url);
+    $contenido .= $form->gestiona();
+    
 
+}
 
 if($app->usuarioLogueado()){    
     $contenido .= "<h3>Introducir mensaje:</h3>";
@@ -57,7 +67,15 @@ foreach ($resultado as $mensaje) {
     $contenido.= "<div class ='mensaje'>";
     $contenido.= "<p>" . $mensaje->getText() . "</p>";
     $contenido.= "</div>";
-    $contenido.= "<p class= 'likemsg'>" . $mensaje->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+
+    if($app->usuarioLogueado()){    
+        $url = "foroDinamico.php?id=" . $id_foro;
+        $form = new FormularioMensajeLike($mensaje, $url);
+        $contenido .= $form->gestiona();
+    }
+    else{
+        $contenido.= "<p class= 'likemsg'>" . $mensaje->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+    }
     $contenido.= "</div>";
 }
 $contenido.= "</div>";

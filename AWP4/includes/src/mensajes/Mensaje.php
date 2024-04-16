@@ -35,6 +35,26 @@ class Mensaje
         return ($aFechaHora > $bFechaHora) ? 1 : -1;
     }
 
+    public static function getMensajeById($id)
+    {
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        $result=$conn->query("SELECT * FROM mensaje WHERE id = '$id'");
+
+        if ($result) {
+            $mensaje = $result->fetch_assoc();     
+            if ($mensaje) {
+                return new Mensaje($mensaje['id'], $mensaje['foro_id'], $mensaje['usuario_id'], $mensaje['text'], $mensaje['fecha'], $mensaje['hora'], $mensaje['likes']);
+            } else {
+                die ("error");
+            }
+        } else {
+            echo "Error al consultar la base de datos: " . $conn->error;
+            return false;
+        }
+    }
+    
+
     public static function insertarMensaje($foro_id, $usuario_id, $text, $fecha, $hora, $likes){
 
         $app = Aplicacion::getInstance();
@@ -84,6 +104,27 @@ class Mensaje
         return NULL;
     }
 
+    public function setLike($n){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();        
+        if ($conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+        $result = $conn->query("SELECT * FROM likes_mensajes WHERE usuario_id = {$app->getUsuarioID()} AND mensaje_id = $this->id");
+
+        if ($result && $result->num_rows > 0) {
+            $this->likes -= $n;
+            $conn->query("DELETE FROM likes_mensajes WHERE usuario_id = {$app->getUsuarioID()} AND mensaje_id = $this->id");
+
+        } else {
+            $this->likes+=$n;
+            $conn->query("INSERT INTO likes_mensajes (usuario_id, mensaje_id) VALUES ({$app->getUsuarioID()}, $this->id)");
+        }
+
+
+        $result=($conn->query("UPDATE mensaje SET likes='$this->likes' WHERE id = '$this->id'"));
+        return $result;
+    }
     public function getId()
     {
         return $this->id;
