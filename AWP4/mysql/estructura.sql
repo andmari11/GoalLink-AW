@@ -198,6 +198,9 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
+ALTER TABLE `likes_mensajes` 
+  MODIFY `id` INT(11) NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT de la tabla `favoritos_foro`
 --

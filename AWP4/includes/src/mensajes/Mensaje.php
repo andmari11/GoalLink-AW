@@ -44,7 +44,8 @@ class Mensaje
         if ($result) {
             $mensaje = $result->fetch_assoc();     
             if ($mensaje) {
-                return new Mensaje($mensaje['id'], $mensaje['foro_id'], $mensaje['usuario_id'], $mensaje['text'], $mensaje['fecha'], $mensaje['hora'], $mensaje['likes']);
+                $ret=new Mensaje($mensaje['id'], $mensaje['foro_id'], $mensaje['usuario_id'], $mensaje['text'], $mensaje['fecha'], $mensaje['hora'], $mensaje['likes']);
+                return $ret;
             } else {
                 die ("error");
             }
@@ -117,14 +118,15 @@ class Mensaje
             $conn->query("DELETE FROM likes_mensajes WHERE usuario_id = {$app->getUsuarioID()} AND mensaje_id = $this->id");
 
         } else {
+
             $this->likes+=$n;
-            $conn->query("INSERT INTO likes_mensajes (usuario_id, mensaje_id) VALUES ({$app->getUsuarioID()}, $this->id)");
+            $conn->query("INSERT INTO likes_mensajes (usuario_id, mensaje_id) VALUES ('{$app->getUsuarioID()}', '$this->id')");
         }
-
-
+        
         $result=($conn->query("UPDATE mensaje SET likes='$this->likes' WHERE id = '$this->id'"));
         return $result;
     }
+
     public function getId()
     {
         return $this->id;
