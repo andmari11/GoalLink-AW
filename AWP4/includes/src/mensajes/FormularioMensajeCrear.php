@@ -23,7 +23,7 @@ class FormularioMensajeCrear extends Formulario {
 
         if ($app->usuarioLogueado()) {
             $usuarioId=$app->getUsuarioID();
-            $imagen = '<img class="imagen-usuario-din" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($usuarioId)) . '" alt="usuariodin">';
+            $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($usuarioId)) . '" alt="usuariodin">';
             $nombre=Usuario::getNombreAutor($usuarioId);
 
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);

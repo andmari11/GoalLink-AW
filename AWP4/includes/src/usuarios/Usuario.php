@@ -28,7 +28,9 @@ class Usuario
         if ($imagen == NULL) {
             $imagen="img/usuarios/default.png";
         }
-        $this->imagen = file_get_contents($imagen);        
+        if(file_exists($imagen)){
+            $this->imagen = file_get_contents($imagen);   
+        }     
         $this->password_hash=$password;
     }
 

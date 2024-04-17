@@ -25,7 +25,7 @@ class Noticia
         $this->destacado = $destacado;
         $this->ruta_imagen1=$imagen1;
 
-        if ($imagen1 !== NULL) {
+        if($imagen1!=null and file_exists($imagen1)){
             $this->imagen1 = file_get_contents($imagen1);
             if ($this->imagen1 === FALSE) {
                 die("Error al leer el archivo de imagen.". $imagen1);

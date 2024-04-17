@@ -23,7 +23,8 @@ class FormularioForoEditar extends Formulario
             if (!$foro) {
                 return "Foro no encontrado.";
             }
-
+            $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
+            $erroresCampos = self::generaErroresCampos(['titulo', 'contenido', 'file', 'descripcion'], $this->errores, 'span', array('class' => 'error'));
             $titulo = $foro->getTitulo();
             $descripcion = $foro->getDescripcion();
             $destacado = $foro->getDestacado() ? 'checked' : '';
@@ -36,10 +37,15 @@ class FormularioForoEditar extends Formulario
     
                 <label for="descripcion">Descripción:</label><br>
                 <textarea id="descripcion" name="descripcion" rows="4" cols="50">{$descripcion}</textarea><br><br>
-    
+                <label for="imagen">Imagen:</label><br>
+                <input type="file" id="imagen" name="imagen"><br><br>
+                {$erroresCampos['file']}
+                <label for="destacado">Destacado</label>
                 <input type="checkbox" id="destacado" name="destacado" {$destacado}>
-                <label for="destacado">Destacado</label><br><br>
-    
+
+                </div>
+
+                <div>
                 <input type="hidden" name="id" value="$this->id">
                 <input type="submit" value="Guardar Cambios">
             </div>
@@ -63,18 +69,27 @@ class FormularioForoEditar extends Formulario
         $descripcion = $datos['descripcion'] ?? null;
         $destacado = isset($datos["destacado"]) ? 1 : 0;
 
-        // Validar los datos del formulario
+        $imagen = null;
+        if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
+            $imagen = $_FILES['imagen'];
+            if ($imagen['size'] > 10485760) {
+                $this->errores['file'] = 'El tamaño del archivo excede el límite permitido.';
+            }
+            $extension = strtolower(pathinfo($imagen['name'], PATHINFO_EXTENSION));
+            $extensionesPermitidas = array("jpg", "jpeg", "png", "gif");
+            if (!in_array($extension, $extensionesPermitidas)) {
+                $this->errores['file'] = 'El archivo debe ser una imagen (JPEG, PNG, GIF).';
+            } 
+        } 
+
         if (empty($titulo) || empty($descripcion) || empty($idForo)) {
             $errores[] = 'Por favor, completa todos los campos.';
-        } else {
-            // Actualizar el foro en la base de datos
-            $result = Foro::updateForo($idForo, $titulo, $descripcion, $destacado);
-
-            if (!$result) {
-                $errores[] = 'Error al actualizar el foro.';
-            }
+        } 
+        
+        if (count($this->errores) === 0) {
+            $result = Foro::updateForo($idForo, $titulo, $descripcion, $destacado, $imagen);
         }
 
-        return $errores;
+        return $result;
     }
 }

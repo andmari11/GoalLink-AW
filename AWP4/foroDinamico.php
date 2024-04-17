@@ -56,39 +56,43 @@ if($app->usuarioLogueado()){
 } 
 $resultado = $foro->getMensajes();
 $contenido.= "<div id ='forosdinamicos'>";
-foreach ($resultado as $mensaje) {
-    $contenido.= "<div class ='forodin'>";
-    $contenido.= "<div class ='usfeho'>";
-    $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($mensaje->getUsuarioId())) . '" alt="usuariodin">';
-    $contenido.= "<p> " . $imagen . "</p>";
-    $contenido.= "<p class ='usermsg'> " . Usuario::getNombreAutor($mensaje->getUsuarioId()) . "</p>";
-    $contenido.= "<p class ='fechamsg'> Fecha: " . $mensaje->getFecha() . "</p>";
-    $contenido.= "<p class ='horamsg'>" . $mensaje->getHora() . "</p>";
-    $contenido.= "</div>";
-   
-    $contenido.= "<div class ='mensaje'>";
-    $contenido.= "<p>" . $mensaje->getText() . "</p>";
-    if ($mensaje->getImagen() !== null) {
-        $contenido .= '<img class="imagen-mensaje-din" src="data:image/jpeg;base64,'.base64_encode($mensaje->getImagen()).'" alt="mensajedin">';
-    }
-    $contenido.= "</div>";
+if($resultado!=null){
 
-    if($app->usuarioLogueado()){    
-        $url = "foroDinamico.php?id=" . $id_foro;
-        $form = new FormularioMensajeLike($mensaje, $url);
-        $contenido .= $form->gestiona();
-
-        if($app->esAdmin() or $app->esModerador()){
-            $formEliminar = new FormularioMensajeEliminar($mensaje, $url);
-            $contenido .= $formEliminar->gestiona();
+    foreach ($resultado as $mensaje) {
+        $contenido.= "<div class ='forodin'>";
+        $contenido.= "<div class ='usfeho'>";
+        $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($mensaje->getUsuarioId())) . '" alt="usuariodin">';
+        $contenido.= "<p> " . $imagen . "</p>";
+        $contenido.= "<p class ='usermsg'> " . Usuario::getNombreAutor($mensaje->getUsuarioId()) . "</p>";
+        $contenido.= "<p class ='fechamsg'> Fecha: " . $mensaje->getFecha() . "</p>";
+        $contenido.= "<p class ='horamsg'>" . $mensaje->getHora() . "</p>";
+        $contenido.= "</div>";
+       
+        $contenido.= "<div class ='mensaje'>";
+        $contenido.= "<p>" . $mensaje->getText() . "</p>";
+        if ($mensaje->getImagen() !== null) {
+            $contenido .= '<img class="imagen-mensaje-din" src="data:image/jpeg;base64,'.base64_encode($mensaje->getImagen()).'" alt="mensajedin">';
         }
-    }
-    else{
-        $contenido.= "<p class= 'likemsg'>" . $mensaje->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+        $contenido.= "</div>";
+    
+        if($app->usuarioLogueado()){    
+            $url = "foroDinamico.php?id=" . $id_foro;
+            $form = new FormularioMensajeLike($mensaje, $url);
+            $contenido .= $form->gestiona();
+    
+            if($app->esAdmin() or $app->esModerador()){
+                $formEliminar = new FormularioMensajeEliminar($mensaje, $url);
+                $contenido .= $formEliminar->gestiona();
+            }
+        }
+        else{
+            $contenido.= "<p class= 'likemsg'>" . $mensaje->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+        }
+        $contenido.= "</div>";
     }
     $contenido.= "</div>";
 }
-$contenido.= "</div>";
+
 
 
 

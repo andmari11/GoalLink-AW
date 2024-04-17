@@ -40,12 +40,13 @@ CREATE TABLE `favoritos_foro` (
 --
 
 CREATE TABLE `foro` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `titulo` varchar(100) NOT NULL,
   `descripcion` varchar(200) DEFAULT NULL,
   `fecha` date NOT NULL,
   `favoritos` int(11) DEFAULT 0,
-  `destacado` tinyint(1) NOT NULL DEFAULT 0
+  `destacado` tinyint(1) NOT NULL DEFAULT 0,
+  `imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------

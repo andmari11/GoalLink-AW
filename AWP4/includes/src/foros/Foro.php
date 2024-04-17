@@ -12,9 +12,11 @@ class Foro
     private $favoritos;
     private $destacado;
     private $mensajes;
+    private $ruta_imagen;
+    private $imagen;
 
 
-    public function __construct($id, $titulo, $descripcion, $fecha, $favoritos, $destacado)
+    public function __construct($id, $titulo, $descripcion, $fecha, $favoritos, $destacado, $imagen=null)
     {
         $this->id = $id;
         $this->titulo = $titulo;
@@ -22,6 +24,11 @@ class Foro
         $this->fecha = $fecha;
         $this->favoritos = $favoritos;
         $this->destacado = $destacado;
+        $this->ruta_imagen = $imagen;
+        if($imagen!=null and file_exists($imagen)){
+            $this->imagen = file_get_contents($imagen);
+        }  
+
     }
 
     public static function compararFechas($a, $b) {
@@ -50,7 +57,7 @@ class Foro
 
         if ($result->num_rows > 0) {
             $array = $result->fetch_assoc();
-            $foro = new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["favoritos"], $array["destacado"]);
+            $foro = new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["favoritos"], $array["destacado"], $array["imagen"]);
             return $foro;
         } else {
 
@@ -73,7 +80,7 @@ class Foro
 
             while($array=$result->fetch_assoc()){
 
-                $foro= new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["favoritos"], $array["destacado"]);
+                $foro= new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["favoritos"], $array["destacado"],  $array["imagen"]);
                 $lista[]=$foro;
             }
             usort($lista, array('es\ucm\fdi\aw\foros\Foro', 'compararFechas'));
@@ -110,16 +117,21 @@ class Foro
         return $result;
     }
 
-    public static function insertarForo($titulo, $descripcion, $fecha, $favoritos, $destacado)
+    public static function insertarForo($titulo, $descripcion, $fecha, $favoritos, $destacado, $imagen=null)
     {
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
         if ($conn->connect_error) {
             die("La conexión ha fallado: " . $conn->connect_error);
         }
+        if($imagen!=null){
+            $ruta_destino = "img/foros/" . basename($imagen["name"]);
+            if(!move_uploaded_file($imagen["tmp_name"], $ruta_destino)){
+                die(error_get_last()['message']);
+            }
+        }
 
-        $stmt = $conn->prepare("INSERT INTO foro (titulo, descripcion, fecha, favoritos, destacado) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssii", $titulo, $descripcion, $fecha, $favoritos, $destacado);
+        $stmt = $conn->prepare("INSERT INTO foro (titulo, descripcion, fecha, favoritos, destacado, imagen) VALUES ('$titulo', '$descripcion', '$fecha', '$favoritos', '$destacado', '$ruta_destino')");
 
         if ($stmt->execute()) {
             return $stmt->insert_id; // Devuelve el ID del nuevo foro insertado
@@ -135,17 +147,26 @@ class Foro
         if ($conn->connect_error) {
             die("La conexión ha fallado: " . $conn->connect_error);
         }
-        $mensajes=Mensaje::getMensajesForo($foroId);
 
-        foreach($mensajes as $mensaje){
-            Mensaje::eliminarMensaje($mensaje->getId());
+        $foro=self::getForoById($foroId);
+        if($foro){
+            $mensajes=Mensaje::getMensajesForo($foroId);
+            if($mensajes){
+                foreach($mensajes as $mensaje){
+                    Mensaje::eliminarMensaje($mensaje->getId());
+                }
+            }
+
+
+            if (file_exists($foro->ruta_imagen)) {
+                unlink($foro->ruta_imagen);
+            }
+
+            $conn->query("DELETE FROM mensaje WHERE foro_id = $foroId");
+
+            $stmt = $conn->prepare("DELETE FROM foro WHERE id = ?");
+            $stmt->bind_param("i", $foroId);
         }
-
-        $conn->query("DELETE FROM mensaje WHERE foro_id = $foroId");
-
-        $stmt = $conn->prepare("DELETE FROM foro WHERE id = ?");
-        $stmt->bind_param("i", $foroId);
-
         return $stmt->execute();
     }
 
@@ -161,7 +182,7 @@ class Foro
         $result = $conn->query("SELECT * FROM foro");
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $foro = new Foro($row["id"], $row["titulo"], $row["descripcion"], $row["fecha"], $row["favoritos"], $row["destacado"]);
+                $foro = new Foro($row["id"], $row["titulo"], $row["descripcion"], $row["fecha"], $row["favoritos"], $row["destacado"],  $row["imagen"]);
                 $lista[] = $foro;
             }
         }
@@ -169,18 +190,44 @@ class Foro
         return $lista;
     }
 
-    public static function updateForo($id, $titulo, $descripcion, $destacado)
+    public static function updateForo($id, $titulo, $descripcion, $destacado, $imagen=null)
 {
     $app = Aplicacion::getInstance();
     $conn = $app->getConexionBd();
-    
-    $query = sprintf("UPDATE foro SET titulo = '%s', descripcion = '%s', destacado = %d WHERE id = %d",
-        $conn->real_escape_string($titulo),
-        $conn->real_escape_string($descripcion),
-        $destacado,
-        $id);
 
-    return $conn->query($query);
+    $foro=self::getForoById($id);
+    if($foro){
+        if($imagen["tmp_name"]!=NULL){
+            if (file_exists($foro->getRutaImagen())) {
+                unlink($foro->getRutaImagen());
+            }
+    
+            $ruta_destino = "img/foros/" . basename($imagen["name"]);
+            if(!move_uploaded_file($imagen["tmp_name"], $ruta_destino)){
+                die(error_get_last()['message']);
+            }
+            $query = sprintf("UPDATE foro SET titulo = '%s', descripcion = '%s', destacado = %d, imagen='%s' WHERE id = %d",
+            $conn->real_escape_string($titulo),
+            $conn->real_escape_string($descripcion),
+            $destacado,
+            $conn->real_escape_string($ruta_destino),
+            $id);
+        }else{
+            
+            $query = sprintf("UPDATE foro SET titulo = '%s', descripcion = '%s', destacado = %d WHERE id = %d",
+            $conn->real_escape_string($titulo),
+            $conn->real_escape_string($descripcion),
+            $destacado,
+            $id);
+
+        }
+
+
+        return $conn->query($query);
+
+    }
+    
+    return false;
 }
 
     public function getMensajes(){
@@ -237,5 +284,12 @@ class Foro
         }
 
         return 0;
+    }
+    public function getImagen() {
+        return $this->imagen;
+    }
+
+    public function getRutaImagen() {
+        return $this->ruta_imagen;
     }
 }

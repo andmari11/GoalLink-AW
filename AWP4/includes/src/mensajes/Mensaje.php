@@ -26,7 +26,7 @@ class Mensaje
         $this->hora = $hora;
         $this->likes = $likes;
         $this->ruta_imagen = $imagen;
-        if($imagen!=null){
+        if($imagen!=null and file_exists($imagen)){
             $this->imagen = file_get_contents($imagen);
         }    
 

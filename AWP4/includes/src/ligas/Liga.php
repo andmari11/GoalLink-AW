@@ -13,7 +13,10 @@ class Liga
     {
         $this->nombre = $nombre;
         $this->ruta_logo=$logo;
-        $this->logo = file_get_contents($logo);
+        if($logo!=null and file_exists($logo)){
+
+            $this->logo = file_get_contents($logo);
+        }
         if ($this->logo === FALSE) {
             die("Error al leer el archivo de imagen.");
         }
