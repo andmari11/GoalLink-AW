@@ -184,10 +184,8 @@ class Usuario
             unlink($usuario->ruta_imagen);
         }
 
-        if(!$conn->query($query) or $conn->affected_rows != 1){
-            die("Noticia no eliminado ". $conn->connect_error);
-        }
-        if(!$conn->query($query) or $conn->affected_rows != 1){
+        $result=$conn->query($query);
+        if(!$result or $conn->affected_rows != 1){
             die("Usuario no eliminado ". $nombre . $conn->connect_error);
         }
 
