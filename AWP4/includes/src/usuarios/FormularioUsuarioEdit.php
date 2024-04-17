@@ -15,17 +15,19 @@ class FormularioUsuarioEdit extends Formulario
             parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php'), 'method'=>'POST', 'enctype'=>'multipart/form-data']);
     }
 
-    function obtenerOpcionesLigas() {
+    function obtenerOpcionesLigas($liga_fav) {
         $opciones = '<option value="">Selecciona una liga...</option>';
         $ligas = Liga::listaLigas();
-
+    
         if ($ligas) {
             foreach ($ligas as $liga) {
-                $opciones .= "<option value='" . $liga->getNombre() . "'>" . $liga->getNombre() . "</option>";
+                $selected = ($liga->getNombre() === $liga_fav) ? 'selected' : '';
+                $opciones .= "<option value='" . $liga->getNombre() . "' $selected>" . $liga->getNombre() . "</option>";
             }
         }
         return $opciones;
     }
+    
 
     protected function generaCamposFormulario(&$datos) {
         $username = htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
@@ -34,7 +36,7 @@ class FormularioUsuarioEdit extends Formulario
         $nombre = $usuario->getNombre();
         $email = $usuario->getEmail(); 
         $rol = $usuario->getRol();
-        $ligas = self::obtenerOpcionesLigas();
+        $ligas = self::obtenerOpcionesLigas($usuario->getLigaFav());
         $app = Aplicacion::getInstance();
         if (!$app->esAdmin() && !$app->esEditor()) {
             return "ACCESO DENEGADO";
@@ -64,9 +66,9 @@ EOF;
                 <div>
                     <label>Rol:</label> 
                     <select name="rol">
-                        <option value="e">Editor</option>
-                        <option value="m">Moderador</option>
-                        <option value="u">Usuario</option>
+                    <option value="e" <?php echo ($rol === 'e') ? 'selected' : ''; ?>Editor</option>
+                    <option value="m" <?php echo ($rol === 'm') ? 'selected' : ''; ?>Moderador</option>
+                    <option value="u" <?php echo ($rol === 'u') ? 'selected' : ''; ?>Usuario</option>
                     </select>
                     {$erroresCampos['rol']}
                 </div>

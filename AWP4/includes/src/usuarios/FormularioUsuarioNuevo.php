@@ -62,7 +62,7 @@ class FormularioUsuarioNuevo extends Formulario
             </div>
             <div>
                 <label for="imagen">Imagen:</label><br>
-                <input type="file" id="imagen" name="imagen" required><br><br>
+                <input type="file" id="imagen" name="imagen" ><br><br>
                 {$erroresCampos['file']}
             </div>
             <div>

@@ -14,13 +14,14 @@ class FormularioNoticiaEditar extends Formulario
         parent::__construct('formNoticiaEditar', ['urlRedireccion' => "noticiaDinamica.php?id=$this->id", 'method'=>'POST', 'enctype'=>'multipart/form-data']);
 
     }
-    function obtenerOpcionesLigas() {
-        $opciones = '';
+    function obtenerOpcionesLigas($liga_fav) {
+        $opciones = '<option value="">Selecciona una liga...</option>';
         $ligas = Liga::listaLigas();
-
+    
         if ($ligas) {
             foreach ($ligas as $liga) {
-                $opciones .= "<option value='" . $liga->getNombre() . "'>" . $liga->getNombre() . "</option>";
+                $selected = ($liga->getNombre() === $liga_fav) ? 'selected' : '';
+                $opciones .= "<option value='" . $liga->getNombre() . "' $selected>" . $liga->getNombre() . "</option>";
             }
         }
         return $opciones;
@@ -37,7 +38,7 @@ class FormularioNoticiaEditar extends Formulario
             return "ACCESO DENEGADO";
         }
 
-        $ligas=self::obtenerOpcionesLigas();
+        $ligas=self::obtenerOpcionesLigas($noticia->getLiga());
         $titulo = htmlspecialchars($noticia->getTitulo());
         $contenido = htmlspecialchars($noticia->getContenido());
 
