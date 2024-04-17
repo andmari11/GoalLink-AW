@@ -96,8 +96,10 @@ CREATE TABLE `mensaje` (
   `text` text NOT NULL,
   `fecha` date NOT NULL,
   `hora` time NOT NULL,
-  `likes` int(11) NOT NULL DEFAULT 0
+  `likes` int(11) NOT NULL DEFAULT 0,
+  `imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
 
 -- --------------------------------------------------------
 

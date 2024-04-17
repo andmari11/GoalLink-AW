@@ -135,11 +135,14 @@ class Foro
         if ($conn->connect_error) {
             die("La conexión ha fallado: " . $conn->connect_error);
         }
+        $mensajes=Mensaje::getMensajesForo($foroId);
 
-        // Eliminar primero los mensajes asociados al foro
+        foreach($mensajes as $mensaje){
+            Mensaje::eliminarMensaje($mensaje->getId());
+        }
+
         $conn->query("DELETE FROM mensaje WHERE foro_id = $foroId");
 
-        // Luego eliminar el foro
         $stmt = $conn->prepare("DELETE FROM foro WHERE id = ?");
         $stmt->bind_param("i", $foroId);
 

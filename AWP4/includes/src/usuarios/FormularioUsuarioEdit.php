@@ -62,13 +62,16 @@ class FormularioUsuarioEdit extends Formulario
                 </div>
 EOF;
             if (Aplicacion::getInstance()->esAdmin()) {
+                $e=($rol === 'e') ? 'selected' : '';
+                $m=($rol === 'm') ? 'selected' : '';
+                $u=($rol === 'u') ? 'selected' : '';
                 $html .= <<<EOF
                 <div>
                     <label>Rol:</label> 
                     <select name="rol">
-                    <option value="e" <?php echo ($rol === 'e') ? 'selected' : ''; ?>Editor</option>
-                    <option value="m" <?php echo ($rol === 'm') ? 'selected' : ''; ?>Moderador</option>
-                    <option value="u" <?php echo ($rol === 'u') ? 'selected' : ''; ?>Usuario</option>
+                    <option value="e" $e>Editor</option>
+                    <option value="m" $m>Moderador</option>
+                    <option value="u" $u>Usuario</option>
                     </select>
                     {$erroresCampos['rol']}
                 </div>

@@ -13,8 +13,10 @@ class Mensaje
     private $fecha;
     private $hora;
     private $likes;
+    private $ruta_imagen;
+    private $imagen;
 
-    public function __construct($id, $foro_id, $usuario_id, $text, $fecha, $hora, $likes)
+    public function __construct($id, $foro_id, $usuario_id, $text, $fecha, $hora, $likes, $imagen=null)
     {
         $this->id = $id;
         $this->foro_id = $foro_id;
@@ -23,6 +25,11 @@ class Mensaje
         $this->fecha = $fecha;
         $this->hora = $hora;
         $this->likes = $likes;
+        $this->ruta_imagen = $imagen;
+        if($imagen!=null){
+            $this->imagen = file_get_contents($imagen);
+        }    
+
     }
     public static function compararFechasHora($a, $b){
 
@@ -44,7 +51,7 @@ class Mensaje
         if ($result) {
             $mensaje = $result->fetch_assoc();     
             if ($mensaje) {
-                $ret=new Mensaje($mensaje['id'], $mensaje['foro_id'], $mensaje['usuario_id'], $mensaje['text'], $mensaje['fecha'], $mensaje['hora'], $mensaje['likes']);
+                $ret=new Mensaje($mensaje['id'], $mensaje['foro_id'], $mensaje['usuario_id'], $mensaje['text'], $mensaje['fecha'], $mensaje['hora'], $mensaje['likes'], $mensaje['imagen']);
                 return $ret;
             } else {
                 die ("error");
@@ -56,7 +63,7 @@ class Mensaje
     }
     
 
-    public static function insertarMensaje($foro_id, $usuario_id, $text, $fecha, $hora, $likes){
+    public static function insertarMensaje($foro_id, $usuario_id, $text, $fecha, $hora, $likes, $imagen){
 
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();        
@@ -70,8 +77,15 @@ class Mensaje
         $hora = $conn->real_escape_string($hora);
         $likes = $conn->real_escape_string($likes);
 
-        if ($conn->query("INSERT INTO mensaje (foro_id, usuario_id, text, fecha, hora, likes) 
-              VALUES ('$foro_id', '$usuario_id', '$text', '$fecha', '$hora', '$likes')")) 
+        if($imagen!=null){
+            $ruta_destino = "img/mensajes/" . basename($imagen["name"]);
+            if(!move_uploaded_file($imagen["tmp_name"], $ruta_destino)){
+                die(error_get_last()['message']);
+            }
+        }
+
+        if ($conn->query("INSERT INTO mensaje (foro_id, usuario_id, text, fecha, hora, likes, imagen) 
+              VALUES ('$foro_id', '$usuario_id', '$text', '$fecha', '$hora', '$likes', '$ruta_destino')")) 
         {
             return true;
         } else {
@@ -93,7 +107,7 @@ class Mensaje
 
             while($array=$result->fetch_assoc()){
 
-                $mensajes= new Mensaje($array["id"], $array["foro_id"], $array["usuario_id"],$array["text"], $array["fecha"], $array["hora"], $array["likes"]);
+                $mensajes= new Mensaje($array["id"], $array["foro_id"], $array["usuario_id"],$array["text"], $array["fecha"], $array["hora"], $array["likes"], $array['imagen']);
                 $lista[]=$mensajes;
             }
             usort($lista, array('es\ucm\fdi\aw\mensajes\Mensaje', 'compararFechasHora'));
@@ -107,7 +121,10 @@ class Mensaje
         $mensaje=self::getMensajeById($id);
 
         if($mensaje){
-
+            if (file_exists($mensaje->ruta_imagen)) {
+                unlink($mensaje->ruta_imagen);
+            }
+    
             $app = Aplicacion::getInstance();
             $conn = $app->getConexionBd();
             if ($conn->connect_error) {
@@ -176,5 +193,9 @@ class Mensaje
     {
         return $this->likes;
     }
+
+    public function getImagen() {
+        return $this->imagen;
+    }
 }
-?>
+

@@ -37,7 +37,11 @@ class FormularioMensajeCrear extends Formulario {
                 
                 <input type="hidden" id="id_autor" name="id_autor" value="{$usuarioId}">
                 <input type="hidden" id="id_foro" name="id_foro" value="{$this->id_foro}">
-                <textarea id="contenido" name="contenido" rows="4" cols="50"></textarea><br><br>       
+                <textarea id="contenido" name="contenido" rows="4" cols="50"></textarea><br><br>   
+                <div>
+                <label for="imagen">Imagen:</label><br>
+                <input type="file" id="imagen" name="imagen"><br><br>
+                </div>    
                 <input type="submit" value="Enviar">
 
             </div>
@@ -61,10 +65,21 @@ class FormularioMensajeCrear extends Formulario {
         $usuario_id = $datos['id_autor'];
         $text = $datos['contenido'];
 
-
+        $imagen=null;
+        if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
+            $imagen = $_FILES['imagen'];
+            if ($imagen['size'] > 10485760) {
+                $this->errores['file'] = 'El tamaño del archivo excede el límite permitido.';
+            }
+            $extension = strtolower(pathinfo($imagen['name'], PATHINFO_EXTENSION));
+            $extensionesPermitidas = array("jpg", "jpeg", "png", "gif");
+            if (!in_array($extension, $extensionesPermitidas)) {
+                $this->errores['file'] = 'El archivo debe ser una imagen (JPEG, PNG, GIF).';
+            } 
+        } 
         if (count($this->errores) === 0) {
 
-            Mensaje::insertarMensaje($foro_id, $usuario_id, $text, date('Y-m-d'), date('H:i:s', time()), 0);
+            Mensaje::insertarMensaje($foro_id, $usuario_id, $text, date('Y-m-d'), date('H:i:s', time()), 0, $imagen);
 
         }
 

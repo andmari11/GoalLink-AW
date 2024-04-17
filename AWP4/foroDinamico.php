@@ -33,7 +33,7 @@ $titulo = $foro->getTitulo();
 $contenido .= "<h2 class='titulo-foro'>" . $titulo . "</h2>";
 
 #$contenido .= '<div class="foro-imagenes-din">'; 
-#$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(es\ucm\fdi\aw\ligas\Liga::LogoLiga($noticia->getLiga())).'" alt = "logoliga">';
+#$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(es\ucm\fdi\aw\ligas\Liga::LogoLiga($mensaje->getLiga())).'" alt = "logoliga">';
 #$contenido .= '</div>';
 
 if($app->usuarioLogueado()){    
@@ -68,6 +68,9 @@ foreach ($resultado as $mensaje) {
    
     $contenido.= "<div class ='mensaje'>";
     $contenido.= "<p>" . $mensaje->getText() . "</p>";
+    if ($mensaje->getImagen() !== null) {
+        $contenido .= '<img class="imagen-mensaje-din" src="data:image/jpeg;base64,'.base64_encode($mensaje->getImagen()).'" alt="mensajedin">';
+    }
     $contenido.= "</div>";
 
     if($app->usuarioLogueado()){    
