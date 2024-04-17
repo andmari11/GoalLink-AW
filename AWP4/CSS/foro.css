@@ -24,9 +24,18 @@
     border-radius: 10px; 
 }
 
+.imagen-usuario-din{
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    
+}
 .mensaje{
     border-top: 2px solid rgb(2, 199, 2); 
   
+}
+.userfoto{
+    text-align: left;
 }
 
 .usfeho{

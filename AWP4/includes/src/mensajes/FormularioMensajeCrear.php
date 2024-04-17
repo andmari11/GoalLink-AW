@@ -32,8 +32,9 @@ class FormularioMensajeCrear extends Formulario {
             $html .= <<<EOS
             $htmlErroresGlobales
             <div class="formulario">
-                <h3>Introducir mensaje:</h3>
                 <p class ='userfoto'> $imagen  $nombre</p>
+                <h3>Introducir mensaje:</h3>
+                
                 <input type="hidden" id="id_autor" name="id_autor" value="{$usuarioId}">
                 <input type="hidden" id="id_foro" name="id_foro" value="{$this->id_foro}">
                 <textarea id="contenido" name="contenido" rows="4" cols="50"></textarea><br><br>       

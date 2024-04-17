@@ -21,7 +21,7 @@ if($app->esAdmin()){
             $contenido .= "<tr>";
             $contenido .= "<td>" . $usuario->getId() . "</td>";
             $contenido .= "<td>" . $usuario->getNombre() . "</td>";
-            $imagen = '<img class="imagen-usuario-din" style="width: 20px; height: 20px;" src="data:image/jpeg;base64,' . base64_encode($usuario->getImagen()) . '" alt="usuariodin">';
+            $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode($usuario->getImagen()) . '" alt="usuariodin">';
             $contenido .= "<td>" . $imagen . "</td>";            
             $contenido .= "<td>" . $usuario->getEmail() . "</td>";
             $contenido .= "<td>" . $usuario->getRol() . "</td>";

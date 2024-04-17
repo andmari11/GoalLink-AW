@@ -59,8 +59,8 @@ $contenido.= "<div id ='forosdinamicos'>";
 foreach ($resultado as $mensaje) {
     $contenido.= "<div class ='forodin'>";
     $contenido.= "<div class ='usfeho'>";
-    $imagen = '<img class="imagen-usuario-din" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($mensaje->getUsuarioId())) . '" alt="usuariodin">';
-    $contenido.= "<p class ='userfoto'> " . $imagen . "</p>";
+    $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($mensaje->getUsuarioId())) . '" alt="usuariodin">';
+    $contenido.= "<p> " . $imagen . "</p>";
     $contenido.= "<p class ='usermsg'> " . Usuario::getNombreAutor($mensaje->getUsuarioId()) . "</p>";
     $contenido.= "<p class ='fechamsg'> Fecha: " . $mensaje->getFecha() . "</p>";
     $contenido.= "<p class ='horamsg'>" . $mensaje->getHora() . "</p>";
