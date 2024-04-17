@@ -10,9 +10,9 @@ class FormularioUsuarioEdit extends Formulario
     public function __construct() {
         $app = Aplicacion::getInstance();
         if ($app->esAdmin())
-            parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php')]);
+            parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php'), 'method'=>'POST', 'enctype'=>'multipart/form-data']);
         else
-            parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php')]);
+            parent::__construct('formRegistro', ['urlRedireccion' => Aplicacion::getInstance()->resuelve('/index.php'), 'method'=>'POST', 'enctype'=>'multipart/form-data']);
     }
 
     function obtenerOpcionesLigas() {
@@ -30,7 +30,7 @@ class FormularioUsuarioEdit extends Formulario
     protected function generaCamposFormulario(&$datos) {
         $username = htmlspecialchars(trim(strip_tags($_REQUEST["usuario"])));
 
-        $usuario = Usuario::buscaUsuario($username);
+        $usuario = Usuario::buscaUsuarioPorNombre($username);
         $nombre = $usuario->getNombre();
         $email = $usuario->getEmail(); 
         $rol = $usuario->getRol();
@@ -80,6 +80,7 @@ EOF;
 EOF;
             }
             $html .= <<<EOF
+                
                 <div>
                     <label for="password">Password:</label>
                     <input id="password" type="password" name="password">
@@ -89,6 +90,10 @@ EOF;
                     <label for="password2">Reintroduce el password:</label>
                     <input id="password2" type="password" name="password2">
                     {$erroresCampos['password2']}
+                </div>
+                <div>
+                    <label for="imagen">Imagen:</label><br>
+                    <input type="file" id="imagen" name="imagen"><br><br>
                 </div>
                 <div>
                     <label>Elija su liga favorita:</label>
@@ -123,12 +128,22 @@ EOF;
         $password2 = trim($datos['password2'] ?? '');
         $password2 = filter_var($password2, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-
+        $imagen=null;
+        if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
+            $imagen = $_FILES['imagen'];
+            if ($imagen['size'] > 10485760) {
+                $this->errores['file'] = 'El tamaño del archivo excede el límite permitido.';
+            }
+            $extension = strtolower(pathinfo($imagen['name'], PATHINFO_EXTENSION));
+            $extensionesPermitidas = array("jpg", "jpeg", "png", "gif");
+            if (!in_array($extension, $extensionesPermitidas)) {
+                $this->errores['file'] = 'El archivo debe ser una imagen (JPEG, PNG, GIF).';
+            } 
+        } 
 
         $contenido="";
         
-        if(count($this->errores) === 0 && Usuario::actualizaUsuario($usernameNuevo, $email, $rol, $nombreAntiguo, $ligas, $password)) {
-
+        if(count($this->errores) === 0 && Usuario::actualizaUsuario($usernameNuevo, $email, $rol, $nombreAntiguo, $ligas, $password,$imagen)) {
             $contenido = <<<EOS
             <h2>Usuario editado {$usernameNuevo} </h2>
             <p>Vuelta al panel de  <a href='admin.php'>administración</a></p>

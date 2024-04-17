@@ -125,7 +125,7 @@ class FormularioUsuarioNuevo extends Formulario
             } 
         } 
         if (count($this->errores) === 0) {
-            $usuario = Usuario::buscaUsuario($nombreUsuario);
+            $usuario = Usuario::buscaUsuarioPorNombre($nombreUsuario);
 	
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";

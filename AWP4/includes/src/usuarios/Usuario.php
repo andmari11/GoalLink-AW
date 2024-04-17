@@ -13,6 +13,8 @@ class Usuario
     private $rol;
     private $liga_fav;
     private $imagen;
+    private $ruta_imagen;
+
 
     public function __construct($nombre, $email, $password, $rol, $liga_fav,  $imagen=null, $id=null)
     {
@@ -21,13 +23,20 @@ class Usuario
         $this->email=$email;
         $this->rol = $rol;
         $this->liga_fav=$liga_fav;
-        $this->imagen=$imagen;
-        // Almacena la contraseña como un hash
+        $this->ruta_imagen=$imagen;
+
+        if ($imagen == NULL) {
+            $imagen="img/usuarios/default.png";
+        }
+        $this->imagen = file_get_contents($imagen);
+        if ($this->imagen === FALSE) {
+            echo("Error al leer el archivo de imagen.". $imagen);
+        }         
         $this->password_hash=$password;
     }
 
     public static function login($nombre, $pass){
-        $user = self::buscaUsuario($nombre);
+        $user = self::buscaUsuarioPorNombre($nombre);
         if ($user && $user->compruebaPassword($pass)) {
             return $user;
         }
@@ -45,7 +54,7 @@ class Usuario
         return password_verify($password, $this->password_hash);
     }
     
-    public static function buscaUsuario($nombre){
+    public static function buscaUsuarioPorNombre($nombre){
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
 
@@ -63,14 +72,32 @@ class Usuario
         }
 
     }
-
+    public static function buscaUsuarioPorId($id){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+    
+        $result = $conn->query("SELECT * FROM usuario WHERE usuario.id='$id'");
+        if($result){
+    
+            if($result->num_rows>0){
+                $array=$result->fetch_assoc();
+                $user= new Usuario($array['nombre'], $array['email'], ($array['password']), $array['rol'], $array['liga_fav'], $array['imagen'],$array['id']);
+                return $user;
+            }
+            else{
+                return NULL;
+            }
+        }
+    
+    }
+    
     public static function insertaUsuario($usuario, $imagen) {
 
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
         $ruta_destino="";
 
-        if (Usuario::buscaUsuario($usuario->nombre) == NULL) {
+        if (Usuario::buscaUsuarioPorNombre($usuario->nombre) == NULL) {
             if($imagen!=null){
                 $ruta_destino = "img/usuarios/" . basename($imagen["name"]);
                 if(!move_uploaded_file($imagen["tmp_name"], $ruta_destino)){
@@ -96,8 +123,7 @@ class Usuario
         }
     }
     
-
-    public static function actualizaUsuario($username, $email, $rol, $nombreAntiguo, $ligas, $password){
+    public static function actualizaUsuario($username, $email, $rol, $nombreAntiguo, $ligas, $password, $imagen) {
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
 
@@ -106,22 +132,42 @@ class Usuario
         $email = $conn->real_escape_string($email);
         $rol = $conn->real_escape_string($rol);
         $ligas = $conn->real_escape_string($ligas);
-        $password=$conn->real_escape_string($password);
-        
+        $password = $conn->real_escape_string($password);
         // Si se proporciona una nueva contraseña, hasheala
-        if($password != "") {
+        if ($password != "") {
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
             $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga_fav='$ligas', password='$password_hash' WHERE nombre='$nombreAntiguo'";
         } else {
             $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga_fav='$ligas' WHERE nombre='$nombreAntiguo'";
         }
-        
-        if (!$conn->query($query) || $conn->affected_rows != 1) {
-            return false;
-        } 
-  
+    
+        $conn->query($query);
+        // Comprobar si se debe actualizar la imagen
+        if ($imagen["tmp_name"] != NULL) {
+            // Eliminar la imagen anterior si existe
+            $queryDeleteImage = "SELECT imagen FROM usuario WHERE nombre='$nombreAntiguo'";
+            $resultDeleteImage = $conn->query($queryDeleteImage);
+            if ($resultDeleteImage && $resultDeleteImage->num_rows > 0) {
+                $row = $resultDeleteImage->fetch_assoc();
+                $rutaImagenAntigua = $row["imagen"];
+                if ($rutaImagenAntigua!="img/usuarios/default.png" and file_exists($rutaImagenAntigua)) {
+                    unlink($rutaImagenAntigua);
+                }
+            }
+    
+            // Mover la nueva imagen y actualizar la ruta en la base de datos
+            $ruta_destino = "img/noticias/" . basename($imagen["name"]);
+            if (!move_uploaded_file($imagen["tmp_name"], $ruta_destino)) {
+                die(error_get_last()['message']);
+            }
+            $queryUpdateImage = "UPDATE usuario SET imagen = '$ruta_destino' WHERE nombre='$username'";
+            if (!$conn->query($queryUpdateImage) || $conn->affected_rows != 1) {
+                return false;
+            }
+        }
         return true;
     }
+    
 
     public static function eliminarUsuario($nombre){
         $app = Aplicacion::getInstance();
@@ -129,16 +175,30 @@ class Usuario
 
         $query = sprintf("DELETE FROM `usuario` WHERE `nombre` = '%s'", $conn->real_escape_string($nombre));
 
-        $usuario=Usuario::buscaUsuario($nombre);
+        $usuario=Usuario::buscaUsuarioPorNombre($nombre);
         if(!$usuario || $usuario->getRol()=="a"){
             return false;
         }
 
+        if ($usuario->ruta_imagen!="img/usuarios/default.png" and file_exists($usuario->ruta_imagen)) {
+            unlink($usuario->ruta_imagen);
+        }
+
+        if(!$conn->query($query) or $conn->affected_rows != 1){
+            die("Noticia no eliminado ". $conn->connect_error);
+        }
         if(!$conn->query($query) or $conn->affected_rows != 1){
             die("Usuario no eliminado ". $nombre . $conn->connect_error);
         }
 
         return true;
+    }
+
+    public static function getFotoPerfil($id){
+
+        $usuario=self::buscaUsuarioPorId($id);
+
+        return $usuario->getImagen();
     }
 
     public static function listaUsuario() {
@@ -222,7 +282,11 @@ class Usuario
     }
 
     public function getImagen(){
-
+       
         return $this->imagen;
+    }
+    public function getRutaImagen(){
+       
+        return $this->ruta_imagen;
     }
 }

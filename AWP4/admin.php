@@ -16,11 +16,13 @@ if($app->esAdmin()){
     $usuarios=es\ucm\fdi\aw\usuarios\Usuario::listaUsuario();
     if ($usuarios !== NULL) {
         $contenido .= "<table class='tabla-usuarios'>";
-        $contenido .= "<tr><th>Id</th><th>Nombre</th><th>Email</th><th>Rol</th><th>LigaFav</th><th>Editar </th><th> Eliminar </th></tr>";
+        $contenido .= "<tr><th>Id</th><th>Nombre</th><th>Imagen</th><th>Email</th><th>Rol</th><th>LigaFav</th><th>Editar </th><th> Eliminar </th></tr>";
         foreach ($usuarios as $usuario) {
             $contenido .= "<tr>";
             $contenido .= "<td>" . $usuario->getId() . "</td>";
             $contenido .= "<td>" . $usuario->getNombre() . "</td>";
+            $imagen = '<img class="imagen-usuario-din" style="width: 20px; height: 20px;" src="data:image/jpeg;base64,' . base64_encode($usuario->getImagen()) . '" alt="usuariodin">';
+            $contenido .= "<td>" . $imagen . "</td>";            
             $contenido .= "<td>" . $usuario->getEmail() . "</td>";
             $contenido .= "<td>" . $usuario->getRol() . "</td>";
             $contenido .= "<td>" . $usuario->getLigaFav() . "</td>";

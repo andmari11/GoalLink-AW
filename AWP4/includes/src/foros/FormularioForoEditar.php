@@ -5,6 +5,7 @@ use es\ucm\fdi\aw\Formulario;
 
 class FormularioForoEditar extends Formulario
 {
+    private $id;
     public function __construct()
     {
         $this->id=$_REQUEST["foro"];

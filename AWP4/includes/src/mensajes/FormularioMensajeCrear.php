@@ -4,6 +4,7 @@ namespace es\ucm\fdi\aw\mensajes;
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\Formulario;
 use es\ucm\fdi\aw\mensajes\Mensaje;
+use es\ucm\fdi\aw\usuarios\Usuario;
 
 
 class FormularioMensajeCrear extends Formulario {
@@ -17,20 +18,24 @@ class FormularioMensajeCrear extends Formulario {
 
     protected function generaCamposFormulario(&$datos)
     {
+        $html="";
         $app = Aplicacion::getInstance();
 
         if ($app->usuarioLogueado()) {
             $usuarioId=$app->getUsuarioID();
-            
+            $imagen = '<img class="imagen-usuario-din" style="width: 50px; height: 50px;" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($usuarioId)) . '" alt="usuariodin">';
+            $nombre=Usuario::getNombreAutor($usuarioId);
+
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
             $erroresCampos = self::generaErroresCampos(['texto', 'imagen'], $this->errores, 'span', array('class' => 'error'));
     
-            $html = <<<EOS
+            $html .= <<<EOS
             $htmlErroresGlobales
             <div class="formulario">
+                <h3>Introducir mensaje:</h3>
+                <p class ='userfoto'> $imagen  $nombre</p>
                 <input type="hidden" id="id_autor" name="id_autor" value="{$usuarioId}">
                 <input type="hidden" id="id_foro" name="id_foro" value="{$this->id_foro}">
-                <label for="contenido">Contenido:</label><br>
                 <textarea id="contenido" name="contenido" rows="4" cols="50"></textarea><br><br>       
                 <input type="submit" value="Enviar">
 
