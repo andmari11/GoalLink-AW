@@ -38,7 +38,7 @@ class FormularioUsuarioEdit extends Formulario
         $rol = $usuario->getRol();
         $ligas = self::obtenerOpcionesLigas($usuario->getLigaFav());
         $app = Aplicacion::getInstance();
-        if (!$app->esAdmin() && !$app->esEditor()) {
+        if (!$app->esAdmin() && !$app->esEditor() && $app->getUsuarioID()!=$usuario->getId()) {
             return "ACCESO DENEGADO";
         }
 
