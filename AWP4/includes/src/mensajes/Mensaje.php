@@ -95,7 +95,7 @@ class Mensaje
     }
 
 
-    public static function getMensajesForo($id){
+    public static function getMensajesForo($id, $admin=false){
 
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
@@ -106,10 +106,11 @@ class Mensaje
 
         $result = $conn->query("SELECT * FROM mensaje WHERE foro_id='$id'");
         if($result && $result->num_rows>0){
+            $lista=null;
 
             while($array=$result->fetch_assoc()){
 
-                if(!Usuario::consultarBloqueo($array["usuario_id"])){
+                if($admin or !Usuario::consultarBloqueo($array["usuario_id"])){
 
                     $mensajes= new Mensaje($array["id"], $array["foro_id"], $array["usuario_id"],$array["text"], $array["fecha"], $array["hora"], $array["likes"], $array['imagen']);
                     $lista[]=$mensajes;

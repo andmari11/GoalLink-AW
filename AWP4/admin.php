@@ -2,6 +2,7 @@
 require_once __DIR__.'/includes/config.php';
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\ligas\FormularioLigaEliminar;
+use es\ucm\fdi\aw\usuarios\FormularioUsuarioBloquear;
 use es\ucm\fdi\aw\usuarios\FormularioUsuarioEliminar;
 use es\ucm\fdi\aw\noticias\FormularioNoticiaEliminar;
 use es\ucm\fdi\aw\foros\FormularioForoEliminar;
@@ -16,7 +17,7 @@ if($app->esAdmin()){
     $usuarios=es\ucm\fdi\aw\usuarios\Usuario::listaUsuario();
     if ($usuarios !== NULL) {
         $contenido .= "<table class='tabla-usuarios'>";
-        $contenido .= "<tr><th>Id</th><th>Nombre</th><th>Imagen</th><th>Email</th><th>Rol</th><th>LigaFav</th><th>Editar </th><th> Eliminar </th></tr>";
+        $contenido .= "<tr><th>Id</th><th>Nombre</th><th>Imagen</th><th>Email</th><th>Rol</th><th>LigaFav</th><th>Editar </th><th> Eliminar </th><th> Bloquear </th></tr>";
         foreach ($usuarios as $usuario) {
             $contenido .= "<tr>";
             $contenido .= "<td>" . $usuario->getId() . "</td>";
@@ -31,8 +32,12 @@ if($app->esAdmin()){
                 $contenido .= "<td>" ." <a href='editUsuarios.php?usuario=" . urlencode($usuario->getNombre()) . "'>✏️</a>". "</td>";
                 $formDelete = new FormularioUsuarioEliminar($usuario->getNombre());
                 $contenido .= "<td>" . $formDelete->gestiona(). "</td>";
+                $formBloquear= new FormularioUsuarioBloquear($usuario->getId(), $app->resuelve('admin.php'));
+                $contenido .= "<td>" . $formBloquear->gestiona(). "</td>";
+
             }
             else{
+                $contenido .= "<td>"."". "</td>";
                 $contenido .= "<td>"."". "</td>";
                 $contenido .= "<td>"."". "</td>";
             }

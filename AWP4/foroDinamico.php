@@ -36,7 +36,7 @@ $contenido .= "<h2 class='titulo-foro'>" . $titulo . "</h2>";
 #$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(es\ucm\fdi\aw\ligas\Liga::LogoLiga($mensaje->getLiga())).'" alt = "logoliga">';
 #$contenido .= '</div>';
 
-if($app->usuarioLogueado()){    
+if($app->usuarioLogueado() ){    
     $url="foroDinamico.php?id=' . $id_foro . '";
     $form = new FormularioForoFavorito($foro, $url);
     $contenido .= $form->gestiona();
@@ -44,7 +44,7 @@ if($app->usuarioLogueado()){
 
 }
 
-if($app->usuarioLogueado()){    
+if($app->usuarioLogueado() and !Usuario::consultarBloqueo($app->getUsuarioID())){    
     $form = new \es\ucm\fdi\aw\mensajes\FormularioMensajeCrear($id_foro);
     $contenido.= $form->gestiona();
 
@@ -54,7 +54,13 @@ if($app->usuarioLogueado()){
     }
   
 } 
-$resultado = $foro->getMensajes();
+else{
+
+    $contenido.="<h4> No tienes permisos para participar</h4>";
+}
+
+
+$resultado = $foro->getMensajes($app->esAdmin() or $app->esModerador());
 $contenido.= "<div id ='forosdinamicos'>";
 if($resultado!=null){
 

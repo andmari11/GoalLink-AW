@@ -16,11 +16,12 @@ class FormularioUsuarioBloquear extends Formulario
 
     protected function generaCamposFormulario(&$datos)
     {
+        $icono = Usuario::consultarBloqueo($this->usuario) ? "Bloqueado 🚫" : "Desbloqueado ✅";
         $camposFormulario = <<<EOS
         
         <input type="hidden" name="id" value="$this->usuario">
 
-            <button class="enlace" type="submit">🚫</button>
+            <button class="enlace" type="submit">$icono</button>
         EOS;
         return $camposFormulario;
     }

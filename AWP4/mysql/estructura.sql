@@ -40,7 +40,7 @@ CREATE TABLE `favoritos_foro` (
 --
 
 CREATE TABLE `foro` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `titulo` varchar(100) NOT NULL,
   `descripcion` varchar(200) DEFAULT NULL,
   `fecha` date NOT NULL,
@@ -213,6 +213,11 @@ ALTER TABLE `usuario`
 --
 -- AUTO_INCREMENT de la tabla `favoritos_foro`
 --
+
+ALTER TABLE `foro`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
 ALTER TABLE `favoritos_foro`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 

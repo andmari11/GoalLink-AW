@@ -259,20 +259,38 @@ class Usuario
         if ($conn->connect_error) {
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
-        $usuario=self::buscaUsuarioPorId($id);
-
+        $usuario = self::buscaUsuarioPorId($id);
+    
         if($usuario){
-
-            $query = sprintf("INSERT INTO `bloqueados` (`id_usuario`) VALUES('%s')",
-            $conn->real_escape_string($usuario->id));
-
-            if (!$conn->query($query)) {
-                die("Error: " . $query . "<br>" . $conn->error);
+    
+            $consulta_existencia = sprintf("SELECT COUNT(*) AS existe FROM `bloqueados` WHERE `id_usuario` = '%s'",
+                $conn->real_escape_string($usuario->id));
+            $resultado = $conn->query($consulta_existencia);
+            if (!$resultado) {
+                die("Error al verificar la existencia del usuario en la lista de bloqueados: " . $conn->error);
             }
-            return true;
+            $fila = $resultado->fetch_assoc();
+            $existe = $fila['existe'];
+    
+            if($existe) {
+                $query = sprintf("DELETE FROM `bloqueados` WHERE `id_usuario` = '%s'",
+                    $conn->real_escape_string($usuario->id));
+                if (!$conn->query($query)) {
+                    die("Error al desbloquear al usuario: " . $conn->error);
+                }
+                return true;
+            } else {
+                $query = sprintf("INSERT INTO `bloqueados` (`id_usuario`) VALUES('%s')",
+                    $conn->real_escape_string($usuario->id));
+                if (!$conn->query($query)) {
+                    die("Error al bloquear al usuario: " . $conn->error);
+                }
+                return true;
+            }
         }
         return false;
     }
+    
 
     public static function consultarBloqueo($id){
         $app = Aplicacion::getInstance();

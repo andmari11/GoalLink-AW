@@ -230,10 +230,10 @@ class Foro
     return false;
 }
 
-    public function getMensajes(){
+    public function getMensajes($admin=false){
 
        
-        return Mensaje::getMensajesForo($this->id);;
+        return Mensaje::getMensajesForo($this->id, $admin);
     }
 
 
