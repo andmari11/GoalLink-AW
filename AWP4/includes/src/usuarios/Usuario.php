@@ -261,7 +261,7 @@ class Usuario
         }
         $usuario = self::buscaUsuarioPorId($id);
     
-        if($usuario){
+        if($usuario and $usuario->getRol()!='a' and $usuario->getRol()!='e'){
     
             $consulta_existencia = sprintf("SELECT COUNT(*) AS existe FROM `bloqueados` WHERE `id_usuario` = '%s'",
                 $conn->real_escape_string($usuario->id));

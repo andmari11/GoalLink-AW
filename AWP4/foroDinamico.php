@@ -32,9 +32,13 @@ $contenido = '';
 $titulo = $foro->getTitulo();
 $contenido .= "<h2 class='titulo-foro'>" . $titulo . "</h2>";
 
-#$contenido .= '<div class="foro-imagenes-din">'; 
-#$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(es\ucm\fdi\aw\ligas\Liga::LogoLiga($mensaje->getLiga())).'" alt = "logoliga">';
-#$contenido .= '</div>';
+if($foro->getImagen()!=null){
+
+    $contenido .= '<div class="foro-imagenes-din">'; 
+    $contenido .= '<img class="foro-imagen-din" src="data:image/jpeg;base64,'.base64_encode($foro->getImagen()).'" alt = "foro-imagen">';
+    $contenido .= '</div>';
+}
+
 
 if($app->usuarioLogueado() ){    
     $url="foroDinamico.php?id=' . $id_foro . '";

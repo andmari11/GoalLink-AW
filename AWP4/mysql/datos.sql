@@ -25,9 +25,10 @@ SET time_zone = "+00:00";
 -- Volcado de datos para la tabla `foro`
 --
 
-INSERT INTO `foro` (`id`, `titulo`, `descripcion`, `fecha`, `favoritos`, `destacado`) VALUES
-(1, 'Foro 1', 'Descripción foro 1', '2024-02-15', 2, 1),
-(2, 'Foro 2', 'Descripción foro 2', '2024-03-15', 20, 1);
+INSERT INTO `foro` (`id`, `titulo`, `descripcion`, `fecha`, `favoritos`, `destacado`, `imagen`) VALUES
+(1, 'Foro 1', 'Descripción foro 1', '2024-02-15', 2, 1, 'img/foros/WCDEES6F4BIFXAGUDCSWNJLJNY.jpg'),
+(2, 'Foro 2', 'Descripción foro 2', '2024-03-15', 20, 1, 'img/foros/WCDEES6F4BIFXAGUDCSWNJLJNY.jpg');
+
 
 --
 -- Volcado de datos para la tabla `ligas`

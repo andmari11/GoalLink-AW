@@ -60,6 +60,12 @@ if ($forosDestacados != NULL) {
     foreach ($forosDestacados as $foro) {
         $contenido .= '<div class="foro">';
         $contenido .= '<h3><a href="foroDinamico.php?id=' . $foro->getId() . '">' . $foro->getTitulo() . '</a></h3>';
+        if($foro->getImagen()!=null){
+
+            $contenido .= '<div class="foro-imagenes-din">'; 
+            $contenido .= '<img class="foro-imagen-din" src="data:image/jpeg;base64,'.base64_encode($foro->getImagen()).'" alt = "foro-imagen">';
+            $contenido .= '</div>';
+        }
         $contenido .= "<p>" . $foro->getDescripcion() . "</p>";
         $contenido .= "<p>" . $foro->getfavoritos() . "<span style='color: red;'>&#11088;&#65039;</span>" .$foro->getMensajesNum() .  "<span style='color: red;'>&#128172;</span></p>";
         $contenido .= '</div>';
