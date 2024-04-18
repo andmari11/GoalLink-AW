@@ -136,9 +136,16 @@ CREATE TABLE `usuario` (
   `imagen` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+
+CREATE TABLE `bloqueados` (
+  `id_usuario` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 --
 -- Índices para tablas volcadas
 --
+--
+ALTER TABLE `bloqueados`
+  ADD KEY `id_usuario` (`id_usuario`);
 
 --
 -- Indices de la tabla `favoritos_foro`
@@ -243,6 +250,8 @@ ALTER TABLE `usuario`
 -- Restricciones para tablas volcadas
 --
 
+ALTER TABLE `bloqueados`
+  ADD CONSTRAINT `bloqueados_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`) ON DELETE CASCADE;
 --
 -- Filtros para la tabla `favoritos_foro`
 --

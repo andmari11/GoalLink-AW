@@ -6,7 +6,7 @@ use es\ucm\fdi\aw\foros\FormularioForoFavorito;
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\mensajes\FormularioMensajeLike;
 use es\ucm\fdi\aw\mensajes\FormularioMensajeEliminar;
-
+use es\ucm\fdi\aw\usuarios\FormularioUsuarioBloquear;
 use es\ucm\fdi\aw\usuarios\Usuario;
 
 
@@ -83,6 +83,10 @@ if($resultado!=null){
             if($app->esAdmin() or $app->esModerador()){
                 $formEliminar = new FormularioMensajeEliminar($mensaje, $url);
                 $contenido .= $formEliminar->gestiona();
+                
+                
+                $formBloquear = new FormularioUsuarioBloquear($mensaje->getUsuarioId(), $url);
+                $contenido .= $formBloquear->gestiona();
             }
         }
         else{

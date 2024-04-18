@@ -3,6 +3,7 @@
 namespace es\ucm\fdi\aw\mensajes;
 
 use es\ucm\fdi\aw\Aplicacion;
+use es\ucm\fdi\aw\usuarios\Usuario;
 
 class Mensaje
 {
@@ -107,10 +108,18 @@ class Mensaje
 
             while($array=$result->fetch_assoc()){
 
-                $mensajes= new Mensaje($array["id"], $array["foro_id"], $array["usuario_id"],$array["text"], $array["fecha"], $array["hora"], $array["likes"], $array['imagen']);
-                $lista[]=$mensajes;
+                if(!Usuario::consultarBloqueo($array["usuario_id"])){
+
+                    $mensajes= new Mensaje($array["id"], $array["foro_id"], $array["usuario_id"],$array["text"], $array["fecha"], $array["hora"], $array["likes"], $array['imagen']);
+                    $lista[]=$mensajes;
+                }
+
+                
             }
-            usort($lista, array('es\ucm\fdi\aw\mensajes\Mensaje', 'compararFechasHora'));
+            if($array){
+
+                usort($lista, array('es\ucm\fdi\aw\mensajes\Mensaje', 'compararFechasHora'));
+            }
 
             return $lista;
         }

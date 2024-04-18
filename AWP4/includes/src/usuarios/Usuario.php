@@ -251,6 +251,49 @@ class Usuario
             return null;
         }
     }
+
+    public static function bloquearUsuario($id){
+
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+        $usuario=self::buscaUsuarioPorId($id);
+
+        if($usuario){
+
+            $query = sprintf("INSERT INTO `bloqueados` (`id_usuario`) VALUES('%s')",
+            $conn->real_escape_string($usuario->id));
+
+            if (!$conn->query($query)) {
+                die("Error: " . $query . "<br>" . $conn->error);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public static function consultarBloqueo($id){
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+        
+        $query = sprintf("SELECT COUNT(*) AS count FROM `bloqueados` WHERE `id_usuario` = '%s'",
+            $conn->real_escape_string($id));
+        
+        $result = $conn->query($query);
+        if (!$result) {
+            die("Error al consultar el bloqueo: " . $conn->error);
+        }
+        
+        $row = $result->fetch_assoc();
+        $count = $row['count'];
+        
+        return $count > 0;
+    }
     
 
     public function getId()

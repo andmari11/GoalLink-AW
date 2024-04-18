@@ -1,26 +1,26 @@
 <?php
 
-namespace es\ucm\fdi\aw\noticias;
+namespace es\ucm\fdi\aw\usuarios;
 
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\Formulario;
 
-class FormularionoticiaEliminar extends Formulario
+class FormularioUsuarioBloquear extends Formulario
 {
-    public function __construct($noticia) {
-        parent::__construct('formnoticiaEliminar', [
-            'urlRedireccion' => Aplicacion::getInstance()->resuelve('/admin.php')]);
-        $this->noticia=$noticia;
+    public function __construct($usuario, $url) {
+        parent::__construct('formUsuarioBloquear', [
+            'urlRedireccion' =>$url]);
+        $this->usuario=$usuario;
     }
-    private $noticia;
+    private $usuario;
 
     protected function generaCamposFormulario(&$datos)
     {
         $camposFormulario = <<<EOS
         
-        <input type="hidden" name="id_noticia" value="$this->noticia">
+        <input type="hidden" name="id" value="$this->usuario">
 
-            <button class="enlace" type="submit"> 🗑️</button>
+            <button class="enlace" type="submit">🚫</button>
         EOS;
         return $camposFormulario;
     }
@@ -32,14 +32,14 @@ class FormularionoticiaEliminar extends Formulario
     {
         $app = Aplicacion::getInstance();
 
-        $username= htmlspecialchars(trim(strip_tags($datos["id_noticia"])));
-        if(($app->usuarioLogueado()) && ($app->esAdmin() or $app->esEditor())){
+        $id= htmlspecialchars(trim(strip_tags($datos['id'])));
+        if(($app->usuarioLogueado()) && ($app->esAdmin())){
 
 
-            if(Noticia::eliminarNoticia($username)){
+            if(Usuario::bloquearUsuario($id)){
 
                 echo <<<EOS
-                <h2>noticia eliminado: {$username} </h2>
+                <h2>Usuario eliminado: {$id} </h2>
                 <b>Volver al <a href="admin.php">panel de administración</a>
                 EOS;
 
@@ -48,7 +48,7 @@ class FormularionoticiaEliminar extends Formulario
             else {
         
                 echo <<<EOS
-                <h2>noticia no eliminado: {$username} </h2>
+                <h2>Usuario no eliminado: {$id} </h2>
                 <b>Volver al <a href="admin.php">panel de administración</a></b>
                 EOS;
             }
