@@ -72,7 +72,6 @@ class Mensaje
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
 
-
         $text = $conn->real_escape_string($text);
         $fecha = $conn->real_escape_string($fecha);
         $hora = $conn->real_escape_string($hora);
@@ -92,7 +91,9 @@ class Mensaje
         } else {
             die ("Mensaje: " . $conn->error);
         }
+
     }
+
 
     public static function getMensajesForo($id){
 
