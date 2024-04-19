@@ -170,6 +170,39 @@ class Mensaje
         return $result;
     }
 
+
+    public static function getMensajesUsuario($id, $admin=false){
+
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();        
+        if ($conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+        $result = $conn->query("SELECT * FROM mensaje WHERE usuario_id = {$id}");
+        if ($result && $result->num_rows > 0) {
+
+            $lista=null;
+
+            while($array=$result->fetch_assoc()){
+
+                if($admin or !Usuario::consultarBloqueo($array["usuario_id"])){
+
+                    $mensajes= self::getMensajeById($array["id"]);
+                    $lista[]=$mensajes;
+                }
+
+                
+            }
+            if($array){
+
+                usort($lista, array('es\ucm\fdi\aw\mensajes\Mensaje', 'compararFechasHora'));
+            }
+
+            return $lista;
+        }
+        
+        return null;
+    }
     public function getId()
     {
         return $this->id;

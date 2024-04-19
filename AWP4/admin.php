@@ -21,7 +21,8 @@ if($app->esAdmin()){
         foreach ($usuarios as $usuario) {
             $contenido .= "<tr>";
             $contenido .= "<td>" . $usuario->getId() . "</td>";
-            $contenido .= "<td>" . $usuario->getNombre() . "</td>";
+            $nombre=$usuario->getNombre() ;
+            $contenido .= "<td>" . "<a href='usuarioDinamico.php?id=". urlencode($usuario->getId()) ."'> $nombre<p class='usermsg'></p></a>" . "</td>";
             $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode($usuario->getImagen()) . '" alt="usuariodin">';
             $contenido .= "<td>" . $imagen . "</td>";            
             $contenido .= "<td>" . $usuario->getEmail() . "</td>";
@@ -32,12 +33,19 @@ if($app->esAdmin()){
                 $contenido .= "<td>" ." <a href='editUsuarios.php?usuario=" . urlencode($usuario->getNombre()) . "'>✏️</a>". "</td>";
                 $formDelete = new FormularioUsuarioEliminar($usuario->getNombre());
                 $contenido .= "<td>" . $formDelete->gestiona(). "</td>";
-                $formBloquear= new FormularioUsuarioBloquear($usuario->getId(), $app->resuelve('admin.php'));
-                $contenido .= "<td>" . $formBloquear->gestiona(). "</td>";
+
+                if($usuario->getRol()!="m"){
+
+                    $formBloquear= new FormularioUsuarioBloquear($usuario->getId(), $app->resuelve('admin.php'));
+                    $contenido .= "<td>" . $formBloquear->gestiona(). "</td>";
+                }
+                else{
+                    $contenido .= "<td>"."". "</td>";
+
+                }
 
             }
             else{
-                $contenido .= "<td>"."". "</td>";
                 $contenido .= "<td>"."". "</td>";
                 $contenido .= "<td>"."". "</td>";
             }
@@ -63,11 +71,12 @@ if($app->esEditor() || $app->esAdmin()){
         foreach ($noticias as $noticia) {
             $contenido .= "<tr>";
             $contenido .= "<td>" . $noticia->getId() . "</td>";
+            $link=" <a href='noticiaDinamica.php?id=" . urlencode($noticia->getId()) . "'> ". $noticia->getTitulo() ." </a>";
             if(!$noticia->getDestacado()){
-                $contenido .= "<td>" . $noticia->getTitulo() . "</td>";
+                $contenido .= "<td>" .$link. "</td>";
             }
             else{
-                $contenido .= "<td><b>" . $noticia->getTitulo() . "</b></td>";
+                $contenido .= "<td><b>" .$link . "</b></td>";
             }                $contenido .= "<td>" . $noticia->getIdAutor() . "</td>";
             $contenido .= "<td>" . $noticia->getFecha() . "</td>";
             $contenido .= "<td>" . $noticia->getLiga() . "</td>";
@@ -120,7 +129,7 @@ if($app->esAdmin() || $app->esModerador()){
         foreach ($foros as $foro) {
             $contenido .= "<tr>";
             $contenido .= "<td>" . $foro->getId() . "</td>";
-            $contenido .= "<td>" . $foro->getTitulo() . "</td>";
+            $contenido .= "<td>" . "<a href='foroDinamico.php?id=" . $foro->getId() . "'>" . $foro->getTitulo() . "</a></td>";
             $contenido .= "<td>" . $foro->getDescripcion() . "</td>";
             $contenido .= "<td>" . $foro->getFecha() . "</td>";
             $contenido .= "<td>" . $foro->getFavoritos() . "</td>";

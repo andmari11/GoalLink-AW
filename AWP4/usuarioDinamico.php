@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/includes/config.php';
 
-use es\ucm\fdi\aw\foros\FormularioForoFavorito;
+use es\ucm\fdi\aw\mensajes\Mensaje;
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\mensajes\FormularioMensajeLike;
 use es\ucm\fdi\aw\mensajes\FormularioMensajeEliminar;
@@ -11,70 +11,46 @@ use es\ucm\fdi\aw\usuarios\Usuario;
 
 
 
-$id_foro = $_GET['id'];
-$id_foro = filter_var($id_foro, FILTER_SANITIZE_NUMBER_INT);
-$id_foro = filter_var($id_foro, FILTER_VALIDATE_INT);
+$id_usuario = $_GET['id'];
+
 $app = Aplicacion::getInstance();
 
-if ($id_foro === false) {
-    $contenido.= 'El ID del foro no es válido.';
-    exit;
-}
 
-$foro = es\ucm\fdi\aw\foros\Foro::getForoById($id_foro);
 
-if ($foro === null) {
-    $contenido.= 'No se encontró la foro.';
-    exit;
-}
+$usuario = es\ucm\fdi\aw\usuarios\Usuario::buscaUsuarioPorId($id_usuario);
 $contenido = '';
 
-$titulo = $foro->getTitulo();
-$contenido .= "<h2 class='titulo-foro'>" . $titulo . "</h2>";
+if ($usuario === null) {
+    $contenido.= 'No se encontró el usuario.';
+    exit;
+}
 
-if($foro->getImagen()!=null){
+$titulo = $usuario->getNombre();
+$contenido .= "<h2 class='titulo-usuario'> Mensajes de " . $titulo . ":</h2>";
+if($app->getUsuarioID()==$id_usuario or $app->esAdmin()){
 
-    $contenido .= '<div class="foro-imagenes-din">'; 
-    $contenido .= '<img class="foro-imagen-din" src="data:image/jpeg;base64,'.base64_encode($foro->getImagen()).'" alt = "foro-imagen">';
+    $contenido.= "<a href='editUsuarios.php?usuario=" . urlencode($usuario->getNombre()) . "'>" . "Editar" . "</a> ";
+
+}
+
+if($usuario->getImagen()!=null){
+
+    $contenido .= '<div class="usuario-imagenes-din">'; 
+    #$contenido .= '<img class="usuario-imagen-din" src="data:image/jpeg;base64,'.base64_encode($usuario->getImagen()).'" alt = "usuario-imagen">';
     $contenido .= '</div>';
 }
 
 
-if($app->usuarioLogueado() ){    
-    $url="foroDinamico.php?id=' . $id_foro . '";
-    $form = new FormularioForoFavorito($foro, $url);
-    $contenido .= $form->gestiona();
-    
-
-}
-
-if($app->usuarioLogueado() and !Usuario::consultarBloqueo($app->getUsuarioID())){    
-    $form = new \es\ucm\fdi\aw\mensajes\FormularioMensajeCrear($id_foro);
-    $contenido.= $form->gestiona();
-
-    if(($app->esModerador() or $app->esAdmin())){
-
-        #$contenido .= " <a href='editForos.php?foro=" . urlencode($foro->getId()) . "'>Editar</a>";
-    }
-  
-} 
-else{
-
-    $contenido.="<h4> No tienes permisos para participar</h4>";
-}
-
-
-$resultado = $foro->getMensajes($app->esAdmin() or $app->esModerador());
-$contenido.= "<div id ='forosdinamicos'>";
+$resultado = Mensaje::getMensajesUsuario($id_usuario, $app->esAdmin() or $app->esModerador());
+$contenido.= "<div id ='usuariosdinamicos'>";
 if($resultado!=null){
 
     foreach ($resultado as $mensaje) {
-        $contenido.= "<div class ='forodin'>";
+        $contenido.= "<div class ='usuariodin'>";
         $contenido.= "<div class ='usfeho'>";
         $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($mensaje->getUsuarioId())) . '" alt="usuariodin">';
         $contenido.= "<p> " . $imagen . "</p>";
-        $usuarioNombre=Usuario::getNombreAutor($mensaje->getUsuarioId());
-        $contenido.= "<a href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre <p class='usermsg'></p></a>";
+        $contenido.= "<p class ='usermsg'> " . Usuario::getNombreAutor($mensaje->getUsuarioId()) . "</p>";
         $contenido.= "<p class ='fechamsg'> Fecha: " . $mensaje->getFecha() . "</p>";
         $contenido.= "<p class ='horamsg'>" . $mensaje->getHora() . "</p>";
         $contenido.= "</div>";
@@ -87,7 +63,7 @@ if($resultado!=null){
         $contenido.= "</div>";
     
         if($app->usuarioLogueado()){    
-            $url = "foroDinamico.php?id=" . $id_foro;
+            $url = "usuarioDinamico.php?id=" . $id_usuario;
             $form = new FormularioMensajeLike($mensaje, $url);
             $contenido .= $form->gestiona();
     
