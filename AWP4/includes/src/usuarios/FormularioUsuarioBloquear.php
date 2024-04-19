@@ -34,7 +34,7 @@ class FormularioUsuarioBloquear extends Formulario
         $app = Aplicacion::getInstance();
 
         $id= htmlspecialchars(trim(strip_tags($datos['id'])));
-        if(($app->usuarioLogueado()) && ($app->esAdmin())){
+        if(($app->usuarioLogueado()) && ($app->esAdmin() or $app->esModerador())){
 
 
             if(Usuario::bloquearUsuario($id)){
