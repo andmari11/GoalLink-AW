@@ -155,7 +155,7 @@ class Usuario
             }
     
             // Mover la nueva imagen y actualizar la ruta en la base de datos
-            $ruta_destino = "img/noticias/" . basename($imagen["name"]);
+            $ruta_destino = "img/usuarios/" . basename($imagen["name"]);
             if (!move_uploaded_file($imagen["tmp_name"], $ruta_destino)) {
                 die(error_get_last()['message']);
             }

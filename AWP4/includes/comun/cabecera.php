@@ -2,6 +2,7 @@
 
 use es\ucm\fdi\aw\Aplicacion;
 use es\ucm\fdi\aw\usuarios\FormularioLogout;
+use es\ucm\fdi\aw\usuarios\Usuario;
 
 function mostrarSaludo()
 {
@@ -12,7 +13,9 @@ function mostrarSaludo()
 
         $formLogout = new FormularioLogout();
         $htmlLogout = $formLogout->gestiona();
-        $html = "Bienvenido, <a href='usuarioDinamico.php?id=". urlencode($app->getUsuarioID()) ."'> $nombreUsuario </a>" . $htmlLogout;
+        $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($app->getUsuarioID())) . '" alt="usuariodin">';
+
+        $html = "Bienvenido, <a href='usuarioDinamico.php?id=". urlencode($app->getUsuarioID()) ."'> $nombreUsuario </a>" . $imagen. $htmlLogout;
     } else {
         $loginUrl = $app->resuelve('/login.php');
         $registroUrl = $app->resuelve('/registro.php');

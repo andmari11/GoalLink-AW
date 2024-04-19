@@ -27,7 +27,7 @@ if ($usuario === null) {
 
 $titulo = $usuario->getNombre();
 $contenido .= "<h2 class='titulo-usuario'> Mensajes de " . $titulo . ":</h2>";
-if($app->getUsuarioID()==$id_usuario or $app->esAdmin()){
+if($app->usuarioLogueado() and ($app->getUsuarioID()==$id_usuario or $app->esAdmin())){
 
     $contenido.= "<a href='editUsuarios.php?usuario=" . urlencode($usuario->getNombre()) . "'>" . "Editar" . "</a> ";
 

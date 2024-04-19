@@ -77,6 +77,8 @@ EOF;
                 </div>
 EOF;
             } else {
+                $html.="<input type='hidden' name='rol' value='{$rol}'>";
+
                 $html .= <<<EOF
                 <div>
                     <label>Rol:</label> 
