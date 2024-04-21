@@ -31,6 +31,7 @@ $contenido = '';
 
 $titulo = $foro->getTitulo();
 $contenido .= "<h2 class='titulo-foro'>" . $titulo . "</h2>";
+$contenido .= "<p>" . $foro->getDescripcion() . "</p>";
 
 if($foro->getImagen()!=null){
 
@@ -74,7 +75,13 @@ if($resultado!=null){
         $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($mensaje->getUsuarioId())) . '" alt="usuariodin">';
         $contenido.= "<p> " . $imagen . "</p>";
         $usuarioNombre=Usuario::getNombreAutor($mensaje->getUsuarioId());
-        $contenido.= "<a href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre <p class='usermsg'></p></a>";
+        $usuarioRol=Usuario::getRolAutor($mensaje->getUsuarioId());
+        if($usuarioRol == 'a' || $usuarioRol == 'm'){
+            $contenido.= "<a class='usermsg-admin' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";
+        }
+        else{
+            $contenido.= "<a class='usermsg' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";
+        }
         $contenido.= "<p class ='fechamsg'> Fecha: " . $mensaje->getFecha() . "</p>";
         $contenido.= "<p class ='horamsg'>" . $mensaje->getHora() . "</p>";
         $contenido.= "</div>";
@@ -89,7 +96,7 @@ if($resultado!=null){
         if($app->usuarioLogueado()){    
             $url = "foroDinamico.php?id=" . $id_foro;
             $form = new FormularioMensajeLike($mensaje, $url);
-            $contenido .= $form->gestiona();
+            $contenido .= "<div class ='bot-msg'>" . $form->gestiona();
     
             if($app->esAdmin() or $app->esModerador()){
                 $formEliminar = new FormularioMensajeEliminar($mensaje, $url);
@@ -99,6 +106,8 @@ if($resultado!=null){
                 $formBloquear = new FormularioUsuarioBloquear($mensaje->getUsuarioId(), $url);
                 $contenido .= $formBloquear->gestiona();
             }
+            $contenido .= "</div>";
+        
         }
         else{
             $contenido.= "<p class= 'likemsg'>" . $mensaje->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
@@ -109,7 +118,11 @@ if($resultado!=null){
 }
 
 
-
+if($app->usuarioLogueado() and($app->esModerador() or $app->esAdmin())){    
+    $contenido .= "<br>";
+    $contenido .= " <a href='editarForo.php?foro=" . urlencode($foro->getId()) . "'>Editar</a>";
+  
+} 
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
 $app->generaVista('/esqueleto.php', $params);

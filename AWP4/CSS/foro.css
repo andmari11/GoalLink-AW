@@ -7,6 +7,14 @@
     text-transform: uppercase;
 }
 
+.foro-imagen img {
+    width: 100%;
+    height: auto;
+    border-radius: 5%; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s; 
+}
+
 #forosdinamicos{
     display: flex;
     flex-direction: column;
@@ -51,6 +59,32 @@
     flex-grow: 25;
 }
 
+a.usermsg {
+    color: #0e0d0d; 
+    text-decoration: none; 
+}
+
+a.usermsg:hover {
+    color: #725ba4; 
+}
+
+.usermsg-admin{
+    text-align: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+    flex-grow: 25;
+}
+a.usermsg-admin {
+    color: #3d02bb; 
+    text-decoration: none; 
+}
+
+a.usermsg-admin:hover {
+    color: #725ba4; 
+}
+
 .fechamsg{
     margin-top: 10px;
     text-align: right;
@@ -71,6 +105,11 @@
     margin-top: 10px;
     text-align: right;
     margin-right: 10px;
+}
+
+.bot-msg{
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Estilos para la tabla de foros */

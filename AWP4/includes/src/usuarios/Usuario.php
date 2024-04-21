@@ -252,6 +252,26 @@ class Usuario
         }
     }
 
+    public static function getRolAutor($idautor)
+    {
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("Error en la conexión a la base de datos: " . $conn->connect_error);
+        }
+
+        $result = $conn->query("SELECT rol FROM usuario WHERE id = '$idautor'");
+
+        if ($result->num_rows > 0) {
+            // Si hay resultados, devolvemos el logo de la liga
+            $row = $result->fetch_assoc();
+            return $row['rol'];
+        } else {
+            // Si no hay resultados, devolvemos null o algún valor por defecto
+            return null;
+        }
+    }
+
     public static function bloquearUsuario($id){
 
         $app = Aplicacion::getInstance();

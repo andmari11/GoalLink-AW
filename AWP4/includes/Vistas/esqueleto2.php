@@ -6,7 +6,7 @@ $mensajes = mensajesPeticionAnterior();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<link rel="stylesheet" type="text/css" href="./CSS/style.css">
+<link rel="stylesheet" type="text/css" href="./CSS/estilo.css">
 <link rel="stylesheet" type="text/css" href="./CSS/formularios.css">
 <link rel="stylesheet" type="text/css" href="./CSS/not.css">
 <link rel="stylesheet" type="text/css" href="./CSS/foro.css">
