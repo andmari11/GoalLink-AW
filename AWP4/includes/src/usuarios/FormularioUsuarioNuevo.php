@@ -130,13 +130,8 @@ class FormularioUsuarioNuevo extends Formulario
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
             } else {
-                if($imagen!=null){
-                    $usuario = new Usuario($nombreUsuario, $email, $password, 'u', $liga, $imagen);
-                }
-                else{
+                $usuario = new Usuario($nombreUsuario, $email, $password, 'u', $liga);
 
-                    $usuario = new Usuario($nombreUsuario, $email, $password, 'u', $liga);
-                }
                 if (Usuario::insertaUsuario($usuario, $imagen)) {
                     $this->accionSecundaria($usuario);
                 } else {
