@@ -11,11 +11,10 @@ use es\ucm\fdi\aw\usuarios\Usuario;
 
 
 
-$id_usuario = $_GET['id'];
 
 $app = Aplicacion::getInstance();
 
-
+$id_usuario = $_GET['id'];
 
 $usuario = es\ucm\fdi\aw\usuarios\Usuario::buscaUsuarioPorId($id_usuario);
 $contenido = '';
@@ -24,7 +23,6 @@ if ($usuario === null) {
     $contenido.= 'No se encontró el usuario.';
     exit;
 }
-
 $titulo = $usuario->getNombre();
 $contenido .= "<h2 class='titulo-usuario'> Mensajes de " . $titulo . ":</h2>";
 if($app->usuarioLogueado() and ($app->getUsuarioID()==$id_usuario or $app->esAdmin())){

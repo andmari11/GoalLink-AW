@@ -88,7 +88,7 @@ class FormularioUsuarioNuevo extends Formulario
     protected function procesaFormulario(&$datos)
     {
         $this->errores = [];
-
+        $liga=$datos['liga'];
         $nombreUsuario = trim($datos['nombreUsuario'] ?? '');
         $nombreUsuario = filter_var($nombreUsuario, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if ( ! $nombreUsuario || mb_strlen($nombreUsuario) < 5) {
@@ -130,7 +130,13 @@ class FormularioUsuarioNuevo extends Formulario
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
             } else {
-                $usuario = new Usuario($nombreUsuario, $email, $password, 'u', 'LaLiga', $imagen);
+                if($imagen!=null){
+                    $usuario = new Usuario($nombreUsuario, $email, $password, 'u', $liga, $imagen);
+                }
+                else{
+
+                    $usuario = new Usuario($nombreUsuario, $email, $password, 'u', $liga);
+                }
                 if (Usuario::insertaUsuario($usuario, $imagen)) {
                     $this->accionSecundaria($usuario);
                 } else {

@@ -25,10 +25,12 @@ class Usuario
         $this->liga_fav=$liga_fav;
         $this->ruta_imagen=$imagen;
 
-        if ($imagen == NULL) {
+        if ($imagen == null) {
             $imagen="img/usuarios/default.png";
         }
+
         if(file_exists($imagen)){
+
             $this->imagen = file_get_contents($imagen);   
         }     
         $this->password_hash=$password;
@@ -102,20 +104,30 @@ class Usuario
                 if(!move_uploaded_file($imagen["tmp_name"], $ruta_destino)){
                     die(error_get_last()['message']);
                 }
-            }
 
-            $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`, `imagen`) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
+                $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`, `imagen`) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
                 $conn->real_escape_string($usuario->nombre),
                 $conn->real_escape_string($usuario->email),
                 $conn->real_escape_string(self::hashPassword($usuario->password_hash)), // Utiliza el hash almacenado
                 $conn->real_escape_string($usuario->rol),
                 $conn->real_escape_string($usuario->liga_fav),
                 ($ruta_destino));
+            }
+            else{
+                $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`) VALUES('%s', '%s', '%s', '%s', '%s')",
+                $conn->real_escape_string($usuario->nombre),
+                $conn->real_escape_string($usuario->email),
+                $conn->real_escape_string(self::hashPassword($usuario->password_hash)), // Utiliza el hash almacenado
+                $conn->real_escape_string($usuario->rol),
+                $conn->real_escape_string($usuario->liga_fav));
+
+            }
+
     
             if (!$conn->query($query)) {
                 die("Error: " . $query . "<br>" . $conn->error);
             }
-    
+
             return true;
         } else {
             return false;

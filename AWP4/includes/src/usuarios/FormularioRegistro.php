@@ -2,6 +2,8 @@
 namespace es\ucm\fdi\aw\usuarios;
 
 use es\ucm\fdi\aw\Aplicacion;
+use es\ucm\fdi\aw\usuarios\Usuario;
+
 
 class FormularioRegistro extends FormularioUsuarioNuevo
 {
@@ -12,6 +14,8 @@ class FormularioRegistro extends FormularioUsuarioNuevo
     
    protected function accionSecundaria($usuario){
         $app = Aplicacion::getInstance();
+        $usuario=Usuario::buscaUsuarioPorNombre($usuario->getNombre());
+
         $app->login($usuario);
     }
 

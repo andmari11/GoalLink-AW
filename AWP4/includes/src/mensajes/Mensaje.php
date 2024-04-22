@@ -64,7 +64,7 @@ class Mensaje
     }
     
 
-    public static function insertarMensaje($foro_id, $usuario_id, $text, $fecha, $hora, $likes, $imagen){
+    public static function insertarMensaje($foro_id, $usuario_id, $text, $fecha, $hora, $likes, $imagen=null){
 
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();        
