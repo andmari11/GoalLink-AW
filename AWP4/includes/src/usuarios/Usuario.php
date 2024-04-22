@@ -195,7 +195,12 @@ class Usuario
 
         $usuario=self::buscaUsuarioPorId($id);
 
-        return $usuario->getImagen();
+        if($usuario){
+
+            return $usuario->getImagen();
+        }
+        return null;
+
     }
 
     public static function listaUsuario() {
