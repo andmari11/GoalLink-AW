@@ -15,7 +15,7 @@ function mostrarSaludo()
         $htmlLogout = $formLogout->gestiona();
         
         $imagen=Usuario::getFotoPerfil($app->getUsuarioID());
-        if($imagen){
+        if($imagen!=null){
             $imagenhtml = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode($imagen) . '" alt="usuariodin">';
 
             $html = "<a href='usuarioDinamico.php?id=". urlencode($app->getUsuarioID()) ."'> $nombreUsuario </a>" . $imagenhtml. $htmlLogout;
