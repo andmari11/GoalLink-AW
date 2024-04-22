@@ -29,7 +29,7 @@ class FormularioUsuarioNuevo extends Formulario
 
         // Se generan los mensajes de error si existen.
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'nombre', 'email', 'password', 'password2', 'liga'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['nombreUsuario', 'nombre', 'email', 'password', 'password2', 'liga', 'file'], $this->errores, 'span', array('class' => 'error'));
         $ligas=self::obtenerOpcionesLigas();
         $html = <<<EOF
         $htmlErroresGlobales
@@ -112,7 +112,7 @@ class FormularioUsuarioNuevo extends Formulario
         if ( ! $password2 || $password != $password2 ) {
             $this->errores['password2'] = 'Los passwords deben coincidir';
         }
-
+        $imagen=null;
         if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
             $imagen = $_FILES['imagen'];
             if ($imagen['size'] > 10485760) {
@@ -130,7 +130,7 @@ class FormularioUsuarioNuevo extends Formulario
             if ($usuario) {
                 $this->errores[] = "El usuario ya existe";
             } else {
-                $usuario = new Usuario($nombreUsuario, $email, $password, 'u', 'LaLiga');
+                $usuario = new Usuario($nombreUsuario, $email, $password, 'u', 'LaLiga', $imagen);
                 if (Usuario::insertaUsuario($usuario, $imagen)) {
                     $this->accionSecundaria($usuario);
                 } else {

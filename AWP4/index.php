@@ -6,7 +6,6 @@ use es\ucm\fdi\aw\noticias;
 
 $titulo = 'Index';
 $contenido = '';
-
 if (($app->usuarioLogueado()) && ($app->esAdmin())) {
     $contenido .= <<<EOS
     <h2>HOME <button type="button">Editar</button></h2>
@@ -25,7 +24,6 @@ $contenido .= <<<EOS
 EOS;
 
 $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaDestacados(1);
-
 if ($noticiasDestacadas != NULL) {
     foreach ($noticiasDestacadas as $noticia) {
         $contenido .= '<div class="noticia">'; // Agregar contenedor de noticia

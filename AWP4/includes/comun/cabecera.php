@@ -13,9 +13,15 @@ function mostrarSaludo()
 
         $formLogout = new FormularioLogout();
         $htmlLogout = $formLogout->gestiona();
-        $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($app->getUsuarioID())) . '" alt="usuariodin">';
+        
+        $imagen=Usuario::getFotoPerfil($app->getUsuarioID());
+        if($imagen){
+            $imagenhtml = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode($imagen) . '" alt="usuariodin">';
 
-        $html = "<a href='usuarioDinamico.php?id=". urlencode($app->getUsuarioID()) ."'> $nombreUsuario </a>" . $imagen. $htmlLogout;
+            $html = "<a href='usuarioDinamico.php?id=". urlencode($app->getUsuarioID()) ."'> $nombreUsuario </a>" . $imagenhtml. $htmlLogout;
+
+        }
+        
     } else {
         $loginUrl = $app->resuelve('/login.php');
         $registroUrl = $app->resuelve('/registro.php');
