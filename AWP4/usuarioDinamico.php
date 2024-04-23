@@ -82,7 +82,27 @@ if($resultado!=null){
     $contenido.= "</div>";
 }
 
+$contenido .= "<h2 class='titulo-usuario'> Noticias favoritas de " . $titulo . ":</h2>";
 
+$noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaNoticiasLike($id_usuario);
+if ($noticiasDestacadas != NULL) {
+    foreach ($noticiasDestacadas as $noticia) {
+        $contenido .= '<div class="noticia">'; // Agregar contenedor de noticia
+        $contenido .= '<h3><a href="noticiaDinamica.php?id=' . $noticia->getId() . '">' . $noticia->getTitulo() . '</a></h3>';
+        $contenido .= "<p>" . substr($noticia->getContenido(), 0, 150) . "..."."</p>";
+        $contenido .= "<p>" . $noticia->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";
+
+        if($noticia->getImagen1()!=NULL){
+            $contenido .= '<figure class="noticia-imagen">'; //contenedor de figura
+            $contenido .= '<img src="data:image/jpeg;base64,'.base64_encode($noticia->getImagen1()).'" alt="imgnoticia">';
+            $contenido .= '</figure>'; // Cerrar contenedor de figura
+                }
+                $contenido .= "<p class = 'autorfechahome'>" . es\ucm\fdi\aw\usuarios\Usuario::getNombreAutor($noticia->getIdAutor()). " " .$noticia->getFecha()."</p>";
+        $contenido .= '</div>'; // Cerrar contenedor de noticia
+    }
+} else {
+    $contenido .= "<p>No se encontraron noticias favoritas.</p>";
+}
 
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
