@@ -92,6 +92,32 @@ class Foro
         return NULL;
     }
 
+    public static function listaFavoritos($usuarioId) {
+
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error) {
+            die("La conexión ha fallado" . $conn->connect_error);
+        }
+
+
+        $result = $conn->query("SELECT * FROM favoritos_foro WHERE usuario_id ={$app->getUsuarioID()}");
+        if($result && $result->num_rows>0){
+
+            while($array=$result->fetch_assoc()){
+
+                $foro= new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["favoritos"], $array["destacado"],  $array["imagen"]);
+                $lista[]=$foro;
+            }
+            usort($lista, array('es\ucm\fdi\aw\foros\Foro', 'compararFechas'));
+
+            return $lista;
+            
+            
+        }
+        return NULL;
+    }
+
     public function setFavorito($usuarioId){
 
 
