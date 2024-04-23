@@ -12,13 +12,7 @@ $titulo = 'Foro';
 $contenido = '';
 
 if ($app->usuarioLogueado()) {
-    if($app->esAdmin() || $app->esModerador()){
-        $contenido .= <<<EOS
-        <h2>FORO <button type="button">Editar</button></h2>
-        <p>Todos los foros</p>
-        EOS;
-    }
-    else{
+    
         $contenido .= <<<EOS
         <h2>FORO</h2>
         <div id = 'container-foros'>
@@ -81,7 +75,7 @@ $contenido .= <<<EOS
     </div>
 EOS;
         
-    }
+    
 
 } else {
     $contenido .= <<<EOS
