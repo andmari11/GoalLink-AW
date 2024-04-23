@@ -65,6 +65,31 @@ class Noticia
         }
         return NULL;
     }
+
+    public static function listaNoticiasLike($id) {
+
+        $app = Aplicacion::getInstance();
+        $conn = $app->getConexionBd();
+        if ($conn->connect_error){
+            die("La conexión ha fallado" . $conn->connect_error);
+        }
+
+        $result = $conn->query("SELECT * FROM likes_noticias WHERE usuario_id={$id}");
+        if($result && $result->num_rows>0){
+
+            while($array=$result->fetch_assoc()){
+
+                $noticia= self::getNoticiaById($array["noticia_id"]);
+                $lista[]=$noticia;
+            }
+
+            usort($lista, array('es\ucm\fdi\aw\noticias\Noticia', 'compararFechas'));
+            
+            return $lista;
+        }
+        return NULL;
+    }
+
     public static function deleteListaLigas($liga) {
 
         $noticiasAsociadas = Noticia::listaLigas($liga);
