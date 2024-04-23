@@ -101,12 +101,12 @@ class Foro
         }
 
 
-        $result = $conn->query("SELECT * FROM favoritos_foro WHERE usuario_id ={$app->getUsuarioID()}");
+        $result = $conn->query("SELECT foro_id FROM favoritos_foro WHERE usuario_id ={$app->getUsuarioID()}");
         if($result && $result->num_rows>0){
 
             while($array=$result->fetch_assoc()){
 
-                $foro= new Foro($array["id"], $array["titulo"], $array["descripcion"], $array["fecha"], $array["favoritos"], $array["destacado"],  $array["imagen"]);
+                $foro= self::getForoById($array['foro_id']);;
                 $lista[]=$foro;
             }
             usort($lista, array('es\ucm\fdi\aw\foros\Foro', 'compararFechas'));

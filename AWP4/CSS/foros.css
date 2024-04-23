@@ -1,17 +1,17 @@
-#container-foro {
+#container-foros {
     display: flex;
     flex-direction: row;
     
     
 }
 
-#container-foro h3,
-#container-foro h2 {
+#container-foros h3,
+#container-foros h2 {
     text-align: center;
     
 }
 
-#container-foro h2{
+#container-foros h2{
     text-align: center; 
     font-size: 36px; 
     color: #62a370; 
@@ -20,7 +20,7 @@
     text-transform: uppercase; 
 }
 
-#container-foro h3 {
+#container-foros h3 {
     text-align: center; 
     font-size: 24px; 
     color: #333; 
@@ -29,13 +29,13 @@
     text-transform: uppercase; 
 }
 
-#container-foro h3 a {
+#container-foros h3 a {
     text-decoration: none; 
     color: #62a370; 
     transition: color 0.3s ease; 
 }
 
-#container-foro h3 a:hover {
+#container-foros h3 a:hover {
     color: #01579b; 
 }
 #favoritos{
