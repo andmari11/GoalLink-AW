@@ -24,23 +24,28 @@ if ($usuario === null) {
     exit;
 }
 $titulo = $usuario->getNombre();
-$contenido .= "<h2 class='titulo-usuario'> Mensajes de " . $titulo . ":</h2>";
+$contenido .= "<h2 class='titulo-usuario'> Perfil de " . $titulo . ":</h2>";
+if($usuario->getImagen()!=null){
+
+    $contenido .= '<div class="usuario-imagenes-din">'; 
+    $contenido .= '<img class="imagen-usuario-din" src="data:image/jpeg;base64,'.base64_encode($usuario->getImagen()).'" alt = "usuario-imagen">';
+    $contenido .= '</div>';
+}
 if($app->usuarioLogueado() and ($app->getUsuarioID()==$id_usuario or $app->esAdmin())){
 
     $contenido.= "<a href='editUsuarios.php?usuario=" . urlencode($usuario->getNombre()) . "'>" . "Editar" . "</a> ";
 
 }
 
-if($usuario->getImagen()!=null){
 
-    $contenido .= '<div class="usuario-imagenes-din">'; 
-    #$contenido .= '<img class="usuario-imagen-din" src="data:image/jpeg;base64,'.base64_encode($usuario->getImagen()).'" alt = "usuario-imagen">';
-    $contenido .= '</div>';
-}
 
 
 $resultado = Mensaje::getMensajesUsuario($id_usuario, $app->esAdmin() or $app->esModerador());
-$contenido.= "<div id ='usuariosdinamicos'>";
+$contenido.= <<<EOS
+<div id='container-user'>
+    <div id ='msg'>     
+EOS;
+$contenido.= "<h2> Mensajes de $titulo</h2>";
 if($resultado!=null){
 
     foreach ($resultado as $mensaje) {
@@ -91,7 +96,15 @@ if($resultado!=null){
     $contenido.= "</div>";
 }
 
-$contenido .= "<h2 class='titulo-usuario'> Noticias favoritas de " . $titulo . ":</h2>";
+
+$contenido .= <<<EOS
+            
+        
+
+<div id ='nots'>
+    <h2>Noticias favoritas de $titulo</h2>
+    
+EOS;
 
 $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaNoticiasLike($id_usuario);
 if ($noticiasDestacadas != NULL) {
@@ -113,7 +126,12 @@ if ($noticiasDestacadas != NULL) {
     $contenido .= "<p>No se encontraron noticias favoritas.</p>";
 }
 
+$contenido .= <<<EOS
+        </div>   
+    </div>
+EOS;
+
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
-$app->generaVista('/esqueleto.php', $params);
+$app->generaVista('/esqueleto2.php', $params);
 
