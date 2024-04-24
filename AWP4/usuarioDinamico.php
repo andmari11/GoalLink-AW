@@ -44,11 +44,18 @@ $contenido.= "<div id ='usuariosdinamicos'>";
 if($resultado!=null){
 
     foreach ($resultado as $mensaje) {
-        $contenido.= "<div class ='usuariodin'>";
+        $contenido.= "<div class ='forodin'>";
         $contenido.= "<div class ='usfeho'>";
         $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($mensaje->getUsuarioId())) . '" alt="usuariodin">';
         $contenido.= "<p> " . $imagen . "</p>";
-        $contenido.= "<p class ='usermsg'> " . Usuario::getNombreAutor($mensaje->getUsuarioId()) . "</p>";
+        $usuarioNombre=Usuario::getNombreAutor($mensaje->getUsuarioId());
+        $usuarioRol=Usuario::getRolAutor($mensaje->getUsuarioId());
+        if($usuarioRol == 'a' || $usuarioRol == 'm'){
+            $contenido.= "<a class='usermsg-admin' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";
+        }
+        else{
+            $contenido.= "<a class='usermsg' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";
+        }
         $contenido.= "<p class ='fechamsg'> Fecha: " . $mensaje->getFecha() . "</p>";
         $contenido.= "<p class ='horamsg'>" . $mensaje->getHora() . "</p>";
         $contenido.= "</div>";
@@ -63,7 +70,7 @@ if($resultado!=null){
         if($app->usuarioLogueado()){    
             $url = "usuarioDinamico.php?id=" . $id_usuario;
             $form = new FormularioMensajeLike($mensaje, $url);
-            $contenido .= $form->gestiona();
+            $contenido .= "<div class ='bot-msg'>" . $form->gestiona();
     
             if($app->esAdmin() or $app->esModerador()){
                 $formEliminar = new FormularioMensajeEliminar($mensaje, $url);
@@ -73,6 +80,8 @@ if($resultado!=null){
                 $formBloquear = new FormularioUsuarioBloquear($mensaje->getUsuarioId(), $url);
                 $contenido .= $formBloquear->gestiona();
             }
+            $contenido .= "</div>";
+        
         }
         else{
             $contenido.= "<p class= 'likemsg'>" . $mensaje->getLikes() . " <span style='color: red;'>&#10084;&#65039;</span></p>";

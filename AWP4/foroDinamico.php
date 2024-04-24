@@ -72,12 +72,19 @@ if($resultado!=null){
     foreach ($resultado as $mensaje) {
         $contenido.= "<div class ='forodin'>";
         $contenido.= "<div class ='usfeho'>";
-        $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( Usuario::getFotoPerfil($mensaje->getUsuarioId())) . '" alt="usuariodin">';
-        $contenido.= "<p> " . $imagen . "</p>";
+        $fotoperfil=Usuario::getFotoPerfil($mensaje->getUsuarioId());
+        if($fotoperfil!=null){
+
+            $imagen = '<img class="imagen-usuario-din" src="data:image/jpeg;base64,' . base64_encode( $fotoperfil) . '" alt="usuariodin">';
+            $contenido.= "<p> " . $imagen . "</p>";
+        }
         $usuarioNombre=Usuario::getNombreAutor($mensaje->getUsuarioId());
         $usuarioRol=Usuario::getRolAutor($mensaje->getUsuarioId());
         if($usuarioRol == 'a' || $usuarioRol == 'm'){
             $contenido.= "<a class='usermsg-admin' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";
+        }
+        elseif($mensaje->getUsuarioId()==-1){
+            $contenido.= "<a class='usermsg'> UsuarioBloqueado</a>";
         }
         else{
             $contenido.= "<a class='usermsg' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";

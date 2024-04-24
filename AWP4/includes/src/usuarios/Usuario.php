@@ -297,7 +297,7 @@ class Usuario
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
         $usuario = self::buscaUsuarioPorId($id);
-    
+
         if($usuario and $usuario->getRol()!='a' and $usuario->getRol()!='m'){
     
             $consulta_existencia = sprintf("SELECT COUNT(*) AS existe FROM `bloqueados` WHERE `id_usuario` = '%s'",
@@ -324,6 +324,7 @@ class Usuario
                 }
                 return true;
             }
+
         }
         return false;
     }

@@ -4,6 +4,7 @@ require_once __DIR__.'/includes/config.php';
 
 
 use es\ucm\fdi\aw\noticias\FormularioNoticiaLike;
+use es\ucm\fdi\aw\usuarios\Usuario;
 
 $id_noticia = $_GET['id'];
 
@@ -35,9 +36,9 @@ $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_e
 $contenido .= '</div>';
 
 $contenido .= "<p class ='contenido'>" .$noticia->getContenido()."</p>";
+$usuarioNombre=Usuario::getNombreAutor($noticia->getIdAutor());
 
-$contenido .= "<p class = 'autorfecha'>" . es\ucm\fdi\aw\usuarios\Usuario::getNombreAutor($noticia->getIdAutor()). " " .$noticia->getFecha()."</p>";
-
+$contenido .= "<p><a class='usermsg' href='usuarioDinamico.php?id=" . urlencode($noticia->getIdAutor()) . "'>$usuarioNombre</a>" ."    (". $noticia->getFecha() . ")</p>";
 
 
 

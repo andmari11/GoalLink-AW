@@ -113,9 +113,12 @@ class Mensaje
                 if($admin or !Usuario::consultarBloqueo($array["usuario_id"])){
 
                     $mensajes= new Mensaje($array["id"], $array["foro_id"], $array["usuario_id"],$array["text"], $array["fecha"], $array["hora"], $array["likes"], $array['imagen']);
-                    $lista[]=$mensajes;
-                }
+                }else{
 
+                    $mensajes= new Mensaje($array["id"], $array["foro_id"], -1,"MENSAJE BLOQUEADO POR ADMIN", $array["fecha"], $array["hora"], 0, null);
+
+                }
+                $lista[]=$mensajes;
                 
             }
             if($array){
