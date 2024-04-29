@@ -13,12 +13,7 @@ $noticiasDestacadas = null;
 
 $contenido.='<div class="contenido-con-imagen">';
 
-if(!empty($_REQUEST["id_liga"])){
-    $id_noticia=htmlspecialchars(trim(strip_tags($_REQUEST["id_liga"])));
-    $contenido .= '<p class="liga-favorita">Otras ligas</p>';
-
-}
-else if (!$app->usuarioLogueado()){
+if (!$app->usuarioLogueado()){
 
     $contenido .= <<<EOS
     <h2>Contenido</h2>
@@ -26,16 +21,24 @@ else if (!$app->usuarioLogueado()){
     EOS;
 }
 else{
-
-    $id_noticia=Usuario::getLigaDeUsuarioId($app->getUsuarioID());
-    $contenido.='<div class="contenido-con-imagen">';
-    $contenido .= '<p class="liga-favorita">Liga favorita</p>';
-}
-
-$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(Liga::LogoLiga($id_noticia)).'" alt = "logoliga">';
-
-    $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas($id_noticia);
-
+    if(!empty($_REQUEST["id_liga"])){
+        $id_liga=htmlspecialchars(trim(strip_tags($_REQUEST["id_liga"])));
+        $contenido .= '<p class="liga-favorita">Otras ligas</p>';
+        $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(Liga::LogoLiga($id_liga)).'" alt = "logoliga">';
+    
+        $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas($id_liga);
+    
+    }
+    
+    else{
+    
+        $id_liga=Usuario::getLigaDeUsuarioId($app->getUsuarioID());
+        $contenido.='<div class="contenido-con-imagen">';
+        $contenido .= '<p class="liga-favorita">Liga favorita</p>';
+        $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(Liga::LogoLiga($id_liga)).'" alt = "logoliga">';
+    
+        $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas($id_liga);
+    }
     if($noticiasDestacadas!=null){
 
         if($app->esAdmin() || $app->esEditor()){
@@ -51,9 +54,6 @@ $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_e
         
         }
     }
-
-
-
     if ($noticiasDestacadas == NULL) {
         $contenido .= '<p>No hay noticias de tu liga favorita</p>'; // Cerrar contenedor de noticia
 
@@ -78,14 +78,19 @@ $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_e
     $contenido .= '<div id= "lista-ligas">';
     if ($ligas) {
         foreach ($ligas as $liga) {
-            $contenido .= '<div class= "lista-ligas-unica">';
-            $contenido .= '<a href=noticiasContenido.php?id_liga='.urldecode($liga->getNombre()).'>';
+            if($liga->getNombre()!=$id_liga){
+                $contenido .= '<div class= "lista-ligas-unica">';
+                $contenido .= '<a href=noticiasContenido.php?id_liga='.urldecode($liga->getNombre()).'>';
             $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode($liga->getLogo()).'" alt="logoliga">';
-            $contenido .= '</a>';
-            $contenido .= '</div>';
+                $contenido .= '</a>';
+                $contenido .= '</div>';
+            }
+
         }
     }
     $contenido .= '</div>';
+}
+
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
 $app->generaVista('/esqueleto.php', $params);
