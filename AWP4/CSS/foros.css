@@ -14,6 +14,40 @@
     
 }
 
+#container-user h3,
+#container-user h2 {
+    text-align: center;
+    
+}
+
+#container-user h2{
+    text-align: center; 
+    font-size: 36px; 
+    color: #62a370; 
+    margin-bottom: 20px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+}
+
+#container-user h3 {
+    text-align: center; 
+    font-size: 24px; 
+    color: #333; 
+    margin-bottom: 10px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+}
+
+#container-user h3 a {
+    text-decoration: none; 
+    color: #62a370; 
+    transition: color 0.3s ease; 
+}
+
+#container-user h3 a:hover {
+    color: #01579b; 
+}
+
 #container-foros h3,
 #container-foros h2 {
     text-align: center;

@@ -33,7 +33,7 @@ if($usuario->getImagen()!=null){
 }
 if($app->usuarioLogueado() and ($app->getUsuarioID()==$id_usuario or $app->esAdmin())){
 
-    $contenido.= "<a href='editUsuarios.php?usuario=" . urlencode($usuario->getNombre()) . "'>" . "Editar" . "</a> ";
+    $contenido.= "<a href='editUsuarios.php?usuario=" . urlencode($usuario->getNombre()) . "'>" . "Editar usuario" . "</a> ";
 
 }
 

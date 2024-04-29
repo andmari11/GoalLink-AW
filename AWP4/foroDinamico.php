@@ -29,26 +29,24 @@ if ($foro === null) {
 }
 $contenido = '';
 
+if($app->usuarioLogueado() and($app->esModerador() or $app->esAdmin())){    
+    $contenido .= "<br>";
+    $contenido .= "<a href='editarForo.php?foro=" . urlencode($foro->getId()) . "'><i class='fas fa-user-cog'></i>Editar foro</a>";
+  
+}
+
 $titulo = $foro->getTitulo();
 $contenido .= "<h2 class='titulo-foro'>" . $titulo . "</h2>";
 $contenido .= "<p>" . $foro->getDescripcion() . "</p>";
 
+$contenido .= '<div class="foro-imagenes-din">';
 if($foro->getImagen()!=null){
 
-    $contenido .= '<div class="foro-imagenes-din">'; 
+    $contenido .= '<div class="foro-imagen-dinamico">';
     $contenido .= '<img class="foro-imagen-din" src="data:image/jpeg;base64,'.base64_encode($foro->getImagen()).'" alt = "foro-imagen">';
     $contenido .= '</div>';
 }
-
-
-if($app->usuarioLogueado() ){    
-    $url="foroDinamico.php?id=' . $id_foro . '";
-    $form = new FormularioForoFavorito($foro, $url);
-    $contenido .= $form->gestiona();
-    
-
-}
-
+$contenido .= '<div class="foro-form">';
 if($app->usuarioLogueado() and !Usuario::consultarBloqueo($app->getUsuarioID())){    
     $form = new \es\ucm\fdi\aw\mensajes\FormularioMensajeCrear($id_foro);
     $contenido.= $form->gestiona();
@@ -63,6 +61,17 @@ else{
 
     $contenido.="<h4> No tienes permisos para participar</h4>";
 }
+$contenido .= '</div>';
+$contenido .= '</div>';
+if($app->usuarioLogueado() ){    
+    $url="foroDinamico.php?id=' . $id_foro . '";
+    $form = new FormularioForoFavorito($foro, $url);
+    $contenido .= $form->gestiona();
+    
+
+}
+
+
 
 
 $resultado = $foro->getMensajes($app->esAdmin() or $app->esModerador());
@@ -125,11 +134,7 @@ if($resultado!=null){
 }
 
 
-if($app->usuarioLogueado() and($app->esModerador() or $app->esAdmin())){    
-    $contenido .= "<br>";
-    $contenido .= " <a href='editarForo.php?foro=" . urlencode($foro->getId()) . "'>Editar</a>";
-  
-} 
+ 
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
 $app->generaVista('/esqueleto.php', $params);
