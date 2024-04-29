@@ -2,6 +2,7 @@
 namespace es\ucm\fdi\aw\usuarios;
 
 use es\ucm\fdi\aw\Aplicacion;
+define("PIMIENTA", 'goallink');
 
 class Usuario
 {
@@ -50,14 +51,12 @@ class Usuario
 
     private static function hashPassword($password,$salt)
     {
-        $pimienta="aa";
-        return password_hash($password . $salt . $pimienta, PASSWORD_DEFAULT);
+        return password_hash($password . $salt . PIMIENTA , PASSWORD_DEFAULT);
     }
 
     public function compruebaPassword($password, $salt)
     {
-        $pimienta="aa";
-        return password_verify($password. $salt. $pimienta, $this->password_hash);
+        return password_verify($password. $salt. PIMIENTA , $this->password_hash);
     }
     
     public static function buscaUsuarioPorNombre($nombre){
@@ -121,7 +120,7 @@ class Usuario
                 $salt);
             }
             else{
-                $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`, `salt`) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%n')",
+                $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`, `salt`) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
                 $conn->real_escape_string($usuario->nombre),
                 $conn->real_escape_string($usuario->email),
                 $conn->real_escape_string(self::hashPassword($usuario->password_hash, $salt)), // Utiliza el hash almacenado
@@ -154,8 +153,9 @@ class Usuario
         $password = $conn->real_escape_string($password);
         // Si se proporciona una nueva contraseña, hasheala
         if ($password != "") {
-            $password_hash = password_hash($password, PASSWORD_DEFAULT);
-            $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga_fav='$ligas', password='$password_hash' WHERE nombre='$nombreAntiguo'";
+            $salt=rand();
+            $password_hash = self::hashPassword($password,$salt);
+            $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga_fav='$ligas', password='$password_hash', salt='$salt' WHERE nombre='$nombreAntiguo'";
         } else {
             $query = "UPDATE `usuario` SET nombre='$username', email='$email', rol='$rol', liga_fav='$ligas' WHERE nombre='$nombreAntiguo'";
         }
