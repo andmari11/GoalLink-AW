@@ -9,14 +9,35 @@ $titulo = 'Contenido';
 
 $contenido = '';
 $noticiasDestacadas = null;
-if ($app->usuarioLogueado()) {
 
-    $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas(Usuario::getLigaDeUsuarioId($app->getUsuarioID()));
+
+$contenido.='<div class="contenido-con-imagen">';
+
+if(!empty($_REQUEST["id_liga"])){
+    $id_noticia=htmlspecialchars(trim(strip_tags($_REQUEST["id_liga"])));
+    $contenido .= '<p class="liga-favorita">Otras ligas</p>';
+
+}
+else if (!$app->usuarioLogueado()){
+
+    $contenido .= <<<EOS
+    <h2>Contenido</h2>
+    Inicie sesión para visualizar contenido exclusivo: <a href='login.php'>Login</a>
+    EOS;
+}
+else{
+
+    $id_noticia=Usuario::getLigaDeUsuarioId($app->getUsuarioID());
+    $contenido.='<div class="contenido-con-imagen">';
+    $contenido .= '<p class="liga-favorita">Liga favorita</p>';
+}
+
+$contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(Liga::LogoLiga($id_noticia)).'" alt = "logoliga">';
+
+    $noticiasDestacadas = \es\ucm\fdi\aw\noticias\Noticia::listaLigas($id_noticia);
 
     if($noticiasDestacadas!=null){
-        $contenido.='<div class="contenido-con-imagen">';
-        $contenido .= '<p class="liga-favorita">Liga favorita</p>';
-        $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode(Liga::LogoLiga(Usuario::getLigaDeUsuarioId($app->getUsuarioID()))).'" alt = "logoliga">';
+
         if($app->esAdmin() || $app->esEditor()){
 
             $contenido .= '<br>';
@@ -30,13 +51,8 @@ if ($app->usuarioLogueado()) {
         
         }
     }
-}
-else{
-    $contenido .= <<<EOS
-    <h2>Contenido</h2>
-    Inicie sesión para visualizar contenido exclusivo: <a href='login.php'>Login</a>
-    EOS;
-}
+
+
 
     if ($noticiasDestacadas == NULL) {
         $contenido .= '<p>No hay noticias de tu liga favorita</p>'; // Cerrar contenedor de noticia
@@ -58,7 +74,15 @@ else{
                 $contenido .= '</div>'; // Cerrar contenedor de noticia
             }
     }
-    
+    $ligas = Liga::listaLigas();
+
+    if ($ligas) {
+        foreach ($ligas as $liga) {
+            $contenido .= '<a href=noticiasContenido.php?id_liga='.urldecode($liga->getNombre()).'>';
+            $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode($liga->getLogo()).'" alt="logoliga">';
+            $contenido .= '</a>';
+        }
+    }
 
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
