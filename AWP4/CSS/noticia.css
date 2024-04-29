@@ -91,5 +91,15 @@
 #lista-ligas{
     display: flex;
     flex-direction: row;
+    justify-content:space-around;
 }
 
+.logo-liga-din{
+    width: 20%;
+    height: 70%;
+}
+
+
+.lista-ligas-unica{
+    flex-grow: 1;
+}

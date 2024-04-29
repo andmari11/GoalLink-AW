@@ -75,15 +75,17 @@ $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_e
             }
     }
     $ligas = Liga::listaLigas();
-
+    $contenido .= '<div id= "lista-ligas">';
     if ($ligas) {
         foreach ($ligas as $liga) {
+            $contenido .= '<div class= "lista-ligas-unica">';
             $contenido .= '<a href=noticiasContenido.php?id_liga='.urldecode($liga->getNombre()).'>';
             $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode($liga->getLogo()).'" alt="logoliga">';
             $contenido .= '</a>';
+            $contenido .= '</div>';
         }
     }
-
+    $contenido .= '</div>';
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
 $app->generaVista('/esqueleto.php', $params);
