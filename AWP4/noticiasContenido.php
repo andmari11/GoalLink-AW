@@ -75,13 +75,14 @@ else{
             }
     }
     $ligas = Liga::listaLigas();
+    $contenido .= '<h2 id ="otras-ligas">Otras Ligas:</h2>';
     $contenido .= '<div id= "lista-ligas">';
     if ($ligas) {
         foreach ($ligas as $liga) {
             if($liga->getNombre()!=$id_liga){
                 $contenido .= '<div class= "lista-ligas-unica">';
                 $contenido .= '<a href=noticiasContenido.php?id_liga='.urldecode($liga->getNombre()).'>';
-            $contenido .= '<img class="logo-liga-din" src="data:image/jpeg;base64,'.base64_encode($liga->getLogo()).'" alt="logoliga">';
+                $contenido .= '<img class="logo-liga-din-abajo" src="data:image/jpeg;base64,'.base64_encode($liga->getLogo()).'" alt="logoliga">';
                 $contenido .= '</a>';
                 $contenido .= '</div>';
             }

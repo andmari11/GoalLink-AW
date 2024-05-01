@@ -103,3 +103,13 @@
 .lista-ligas-unica{
     flex-grow: 1;
 }
+
+#otras-ligas{
+    text-align: center;
+    font-size: 50px;
+    font-weight: bold; 
+    color: #62a370; 
+    text-transform: uppercase; 
+    margin-bottom: 60px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+}
