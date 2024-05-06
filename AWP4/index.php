@@ -5,16 +5,11 @@ use es\ucm\fdi\aw\foros;
 use es\ucm\fdi\aw\noticias;
 
 $titulo = 'Index';
-$contenido = '';
-if (($app->usuarioLogueado()) && ($app->esAdmin())) {
-    $contenido .= <<<EOS
-    <h2>HOME <button type="button">Editar</button></h2>
-EOS;
-} else {
-    $contenido .= <<<EOS
+
+$contenido = <<<EOS
     <h2>HOME</h2> 
 EOS;
-}
+
 
 $contenido .= <<<EOS
     <div id='container'>
