@@ -110,7 +110,7 @@ class Usuario
                     die(error_get_last()['message']);
                 }
 
-                $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`, `imagen`, `salt`) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%n')",
+                $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`, `imagen`, `salt`) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
                 $conn->real_escape_string($usuario->nombre),
                 $conn->real_escape_string($usuario->email),
                 $conn->real_escape_string(self::hashPassword($usuario->password_hash, $salt)), // Utiliza el hash almacenado
