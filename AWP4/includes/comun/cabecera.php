@@ -37,9 +37,8 @@ function mostrarSaludo()
 ?>
 
 <header>
-    
     <div class ="Logo">
-        <img src="img/logo.png" alt="logo">
+        <a href='index.php'><img src="img/logo.png" alt="logo"></a>
         <h1>GoalLink</h1>
     </div>
     
