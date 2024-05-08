@@ -93,10 +93,13 @@ if($resultado!=null){
         }
         $contenido.= "</div>";
     }
-    $contenido.= "</div>";
+
 }
+else{
+    $contenido .= "<p>No se encontraron mensajes.</p>";
 
-
+}
+$contenido.= "</div>";
 $contenido .= <<<EOS
             
         
