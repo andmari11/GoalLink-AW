@@ -124,7 +124,7 @@ class Liga
             die(error_get_last()['message']);
         }
 
-        $nombreLiga = $conn->real_escape_string($nombre); 
+        $nombreLiga = htmlspecialchars(trim(strip_tags($nombre))); 
         $sql = "INSERT INTO ligas (nombre, logo) VALUES ('$nombreLiga', '$ruta_destino')";
         $result = $conn->query($sql);
 

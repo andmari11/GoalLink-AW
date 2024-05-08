@@ -162,10 +162,10 @@ class Noticia
                 die(error_get_last()['message']);
             }
         }
-        $titulo = $conn->real_escape_string($titulo);
-        $contenido = $conn->real_escape_string($contenido);
-        $id_autor = $conn->real_escape_string($id_autor);
-        $fecha = $conn->real_escape_string($fecha);
+        $titulo = htmlspecialchars(trim(strip_tags($titulo)));
+        $contenido = htmlspecialchars(trim(strip_tags($contenido)));
+        $id_autor = htmlspecialchars(trim(strip_tags($id_autor)));
+        $fecha = htmlspecialchars(trim(strip_tags($fecha)));
         $destacado = $destacado ? 1 : 0; // Convertir a valor entero
         if ($conn->query("INSERT INTO noticia (titulo, id_autor, contenido, fecha, destacado, imagen1, liga) 
                         VALUES ('$titulo', '$id_autor', '$contenido', '$fecha', '$destacado', '$ruta_destino', '$ligas')")) 
@@ -186,10 +186,10 @@ class Noticia
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
 
-        $titulo = $conn->real_escape_string($titulo);
-        $contenido = $conn->real_escape_string($contenido);
+        $titulo = htmlspecialchars(trim(strip_tags($titulo)));
+        $contenido = htmlspecialchars(trim(strip_tags($contenido)));
         $destacado = $destacado ? 1 : 0; // Convertir a valor entero
-        $id_noticia = $conn->real_escape_string($id_noticia);
+        $id_noticia = htmlspecialchars(trim(strip_tags($id_noticia)));
 
         $noticia=self::getNoticiaById($id_noticia);
 
@@ -230,7 +230,7 @@ class Noticia
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
 
-        $query = sprintf("DELETE FROM `noticia` WHERE `id` = '%s'", $conn->real_escape_string($id));
+        $query = sprintf("DELETE FROM `noticia` WHERE `id` = '%s'", htmlspecialchars(trim(strip_tags($id))));
 
         $noticia=self::getNoticiaById($id);
 

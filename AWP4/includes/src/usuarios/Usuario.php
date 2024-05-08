@@ -111,21 +111,21 @@ class Usuario
                 }
 
                 $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`, `imagen`, `salt`) VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')",
-                $conn->real_escape_string($usuario->nombre),
-                $conn->real_escape_string($usuario->email),
-                $conn->real_escape_string(self::hashPassword($usuario->password_hash, $salt)), // Utiliza el hash almacenado
-                $conn->real_escape_string($usuario->rol),
-                $conn->real_escape_string($usuario->liga_fav),
+                htmlspecialchars(trim(strip_tags($usuario->nombre))),
+                htmlspecialchars(trim(strip_tags($usuario->email))),
+                htmlspecialchars(trim(strip_tags(self::hashPassword($usuario->password_hash, $salt)))), // Utiliza el hash almacenado
+                htmlspecialchars(trim(strip_tags($usuario->rol))),
+                htmlspecialchars(trim(strip_tags($usuario->liga_fav))),
                 ($ruta_destino),
                 $salt);
             }
             else{
                 $query = sprintf("INSERT INTO `usuario` (`nombre`, `email`, `password`, `rol`, `liga_fav`, `salt`) VALUES('%s', '%s', '%s', '%s', '%s', '%s')",
-                $conn->real_escape_string($usuario->nombre),
-                $conn->real_escape_string($usuario->email),
-                $conn->real_escape_string(self::hashPassword($usuario->password_hash, $salt)), // Utiliza el hash almacenado
-                $conn->real_escape_string($usuario->rol),
-                $conn->real_escape_string($usuario->liga_fav),
+                htmlspecialchars(trim(strip_tags($usuario->nombre))),
+                htmlspecialchars(trim(strip_tags($usuario->email))),
+                htmlspecialchars(trim(strip_tags(self::hashPassword($usuario->password_hash, $salt)))), // Utiliza el hash almacenado
+                htmlspecialchars(trim(strip_tags($usuario->rol))),
+                htmlspecialchars(trim(strip_tags($usuario->liga_fav))),
                 $salt);
 
             }
@@ -145,12 +145,12 @@ class Usuario
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
 
-        $nombreAntiguo = $conn->real_escape_string($nombreAntiguo);
-        $username = $conn->real_escape_string($username);
-        $email = $conn->real_escape_string($email);
-        $rol = $conn->real_escape_string($rol);
-        $ligas = $conn->real_escape_string($ligas);
-        $password = $conn->real_escape_string($password);
+        $nombreAntiguo = htmlspecialchars(trim(strip_tags($nombreAntiguo)));
+        $username = htmlspecialchars(trim(strip_tags($username)));
+        $email = htmlspecialchars(trim(strip_tags($email)));
+        $rol = htmlspecialchars(trim(strip_tags($rol)));
+        $ligas = htmlspecialchars(trim(strip_tags($ligas)));
+        $password = htmlspecialchars(trim(strip_tags($password)));
         // Si se proporciona una nueva contraseña, hasheala
         if ($password != "") {
             $salt=rand();
@@ -192,7 +192,7 @@ class Usuario
         $app = Aplicacion::getInstance();
         $conn = $app->getConexionBd();
 
-        $query = sprintf("DELETE FROM `usuario` WHERE `nombre` = '%s'", $conn->real_escape_string($nombre));
+        $query = sprintf("DELETE FROM `usuario` WHERE `nombre` = '%s'", htmlspecialchars(trim(strip_tags($nombre))));
 
         $usuario=Usuario::buscaUsuarioPorNombre($nombre);
         if(!$usuario || $usuario->getRol()=="a"){
@@ -309,7 +309,7 @@ class Usuario
         if($usuario and $usuario->getRol()!='a' and $usuario->getRol()!='m'){
     
             $consulta_existencia = sprintf("SELECT COUNT(*) AS existe FROM `bloqueados` WHERE `id_usuario` = '%s'",
-                $conn->real_escape_string($usuario->id));
+                htmlspecialchars(trim(strip_tags($usuario->id))));
             $resultado = $conn->query($consulta_existencia);
             if (!$resultado) {
                 die("Error al verificar la existencia del usuario en la lista de bloqueados: " . $conn->error);
@@ -319,14 +319,14 @@ class Usuario
     
             if($existe) {
                 $query = sprintf("DELETE FROM `bloqueados` WHERE `id_usuario` = '%s'",
-                    $conn->real_escape_string($usuario->id));
+                    htmlspecialchars(trim(strip_tags($usuario->id))));
                 if (!$conn->query($query)) {
                     die("Error al desbloquear al usuario: " . $conn->error);
                 }
                 return true;
             } else {
                 $query = sprintf("INSERT INTO `bloqueados` (`id_usuario`) VALUES('%s')",
-                    $conn->real_escape_string($usuario->id));
+                    htmlspecialchars(trim(strip_tags($usuario->id))));
                 if (!$conn->query($query)) {
                     die("Error al bloquear al usuario: " . $conn->error);
                 }
@@ -346,7 +346,7 @@ class Usuario
         }
         
         $query = sprintf("SELECT COUNT(*) AS count FROM `bloqueados` WHERE `id_usuario` = '%s'",
-            $conn->real_escape_string($id));
+            htmlspecialchars(trim(strip_tags($id))));
         
         $result = $conn->query($query);
         if (!$result) {
