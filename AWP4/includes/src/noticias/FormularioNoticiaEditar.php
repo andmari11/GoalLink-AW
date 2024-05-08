@@ -32,7 +32,7 @@ class FormularioNoticiaEditar extends Formulario
             return "<p>La noticia no existe.</p>";
         }
         $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-        $erroresCampos = self::generaErroresCampos(['titulo', 'contenido', 'file', 'liga'], $this->errores, 'span', array('class' => 'error'));
+        $erroresCampos = self::generaErroresCampos(['text', 'contenido', 'file', 'liga'], $this->errores, 'span', array('class' => 'error'));
         $app = Aplicacion::getInstance();
         if(!$app->esAdmin() and !$app->esEditor()){
             return "ACCESO DENEGADO";
@@ -53,10 +53,12 @@ class FormularioNoticiaEditar extends Formulario
                 <div>
                     <label>Título:</label>
                     <input type="text" name="titulo" value="$titulo" required>
+                    {$erroresCampos['text']}
                 </div>
                 <div>
                     <label>Contenido:</label>
                     <textarea name="contenido" rows="4" cols="50" required>$contenido</textarea>
+                    {$erroresCampos['contenido']}
                 </div>
                 <label for="imagen1">Imagen:</label><br>
                 <input type="file" id="imagen1" name="imagen1"><br><br>
@@ -83,6 +85,14 @@ class FormularioNoticiaEditar extends Formulario
         $destacado = isset($datos["destacado"]) ? 1 : 0;
         $ligas= $_REQUEST['liga'];
         $imagen1 = null;
+
+        if (strlen($titulo) > 100) {
+            $this->errores['text'] = 'El título no puede exceder los 100 caracteres.';
+        }
+        if (strlen($contenido) > 5000) {
+            $this->errores['contenido'] = 'El contenido no puede exceder los 5000 caracteres.';
+        }
+        
         if (isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
             $imagen1 = $_FILES['imagen1'];
             if ($imagen1['size'] > 10485760) {

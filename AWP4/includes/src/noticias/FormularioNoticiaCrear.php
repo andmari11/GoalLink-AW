@@ -30,7 +30,7 @@ class FormularioNoticiaCrear extends Formulario {
             $usuarioId=$app->getUsuarioID();
             $ligas=self::obtenerOpcionesLigas();
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-            $erroresCampos = self::generaErroresCampos(['ligas', 'file'], $this->errores, 'span', array('class' => 'error'));
+            $erroresCampos = self::generaErroresCampos(['ligas', 'file', 'text', 'contenido'], $this->errores, 'span', array('class' => 'error'));
     
             $html = <<<EOS
             $htmlErroresGlobales
@@ -38,12 +38,14 @@ class FormularioNoticiaCrear extends Formulario {
             
                 <label for="titulo">Título:</label><br>
                 <input type="text" id="titulo" name="titulo" required><br><br>
-                
+                {$erroresCampos['text']}<br><br>
+
                 <input type="hidden" id="id_autor" name="id_autor" value="{$usuarioId}">
                 
                 <label for="contenido">Contenido:</label><br>
                 <textarea id="contenido" name="contenido" rows="4" cols="50"></textarea><br><br>
-        
+                 {$erroresCampos['contenido']}
+
                 <label for="fecha">Fecha:</label><br>
                 <input type="date" id="fecha" name="fecha" value="{$fecha}"><br><br>
                 
@@ -87,6 +89,12 @@ class FormularioNoticiaCrear extends Formulario {
         $ligas= $_REQUEST['liga'];
         $imagen1 = null;
 
+        if (strlen($titulo) > 100) {
+            $this->errores['text'] = 'El título no puede exceder los 100 caracteres.';
+        }
+        if (strlen($contenido) > 5000) {
+            $this->errores['contenido'] = 'El contenido no puede exceder los 5000 caracteres.';
+        }
 
         if (isset($_FILES["imagen1"]) && $_FILES["imagen1"]["error"] == 0) {
             $imagen1 = $_FILES['imagen1'];

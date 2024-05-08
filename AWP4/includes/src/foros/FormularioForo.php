@@ -21,16 +21,19 @@ class FormularioForo extends Formulario
             $fecha = $datos['fecha'] ?? date('Y-m-d');
             $destacado = isset($datos["destacado"]) ? 'checked' : '';
             $htmlErroresGlobales = self::generaListaErroresGlobales($this->errores);
-            $erroresCampos = self::generaErroresCampos(['titulo', 'descripcion'], $this->errores, 'span', array('class' => 'error'));
+            $erroresCampos = self::generaErroresCampos(['text', 'descripcion'], $this->errores, 'span', array('class' => 'error'));
     
             $html = <<<EOS
             $htmlErroresGlobales
             <div class="formulario">
                 <label for="titulo">Título:</label><br>
                 <input type="text" id="titulo" name="titulo" value="{$titulo}" required><br><br>
-    
+                {$erroresCampos['text']}<br><br>
+
                 <label for="descripcion">Descripción:</label><br>
                 <textarea id="descripcion" name="descripcion" rows="4" cols="50">{$descripcion}</textarea><br><br>
+                {$erroresCampos['descripcion']}
+
                 <div>
                 <label for="imagen">Imagen:</label><br>
                 <input type="file" id="imagen" name="imagen"><br><br>
@@ -66,6 +69,14 @@ class FormularioForo extends Formulario
         $errores[] = 'Por favor, completa todos los campos.';
     } 
     
+    if (strlen($titulo) > 100) {
+        $this->errores['text'] = 'El título no puede exceder los 100 caracteres.';
+    }
+    if (strlen($descripcion) > 200) {
+        $this->errores['descripcion'] = 'El contenido no puede exceder los 200 caracteres.';
+    }
+
+
     $imagen=null;
     if (isset($_FILES["imagen"]) && $_FILES["imagen"]["error"] == 0) {
         $imagen = $_FILES['imagen'];
