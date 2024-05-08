@@ -38,6 +38,8 @@ class FormularioUsuarioNuevo extends Formulario
             <div>
                 <label for="nombreUsuario">Nombre de usuario:</label>
                 <input id="nombreUsuario" type="text" name="nombreUsuario" value="$nombreUsuario">
+                <span id="userOk">&#x2714;</span>
+                <span id="userError">&#x26a0;</span>
                 {$erroresCampos['nombreUsuario']}
             </div>
             <div>
@@ -48,6 +50,8 @@ class FormularioUsuarioNuevo extends Formulario
             <div>
             <label for="email">Email:</label>
             <input id="email" type="text" name="email">
+            <span id="correoOK">&#x2714;</span>
+            <span id="correoError">&#x26a0;</span>
             {$erroresCampos['email']}
             </div>
             <div>
@@ -76,6 +80,8 @@ class FormularioUsuarioNuevo extends Formulario
                 <button type="submit" name="registro">Registrar</button>
             </div>
         </fieldset>
+        <script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
+        <script type="text/javascript" src="js/Registro.js"></script>
         EOF;
         return $html;
     }

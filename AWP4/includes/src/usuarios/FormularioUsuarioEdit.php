@@ -53,11 +53,15 @@ class FormularioUsuarioEdit extends Formulario
             <fieldset class="formulario">
                 <legend>Editar datos:</legend>
                 <div>
-                    <label>Nombre:</label><input type="text" name="nombre" value="{$nombre}" required> 
+                    <label>Nombre:</label><input id="nombreUsuario" type="text" name="nombre" value="{$nombre}" required> 
+                    <span id="userOk">&#x2714;</span>
+                    <span id="userError">&#x26a0;</span>
                     {$erroresCampos['nombreUsuario']}
                 </div>
                 <div>
-                    <label>Email:</label><input type="text" name="email" value="{$email}" required> 
+                    <label>Email:</label><input id="email" type="text" name="email" value="{$email}" required> 
+                    <span id="correoOK">&#x2714;</span>
+                    <span id="correoError">&#x26a0;</span>
                     {$erroresCampos['email']}
                 </div>
 EOF;
@@ -112,6 +116,8 @@ EOF;
                 <button type="submit">Siguiente</button>
                 <input type="hidden" name="nombreAntiguo" value="{$username}">
             </fieldset>
+            <script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
+            <script type="text/javascript" src="js/Registro.js"></script>
 EOF;
         } else {
             $html = "<h2>No es posible editar admin</h2>";
