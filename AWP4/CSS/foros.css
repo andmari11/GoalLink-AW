@@ -223,6 +223,14 @@ a.usermsg-admin:hover {
     justify-content: space-between;
 }
 
+.imagen-mensaje-din{
+    width: 40%;
+    height: auto;
+    border-radius: 5%; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    transition: 0.3s; 
+}
+
 /* Estilos para la tabla de foros */
 .tabla-foros {
     width: 100%;
@@ -240,3 +248,19 @@ a.usermsg-admin:hover {
 .tabla-foros th {
     background-color: #f2f2f2;
 }
+
+.foro-imagenes-din{
+    display: flex;
+}
+
+.foro-imagen-din{
+    width: 50%;
+    height: 50%;
+    margin-right: 20px; 
+    margin-left: 20%;
+    margin-top: 20%;
+    border-radius: 5%; 
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
+    transition: 0.3s; 
+}
+
