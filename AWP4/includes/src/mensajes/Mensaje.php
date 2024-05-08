@@ -72,10 +72,10 @@ class Mensaje
             die("Error en la conexión a la base de datos: " . $conn->connect_error);
         }
 
-        $text = $conn->real_escape_string($text);
-        $fecha = $conn->real_escape_string($fecha);
-        $hora = $conn->real_escape_string($hora);
-        $likes = $conn->real_escape_string($likes);
+        $text = htmlspecialchars(trim(strip_tags($text)));
+        $fecha = htmlspecialchars(trim(strip_tags($fecha)));
+        $hora = htmlspecialchars(trim(strip_tags($hora)));
+        $likes = htmlspecialchars(trim(strip_tags($likes)));
 
         if($imagen!=null){
             $ruta_destino = "img/mensajes/" . basename($imagen["name"]);
@@ -145,7 +145,7 @@ class Mensaje
                 die("La conexión ha fallado" . $conn->connect_error);
             }
     
-            $query = sprintf("DELETE FROM `mensaje` WHERE `id` = '%s'", $conn->real_escape_string($id));
+            $query = sprintf("DELETE FROM `mensaje` WHERE `id` = '%s'", htmlspecialchars(trim(strip_tags($id))));
 
             return $conn->query($query);
         }

@@ -233,16 +233,16 @@ class Foro
                 die(error_get_last()['message']);
             }
             $query = sprintf("UPDATE foro SET titulo = '%s', descripcion = '%s', destacado = %d, imagen='%s' WHERE id = %d",
-            $conn->real_escape_string($titulo),
-            $conn->real_escape_string($descripcion),
+            htmlspecialchars(trim(strip_tags($titulo))),
+            htmlspecialchars(trim(strip_tags($descripcion))),
             $destacado,
-            $conn->real_escape_string($ruta_destino),
+            htmlspecialchars(trim(strip_tags($ruta_destino))),
             $id);
         }else{
             
             $query = sprintf("UPDATE foro SET titulo = '%s', descripcion = '%s', destacado = %d WHERE id = %d",
-            $conn->real_escape_string($titulo),
-            $conn->real_escape_string($descripcion),
+            htmlspecialchars(trim(strip_tags($titulo))),
+            htmlspecialchars(trim(strip_tags($descripcion))),
             $destacado,
             $id);
 
