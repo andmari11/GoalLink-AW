@@ -20,8 +20,7 @@ $usuario = es\ucm\fdi\aw\usuarios\Usuario::buscaUsuarioPorId($id_usuario);
 $contenido = '';
 
 if ($usuario === null) {
-    $contenido.= 'No se encontró el usuario.';
-    exit;
+    die('No se encontró el usuario.');
 }
 $titulo = $usuario->getNombre();
 $contenido .= "<h2 class='titulo-usuario'> Perfil de " . $titulo . ":</h2>";
