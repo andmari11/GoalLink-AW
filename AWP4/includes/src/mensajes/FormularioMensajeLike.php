@@ -20,7 +20,7 @@ class FormularioMensajeLike extends Formulario
         $likes= $this->mensaje->getLikes() . " ♥";
         $id=$this->mensaje->getId();
         $camposFormulario = <<<EOS
-            <input type="hidden" id="mensaje" name="mensaje" value="{$id}">
+            <input type="hidden" class="mensaje" name="mensaje" value="{$id}">
             <button class="enlace" type="submit">{$likes}</button>
         EOS;
         return $camposFormulario;

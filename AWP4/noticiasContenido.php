@@ -29,7 +29,6 @@ else{
     else{
     
         $id_liga=Usuario::getLigaDeUsuarioId($app->getUsuarioID());
-        $contenido.='<div class="contenido-con-imagen">';
         $contenido .= '<p class="liga-favorita">Liga favorita</p>';
 
     }
@@ -84,7 +83,7 @@ else{
         foreach ($ligas as $liga) {
             if($liga->getNombre()!=$id_liga){
                 $contenido .= '<div class= "lista-ligas-unica">';
-                $contenido .= '<a href=noticiasContenido.php?id_liga='.urldecode($liga->getNombre()).'>';
+                $contenido .= '<a href="noticiasContenido.php?id_liga='.urldecode($liga->getNombre()).'">';
                 $contenido .= '<img class="logo-liga-din-abajo" src="data:image/jpeg;base64,'.base64_encode($liga->getLogo()).'" alt="logoliga">';
                 $contenido .= '</a>';
                 $contenido .= '</div>';
@@ -92,9 +91,9 @@ else{
 
         }
     }
-    $contenido .= '</div>';
+    
 }
-
+$contenido .= '</div>';
 
 $params = ['tituloPagina' => $titulo, 'contenidoPrincipal' => $contenido];
 $app->generaVista('/esqueleto.php', $params);

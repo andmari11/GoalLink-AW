@@ -36,7 +36,7 @@
                 foreach ($forosDestacados as $foro) {
                     echo "<li>";
                     echo "<h4 class='titulo-noticia-BarraLateral'><a href='foroDinamico.php?id=" . $foro->getId() . "'>" . $foro->getTitulo() . "</a></h4>";
-                    echo "<p>" . $foro->getfavoritos() . " <span style=>&#11088;&#65039;</span>";
+                    echo "<p>" . $foro->getfavoritos() . " <span>&#11088;&#65039;</span>";
                     echo "</li>";
                 }
             } else {

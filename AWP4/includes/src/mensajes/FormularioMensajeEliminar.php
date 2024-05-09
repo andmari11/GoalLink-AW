@@ -19,7 +19,7 @@ class FormularioMensajeEliminar extends Formulario
     {
         $id=$this->mensaje->getId();
         $camposFormulario = <<<EOS
-            <input type="hidden" id="mensaje" name="mensaje" value="{$id}">
+            <input type="hidden" class="mensaje" name="mensaje" value="{$id}">
             <button class="enlace" type="submit">🗑️</button>
         EOS;
         return $camposFormulario;

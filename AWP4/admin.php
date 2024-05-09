@@ -27,7 +27,7 @@ if($app->esAdmin()){
             $contenido .= "<td>" . $imagen . "</td>";            
             $contenido .= "<td>" . $usuario->getEmail() . "</td>";
             $contenido .= "<td>" . $usuario->getRol() . "</td>";
-            $contenido .= "<td><a href=noticiasContenido.php?id_liga=".$usuario->getLigaFav().">".$usuario->getLigaFav()."</td>";
+            $contenido .= "<td><a href=\"noticiasContenido.php?id_liga=".$usuario->getLigaFav()."\">".$usuario->getLigaFav()."</a></td>";
 
             if($usuario->getRol()!="a") {
                 $contenido .= "<td>" ." <a href='editUsuarios.php?usuario=" . urlencode($usuario->getNombre()) . "'>✏️</a>". "</td>";
@@ -79,7 +79,7 @@ if($app->esEditor() || $app->esAdmin()){
                 $contenido .= "<td><b>" .$link . "</b></td>";
             }                $contenido .= "<td>" . $noticia->getIdAutor() . "</td>";
             $contenido .= "<td>" . $noticia->getFecha() . "</td>";
-            $contenido .= "<td><a href=noticiasContenido.php?id_liga=".$noticia->getLiga().">". $noticia->getLiga() ."</td>";
+            $contenido .= "<td><a href=\"noticiasContenido.php?id_liga=".$noticia->getLiga()."\">". $noticia->getLiga() ."</a></td>";
             $contenido .= "<td>" . $noticia->getLikes() . "</td>";
             $contenido .= "<td>" ." <a href='editNoticias.php?noticia=" . urlencode($noticia->getId()) . "'>✏️</a>". "</td>";
 
@@ -107,7 +107,7 @@ if($app->esEditor() || $app->esAdmin()){
         $contenido .= "<tr><th>Título</th><th>Eliminar</th></tr>";
         foreach ($ligas as $liga) {
             $contenido .= "<tr>";
-            $contenido .= "<td><a href=noticiasContenido.php?id_liga=".$liga->getNombre().">". $liga->getNombre() ."</td>";
+            $contenido .= "<td><a href=\"noticiasContenido.php?id_liga=".$liga->getNombre()."\">". $liga->getNombre() ."</a></td>";
             $contenido .= "<td>" . (new FormularioLigaEliminar($liga->getNombre()))->gestiona(). "</td>";
             $contenido .= "</tr>";
         }

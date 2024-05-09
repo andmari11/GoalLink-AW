@@ -116,8 +116,8 @@ EOF;
                 <button type="submit">Siguiente</button>
                 <input type="hidden" name="nombreAntiguo" value="{$username}">
             </fieldset>
-            <script type="text/javascript" src="js/jquery-3.7.1.min.js"></script>
-            <script type="text/javascript" src="js/Registro.js"></script>
+            <script src="js/jquery-3.7.1.min.js"></script>
+            <script src="js/Registro.js"></script>
 EOF;
         } else {
             $html = "<h2>No es posible editar admin</h2>";
