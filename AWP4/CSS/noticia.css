@@ -116,3 +116,29 @@
     margin-bottom: 60px;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
 }
+
+@media screen and (max-width: 1510px) {
+    .titulo-noticia {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold; 
+        color: #62a370; 
+        text-transform: uppercase; 
+        margin-bottom: 60px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .titulo-noticia {
+        text-align: center;
+        font-size: 15px;
+        font-weight: bold; 
+        color: #62a370; 
+        text-transform: uppercase; 
+        margin-bottom: 60px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); 
+    }
+
+}

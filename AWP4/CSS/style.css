@@ -8,6 +8,7 @@ body {
 
 
 div#contenedor {
+   
     width: 100%;
     margin: auto;
     border: 1px solid #e0e0e0;
@@ -414,11 +415,7 @@ i {
     #container {
         display: block; 
     }
-
-    .noticia,
-    .foroscontent {
-        width: 100%; 
-    }
+   
 
     .main-esqueleto2 {
         padding: 10px;
@@ -467,6 +464,21 @@ i {
         background-color: #e6fbde;
         margin-top: 70px;
         
+    }
+    #container h2{
+        font-size: 20px;
+    }
+    #container h3 a {
+        text-decoration: none; 
+        color: #62a370; 
+        transition: color 0.3s ease; 
+        font-size: 17px;
+    }
+    .noticia h3 a {
+        text-decoration: none; 
+        color: #62a370; 
+        transition: color 0.3s ease; 
+        font-size: 17px;
     }
 
 }

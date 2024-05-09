@@ -470,6 +470,15 @@ i {
         
     }
 
+    .noticia h3 {
+        text-align: center; 
+        font-size: 10px; 
+        color: #333; 
+        margin-bottom: 10px; 
+        font-weight: bold; 
+        text-transform: uppercase; 
+    }
+
 }
 
 

@@ -108,6 +108,17 @@
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
 
 }
+#foros-foro{
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    flex: 1;
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    padding: 15px; 
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
+}
 
 .titulo-foro{
     text-align: center; 
@@ -264,3 +275,53 @@ a.usermsg-admin:hover {
     transition: 0.3s; 
 }
 
+@media screen and (max-width: 1510px) {
+    #container-foros {
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    #container-foros h3 a {
+        text-decoration: none; 
+        color: #62a370; 
+        transition: color 0.3s ease; 
+        font-size: 17px;
+    }
+    
+    #container-foros h2 {
+        font-size: 20px;
+    }
+
+    #container-user {
+        display: flex;
+        flex-direction: column;
+        
+    }
+
+    #container-user h3 a {
+        text-decoration: none; 
+        color: #62a370; 
+        transition: color 0.3s ease; 
+        font-size: 17px;
+    }
+    
+    #container-user h2 {
+        font-size: 20px;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+    .bot-msg{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+    .fechamsg{
+        display: none;
+    }
+    .horamsg{
+        display: none;
+    }
+}

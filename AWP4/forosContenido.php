@@ -45,7 +45,7 @@ if ($app->usuarioLogueado()) {
             
         
         </div>
-        <div id ='foros'>
+        <div id ='foros-foro'>
             <h2>Foros destacados</h2>
             
 EOS;
