@@ -88,15 +88,21 @@ if($resultado!=null){
             $contenido.= "<p> " . $imagen . "</p>";
         }
         $usuarioNombre=Usuario::getNombreAutor($mensaje->getUsuarioId());
-        $usuarioRol=Usuario::getRolAutor($mensaje->getUsuarioId());
-        if($usuarioRol == 'a' || $usuarioRol == 'm'){
-            $contenido.= "<a class='usermsg-admin' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";
+        if($usuarioNombre==NULL){
+            $contenido.= "<a class='usermsg'> Usuario eliminado</a>";
         }
         elseif($mensaje->getUsuarioId()==-1){
             $contenido.= "<a class='usermsg'> UsuarioBloqueado</a>";
         }
         else{
-            $contenido.= "<a class='usermsg' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";
+            $usuarioRol=Usuario::getRolAutor($mensaje->getUsuarioId());
+            if($usuarioRol == 'a' || $usuarioRol == 'm'){
+                $contenido.= "<a class='usermsg-admin' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";
+            }
+
+            else{
+                $contenido.= "<a class='usermsg' href='usuarioDinamico.php?id=". urlencode($mensaje->getUsuarioId()) ."'> $usuarioNombre</a>";
+            }
         }
         $contenido.= "<p class ='fechamsg'> Fecha: " . $mensaje->getFecha() . "</p>";
         $contenido.= "<p class ='horamsg'>" . $mensaje->getHora() . "</p>";
